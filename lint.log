@@ -1,0 +1,195 @@
+
+> skeleton@2025.7.0 lint
+> eslint --no-error-on-unmatched-pattern . --quiet
+
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/artist-card/artist-card.component.tsx
+  23:7   error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  23:7   error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  33:13  error  Missing "key" prop for element in iterator                                                                                                                                                         react/jsx-key
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/artist-sidebar/artist-sidebar.component.tsx
+  26:11  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener  jsx-a11y/click-events-have-key-events
+  26:11  error  Non-interactive elements should not be assigned mouse or keyboard event listeners               jsx-a11y/no-noninteractive-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/artists-page/artists-page.component.tsx
+  30:7  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  30:7  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/button/button.component.tsx
+  88:5   error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  88:5   error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  90:15  error  Promise-returning function provided to attribute where a void return was expected                                                                                                                  @typescript-eslint/no-misused-promises
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/cart-sidebar/cart-sidebar.tsx
+   47:7   error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                                 jsx-a11y/click-events-have-key-events
+   47:7   error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element              jsx-a11y/no-static-element-interactions
+  102:23  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                                 jsx-a11y/click-events-have-key-events
+  102:23  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element              jsx-a11y/no-static-element-interactions
+  104:33  error  Promise-returning function provided to attribute where a void return was expected                                                                                                                              @typescript-eslint/no-misused-promises
+  113:23  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                                 jsx-a11y/click-events-have-key-events
+  113:23  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element              jsx-a11y/no-static-element-interactions
+  115:33  error  Promise-returning function provided to attribute where a void return was expected                                                                                                                              @typescript-eslint/no-misused-promises
+  137:11  error  Anchor used as a button. Anchors are primarily expected to navigate. Use the button element instead. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/cart-sidebar/recommended-products/recommended-products.component.tsx
+  27:5   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator                                 @typescript-eslint/no-floating-promises
+  33:7   error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  33:7   error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  72:13  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  72:13  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/consent/CookieBanner.tsx
+  105:27  error  Anchor used as a button. Anchors are primarily expected to navigate. Use the button element instead. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  116:11  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                                 jsx-a11y/click-events-have-key-events
+  116:11  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element              jsx-a11y/no-static-element-interactions
+  128:17  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                                 jsx-a11y/click-events-have-key-events
+  134:17  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                                 jsx-a11y/click-events-have-key-events
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/dropdown/dropdown.component.tsx
+  15:9   error  'title' is never reassigned. Use 'const' instead                                                                                                                                                   prefer-const
+  23:17  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  23:17  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  29:25  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  29:25  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/email-form/email-form.component.tsx
+  69:11  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  69:11  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  69:86  error  Promise-returning function provided to attribute where a void return was expected                                                                                                                  @typescript-eslint/no-misused-promises
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/faq-question/faq-question.component.tsx
+  17:9  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  17:9  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/footer/footer.component.tsx
+   44:13  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                                 jsx-a11y/click-events-have-key-events
+   44:13  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element              jsx-a11y/no-static-element-interactions
+   65:11  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                                 jsx-a11y/click-events-have-key-events
+   65:11  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element              jsx-a11y/no-static-element-interactions
+   84:11  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                                 jsx-a11y/click-events-have-key-events
+   84:11  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element              jsx-a11y/no-static-element-interactions
+  103:11  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                                 jsx-a11y/click-events-have-key-events
+  103:11  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element              jsx-a11y/no-static-element-interactions
+  178:19  error  Anchor used as a button. Anchors are primarily expected to navigate. Use the button element instead. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/form/form.component.tsx
+  16:5  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  16:5  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/image-carousel/image-carousel.component.tsx
+  6:10  error  Unable to resolve path to module '@africasokoni/react-image-magnifiers'  import/no-unresolved
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/image-slider/image-slider.component.tsx
+  14:21  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  14:21  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  15:25  error  img elements must have an alt prop, either with meaningful text, or an empty string for decorative images                                                                                          jsx-a11y/alt-text
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/layout/third-party-scripts.component.tsx
+  51:13  error  img elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/navbar/navbar.component.tsx
+  43:11   error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  43:11   error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  72:15   error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  72:15   error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  74:42   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                    react/no-unescaped-entities
+  74:52   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                    react/no-unescaped-entities
+  74:221  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                    react/no-unescaped-entities
+  74:231  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                    react/no-unescaped-entities
+  79:9    error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  79:9    error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/newsletter-modal/newsletter-modal.component.tsx
+  18:5  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  18:5  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  19:7  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  19:7  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/number-picker/number-picker.component.tsx
+  15:13  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  15:13  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+  22:13  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  22:13  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/privacy-policy-page/privacy-policy-page.component.tsx
+  20:288  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                react/no-unescaped-entities
+  39:174  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                react/no-unescaped-entities
+  58:70   error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                react/no-unescaped-entities
+  73:108  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                react/no-unescaped-entities
+  73:120  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                react/no-unescaped-entities
+  79:140  error  Anchor used as a button. Anchors are primarily expected to navigate. Use the button element instead. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  85:177  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                react/no-unescaped-entities
+  85:190  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                react/no-unescaped-entities
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/show-page/artist-preview/artist-preview.component.tsx
+  31:7  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/show-page/desktop/show-page-desktop.component.tsx
+    7:19   error  Unable to resolve path to module '../../../public/svgs/plant.svg'  import/no-unresolved
+    8:19   error  Unable to resolve path to module '../../../public/svgs/globe.svg'  import/no-unresolved
+  121:143  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`    react/no-unescaped-entities
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/show-page/mobile/description-tabs/description-tabs.component.tsx
+  23:13  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  23:13  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/show-page/mobile/show-page-mobile.component.tsx
+    6:19   error  Unable to resolve path to module '../../../public/svgs/plant.svg'  import/no-unresolved
+    7:19   error  Unable to resolve path to module '../../../public/svgs/globe.svg'  import/no-unresolved
+  179:143  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`    react/no-unescaped-entities
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/sidebar/sidebar.component.tsx
+  42:15  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener  jsx-a11y/click-events-have-key-events
+  42:15  error  Non-interactive elements should not be assigned mouse or keyboard event listeners               jsx-a11y/no-noninteractive-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/size-picker/desktop/size-picker-desktop.component.tsx
+  46:9   error  Visible, non-interactive elements with click handlers must have at least one keyboard listener  jsx-a11y/click-events-have-key-events
+  90:13  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener  jsx-a11y/click-events-have-key-events
+  90:13  error  Elements with the 'option' interactive role must be focusable                                   jsx-a11y/interactive-supports-focus
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/size-picker/size-picker.component.tsx
+  23:9  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  23:9  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/sizing-chart/sizing-chart.component.tsx
+  29:20  error  React Hook "useIsMobile" is called conditionally. React Hooks must be called in the exact same order in every component render  react-hooks/rules-of-hooks
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/components/story-page/story-page.component.tsx
+  30:26  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/contexts/drop-context.tsx
+  42:5  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/contexts/wave-sounds-context.tsx
+  56:53  error  Promise-returning function provided to property where a void return was expected  @typescript-eslint/no-misused-promises
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/hooks/fade.js
+  1:8  error  'React' is defined but never used  no-unused-vars
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/lib/analytics/addToCart.ts
+  62:11  error  Empty block statement  no-empty
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/lib/consent/useConsent.ts
+   28:11  error  Empty block statement                                                                                         no-empty
+   48:15  error  Variable name `analytics_storage` must match one of the following formats: camelCase, PascalCase, UPPER_CASE  @typescript-eslint/naming-convention
+   73:15  error  Empty block statement                                                                                         no-empty
+  103:13  error  Empty block statement                                                                                         no-empty
+  109:15  error  Variable name `analytics_storage` must match one of the following formats: camelCase, PascalCase, UPPER_CASE  @typescript-eslint/naming-convention
+  118:13  error  Empty block statement                                                                                         no-empty
+  125:13  error  Empty block statement                                                                                         no-empty
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/next-compat/router.ts
+  55:7  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/routes/_index.tsx
+  24:5  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator                                 @typescript-eslint/no-floating-promises
+  28:5  error  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                                                     jsx-a11y/click-events-have-key-events
+  28:5  error  Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element  jsx-a11y/no-static-element-interactions
+
+/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/app/utils/calculate_time_left.ts
+  18:11  error  Empty block statement  no-empty
+
+✖ 115 problems (115 errors, 0 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

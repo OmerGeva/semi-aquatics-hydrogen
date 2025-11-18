@@ -1,0 +1,77 @@
+.artistCardContainer {
+  margin: auto;
+  border-bottom: 1px dashed rgb(70, 70, 70);
+  margin-bottom: 12px;
+  height: 75px;
+  overflow: hidden;
+  text-align: left;
+  padding: 16px;
+  transition: 0.6s;
+  .artistAndIcon {
+    display: flex;
+    color: rgb(45, 45, 45);
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Space Mono', sans-serif;
+    line-height: 1.5;
+    h2{
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 14px;
+    }
+    p{
+      font-size: 14px;
+    }
+    .icon {
+      cursor: pointer;
+      transition: 0.4s;
+      font-size: 24px;
+    }
+    .isOpenIcon {
+      transform: rotate(-180deg);
+    }
+  }
+  .isOpenColor{
+    color: #A6874F;
+  }
+  .artworkContainer{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    .linkImageText{
+      cursor: pointer;
+      padding-top: 16px;
+      text-align: center;
+      margin-right: 16px;
+      p{
+        margin-top: 0;
+      }
+      img{
+        width: 220px;
+      }
+    }
+  }
+}
+
+.open {
+  height: auto;
+  transition: 0.4s;
+}
+
+@media (max-width: 768px) {
+  .artistCardContainer{
+    .artworkContainer{
+      .linkImageText {
+        img{
+          width: 120px;
+        }
+      }
+    }
+
+    .open {
+      height: 1000px;
+      transition: 0.4s;
+    }
+  }
+
+}

@@ -1,0 +1,281 @@
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.navbarContainer {
+    color: #000000;
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.5rem;
+    z-index: 100;
+    top: 0;
+    left: 0;
+}
+
+.logoLink {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    img {
+        width: 200px;
+    }
+}
+.navLinksPill {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    gap: 0.5rem;
+}
+
+.navLink {
+  display: flex;
+  padding: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(20px);
+  height: 35px;
+  color: #ffffff;
+  row-gap: 6.25px;
+  text-size-adjust: 100%;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  height: 35px;
+  justify-content: center;
+  letter-spacing: normal;
+  line-height: 18.75px;
+  padding-bottom: 7.5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 7.5px;
+  font-weight: 400;
+  align-items: center;
+  backdrop-filter: blur(20px);
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: rgba(34, 34, 34, 0.4);
+  background-image: none;
+  background-origin: padding-box;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  border-bottom-left-radius: 30.625px;
+  border-bottom-right-radius: 30.625px;
+  border-top-left-radius: 30.625px;
+  border-top-right-radius: 30.625px;
+  box-sizing: border-box;
+  color: #ffffff;
+  column-gap: 6.25px;
+  width: max-content;
+  cursor: pointer;
+  display: flex;
+  text-transform: lowercase;
+
+  -webkit-tap-highlight-color: transparent;
+  &:hover {
+    background-color: rgba(34, 34, 34, 0.6);
+  }
+}
+
+.rightContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-end;
+
+  .waveToggleDesktop {
+    height: 35px;
+    background-color: rgba(34, 34, 34, 0.4);
+    border-radius: 30px;
+    padding: 0.5rem 1rem;
+    &:hover {
+      background-color: rgba(34, 34, 34, 0.6);
+    }
+  }
+
+  .signUpNewsletter {
+    background: rgba(34, 34, 34, 0.4);
+    border-radius: 30px;
+    height: 35px;
+    max-width: 250px;
+    padding: 0 1rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .scrollingText {
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: #ffffff;
+      animation: scroll-left 10s linear infinite;
+      padding: 0 2rem;
+    }
+
+    &:hover {
+      background-color: rgba(34, 34, 34, 0.6);
+    }
+  }
+.bagContainer {
+  display: flex;
+  align-items: center;
+  background-color: rgba(34, 34, 34, 0.4);
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  height: 35px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: lowercase;
+  gap: 0.5rem;
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+  &:hover {
+    background-color: rgba(34, 34, 34, 0.6);
+  }
+}
+
+.cartCount {
+  padding-left: 0.5rem;
+  border-left: 1px solid #fff;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.mobileCartWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileBadge {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  background-color: #424242;
+  color: #fff;
+  opacity: 110%;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  border: 2px solid #424242;
+}
+}
+
+.signUpNewsletter:hover .scrollingText {
+  animation-play-state: paused;
+}
+
+.announcementBanner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 28px;
+  background: #fff;
+  color: #000;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid #eee;
+
+  .scrollingText {
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+    white-space: nowrap;
+    animation: scroll-left 14s linear infinite;
+    padding-left: 100vw;
+    padding-right: 200vw;
+  }
+
+  &.homepageBanner {
+    background: #E1E2E2;
+  }
+}
+
+@media (min-width: 769px) {
+  .announcementBanner {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  // .navbarContainer {
+  //   top: 28px; // Push navbar below the announcement banner
+  // }
+  .contentContainer {
+    margin-top: 28px; // Same as .announcementBanner height
+  }
+  .rightContainer .signUpNewsletter {
+    display: none;
+  }
+  .rightContainer {
+    .bagContainer {
+        padding: 0.7rem 0.7rem; // Slightly smaller padding
+        font-size: 12px;      // Adjust font size for mobile
+        gap: 0.4rem;
+    }
+  }
+    .logoLink {
+      img {
+        width: 150px;
+      }
+    }
+
+    .cartCount {
+        padding-left: 0.4rem;
+        font-size: 11px; // Match cart text size
+    }
+    .navbarContainer {
+        padding: 0 15px;
+        height: 65px;
+    }
+
+    .logoText {
+        font-size: 1.1rem;
+    }
+
+    .navLinksPill {
+        margin-left: 15px;
+        margin-right: 10px;
+        padding: 3px;
+    }
+
+    .navLink {
+        font-size: 0.65rem;
+        padding: 6px 10px;
+        letter-spacing: 0.05em;
+    }
+
+    .iconControls {
+        gap: 12px;
+    }
+
+    .iconButton svg {
+        width: 18px;
+        height: 18px;
+    }
+}

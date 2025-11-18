@@ -1,0 +1,192 @@
+.sidebarContainer{
+    path {
+      stroke: white;
+    }
+    width: 35vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    max-width: 450px;
+    left: 0;
+    z-index: 1000;
+    letter-spacing: .1em;
+    font-size: 1rem;
+    text-transform: lowercase;
+    color: #D7D6D4;
+    transform: translateX(0);
+    visibility: visible;
+    opacity: 1;
+    .closeMenuToggle{
+        border: none;
+        display: block;
+        position: absolute;
+        background: transparent;
+        margin-left: auto;
+        text-align: right;
+        top: 20px;
+        cursor: pointer;
+        right: 20px;
+        z-index: 1000;
+    }
+    .sidebarWrapper{
+        padding-left: 35px;
+        padding-right: 35px;
+        padding: 20px 20px 35px;
+        position: relative;
+        min-height: 100%;
+        overflow: hidden;
+        .innerContainer{
+            position: relative;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 20px);
+            color: #D7D6D4;
+            .dropLink {
+              p {
+                margin-bottom: 0px;
+              }
+              p.newDrop{
+                  font-size: 14px;
+                  color: red;
+                  margin-top: 0px;
+              }
+            }
+        }
+        &:before {
+            width: 450px;
+            min-height: 100%;
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        background: rgba(0,0,0,.005);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        background: rgba(24,24,24,.7);
+        width: 100%;
+        min-height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 1;
+    }
+    }
+    transition: transform 0.5s;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &:focus {
+      outline: none !important;
+    }
+    p {
+      cursor: pointer;
+    }
+    .flexGrow{
+      flex-grow: 1;
+    }
+
+    .bottomNavbar{
+      .waveToggleContainer{
+        width: 95%;
+        margin-bottom: 20px;
+      }
+      .emailFormContainer{
+        width: 95%;
+      }
+      .flexer{
+        display: flex;
+        align-items: center;
+      }
+      a{
+        font-size: 18px;
+        margin-right: 16px;
+        display: flex;
+        align-items: center;
+      }
+      .footerEmail{
+        font-size: 14px;
+        margin: 16px 0;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+}
+
+.sidebarContainerClosed{
+    transform: translateX(-35vw);
+    // display: none;
+}
+
+// css for mobile
+@media (max-width: 768px) {
+    .sidebarContainer{
+        width: 100%;
+        height: 100dvh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        visibility: visible;
+        opacity: 1;
+        transform: translateX(0);
+        font-size: 1rem;
+        transition: transform 0.5s;
+
+        .sidebarWrapper{
+            padding-left: 0;
+            padding-right: 0;
+            padding: 30px 20px 35px;
+            position: relative;
+            min-height: 100%;
+            overflow: hidden;
+            .innerContainer{
+                position: relative;
+                z-index: 5;
+                display: flex;
+                flex-direction: column;
+                height: calc(100dvh - 50px);
+            }
+            &:before {
+                width: 100vw;
+                min-height: 100%;
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+            background: rgba(0,0,0,.005);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            background: rgba(24,24,24,.7);
+            width: 100%;
+            min-height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 1;
+        }
+        }
+    }
+    .sidebarContainerClosed{
+        transform: translateX(-100vw);
+        // display: none;
+    }
+}

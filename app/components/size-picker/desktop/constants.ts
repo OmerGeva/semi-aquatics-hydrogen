@@ -1,0 +1,1 @@
+export const SELECT_SIZE_LABEL = 'Select your size';

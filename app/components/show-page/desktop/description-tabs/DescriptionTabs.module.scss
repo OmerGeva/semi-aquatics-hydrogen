@@ -1,0 +1,83 @@
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  position: relative;
+  border-bottom: 1px solid #E7EAE9;
+  width: 100%;
+
+  .tab {
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    color: #666;
+    cursor: pointer;
+    padding: 12px 0;
+    width: 25%; // 4 tabs = 25% each
+    text-align: center;
+    transition: color 0.3s ease-in-out;
+    position: relative;
+    z-index: 1;
+
+    &:hover {
+      color: #000;
+    }
+
+    &.selected {
+      color: #000;
+      font-weight: 400;
+    }
+  }
+
+  .tabText {
+    margin: 0; // Reset margin for consistency
+  }
+
+  .medium {
+    font-weight: 400;
+  }
+
+  .regular {
+    font-weight: 400;
+  }
+
+  .indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background-color: #000;
+    width: 25%; // 4 tabs = 25% each
+    transition: transform 0.3s ease-in-out;
+
+    transform: translateX(calc(var(--active-tab, 0) * 100%));
+  }
+}
+
+@media (max-width: 768px) {
+  .tabs {
+    .tab {
+      font-size: 0.75rem;
+      padding: 10px 0;
+      width: 25%; // Keep 4 tabs layout
+    }
+
+    .indicator {
+      height: 2px;
+      width: 25%; // Maintain consistency
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs {
+    .tab {
+      font-size: 0.7rem;
+      padding: 8px 0;
+    }
+
+    .indicator {
+      height: 2px;
+    }
+  }
+}

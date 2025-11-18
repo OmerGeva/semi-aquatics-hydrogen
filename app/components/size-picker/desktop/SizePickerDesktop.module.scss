@@ -1,0 +1,177 @@
+.sizePickerDesktop {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+
+
+.inputWrapper {
+  position: relative;
+}
+
+.floatingLabel {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out; // Smooth label transition
+  pointer-events: none;
+  background-color: #fff; // Ensure label background matches input
+  color: rgb(123, 132, 135);
+}
+
+.shrunk {
+  top: -10px;
+  font-size: 0.75rem;
+  background-color: #fff;
+}
+
+.dropdownHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid #ccc; // Underline style
+  background-color: #fff;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transition: border-bottom-color 0.3s ease-in-out; // Smooth underline transition
+
+  &:focus,
+  &:hover {
+    border-bottom-color: #000; // Darken underline on focus/hover
+  }
+}
+
+.selectedItem {
+  font-size: 14px;
+  color: #000;
+  min-width: 0;
+}
+
+.dropdownIcon {
+  font-size: 1rem;
+  color: #666;
+  transition: transform 0.3s ease-in-out; // Smooth icon rotation
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+.nativeInput {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  background-color: #fff;
+  z-index: 10;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out; // Add opacity transition
+  opacity: 0; // Start with opacity 0 for fade-in effect
+
+  &::-webkit-scrollbar {
+    width: 6px; // Thin scrollbar
+    display: block; // Ensure scrollbar is always visible
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1; // Light gray track
+    border-radius: 0 4px 4px 0; // Match the border-radius of the dropdown
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888; // Darker gray thumb
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555; // Slightly darker on hover
+  }
+
+  // Scrollbar styling for Firefox
+  scrollbar-width: thin; // Thin scrollbar
+  scrollbar-color: #888 #f1f1f1; // Thumb color and track color
+}
+
+
+.open {
+  max-height: 320px;
+  opacity: 1;
+  overflow: scroll;
+}
+
+.closed {
+  max-height: 0;
+  opacity: 0; // Fade out when closed
+}
+
+.dropdownItem {
+  padding: 24px 20px;
+  font-size: 14px;
+  height: 57px;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease-in-out, padding-left 0.3s ease-in-out; // Smooth hover transitions
+
+  &:hover {
+    background-color: rgb(243, 243, 243);
+    padding-left: 28px;
+  }
+
+  &.unavailable {
+    color: #999;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: #fff;
+      padding-left: 20px; // Reset padding for unavailable items
+    }
+  }
+
+  &.selected {
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
+.selectedDot {
+  color: #000;
+  margin-left: 10px;
+  transition: opacity 0.3s ease-in-out; // Smooth dot appearance
+}
+
+.sizeLinks {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.sizeLink {
+  font-size: 0.9rem;
+  color: #000;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out; // Smooth color transition on hover
+
+  &:hover {
+    color: #333;
+  }
+}
+}

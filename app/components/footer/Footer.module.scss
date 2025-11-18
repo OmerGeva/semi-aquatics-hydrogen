@@ -1,0 +1,285 @@
+.footerContainer {
+  width: 100%;
+  background-color: #fff;
+  color: #000;
+  font-size: 13px;
+  line-height: 1.4;
+  border-top: 1px solid #e0e0e0;
+
+  a {
+    text-decoration: none;
+    color: #000;
+    font-size: 13px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.footerTable {
+  display: flex;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.footerColumn {
+  flex: 1;
+  border-right: 1px solid #e0e0e0;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.columnHeader {
+  // font-weight: 500;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.columnContent {
+  font-size: 13px;
+  line-height: 1.5;
+
+  p {
+    margin: 0 0 15px 0;
+  }
+
+  .logo {
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+}
+
+.linksList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-bottom: 8px;
+
+    &.divider {
+      height: 10px;
+    }
+  }
+}
+
+.emailLink {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.bottomSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-top: 1px solid #e0e0e0;
+  font-size: 12px;
+  color: #555;
+
+  .countrySelector {
+    font-size: 12px;
+  }
+
+  .copyright {
+    font-size: 12px;
+  }
+
+  .shopPowered {
+    font-size: 12px;
+  }
+}
+
+.newsletterRegisterButton {
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 14px;
+  // font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 0 0 12px;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.2s ease;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  align-self: flex-start;
+
+  &:hover {
+    color: #666;
+  }
+
+  &:active {
+    color: #999;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .footerContainer {
+    font-size: 12px;
+  }
+
+  .footerTable {
+    flex-direction: column;
+  }
+
+  .footerColumn {
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px 15px;
+    .columnContent {
+      img {
+        width: 30vw;
+      }
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .bottomSection {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  // Mobile-specific styles
+  .mobileSection {
+    border-bottom: 1px solid #e0e0e0;
+    
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+
+  .mobileSectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    transition: background-color 0.2s ease;
+
+    h2, h3 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      color: #666;
+      transition: transform 0.3s ease, color 0.2s ease;
+    }
+  }
+
+  .brandTitle {
+    font-size: 24px !important;
+    // font-weight: 700 !important;
+  }
+
+  .mobileSectionContent {
+    padding: 0 20px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 0;
+    opacity: 0;
+    
+    &.expanded {
+      max-height: 500px !important;
+      opacity: 1 !important;
+      padding-bottom: 20px !important;
+    }
+
+    li {
+      padding-bottom: 10px;
+    }
+    
+    p {
+      margin: 0 0 15px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #666;
+    }
+  }
+
+  .mobileSectionContentAlways {
+    padding: 0 20px 20px 20px;
+    
+    p {
+      margin: 0 0 15px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #666;
+    }
+  }
+
+  .mobileLogo {
+    width: 120px;
+    height: auto;
+    margin: 10px 0;
+  }
+
+  .mobileLinksList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 12px;
+      font-size: 14px;
+      
+      a {
+        color: #666;
+        text-decoration: none;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .mobileBottomSection {
+    padding: 20px;
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+  }
+
+  .mobileBottomContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .countrySelector {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .copyright {
+    font-size: 12px;
+    color: #666;
+  }
+}

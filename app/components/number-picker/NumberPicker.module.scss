@@ -1,0 +1,62 @@
+.numberPickerContainer{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin: 32px 0 32px 0;
+    height: 85px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;;
+    font-size: 32px;
+    .addSubtractSigns{
+        cursor: pointer;
+        svg {
+            font-size: 32px;
+        }
+    }
+}
+.soldOutNumberPickerContainer{
+    opacity: 60%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin: 32px 0 32px 0;
+    height: 85px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 32px;
+    .addSubtractSigns{
+        svg {
+            font-size: 32px;
+        }
+    }
+}
+
+
+@media (max-width: 800px) {
+    .numberPickerContainer{
+        margin-bottom: 2vh;
+        height: 100%;
+        border: none;
+        margin: 0;
+        font-size: 18px;
+        .addSubtractSigns{
+          svg {
+            font-size: 18px;
+          }
+        }
+      }
+      .soldOutNumberPickerContainer{
+        margin-bottom: 2vh;
+        height: 100%;
+        border: none;
+        margin: 0;
+        font-size: 18px;
+        .addSubtractSigns{
+        svg {
+            font-size: 18px;
+        }
+    }
+  }
+}

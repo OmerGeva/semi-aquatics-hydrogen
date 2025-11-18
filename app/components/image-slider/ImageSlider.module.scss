@@ -1,0 +1,10 @@
+.imageSliderContainer{
+    display:flex;
+    overflow: scroll;
+    height: 30vh;
+    .individualPic{
+        img{
+            width: 58vw;
+        }
+    }
+}

@@ -1,0 +1,87 @@
+.homeContainer {
+  background: linear-gradient(to right, #f4f3f4, #ebe9ed);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  h1 {
+    font-weight: 400;
+  }
+
+  .spinningLogoContainer {
+    width: 15vw;
+  }
+
+  a {
+    font-weight: 400;
+    font-size: 45px;
+    margin-bottom: 1rem;
+  }
+}
+
+.imageContainer {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 150%;
+  height: 100vh;
+  overflow: hidden;
+  object-fit: cover;
+  img{
+    height: 100vh;
+  }
+}
+
+.videoContainer {
+  width: 100%;
+  .mainVideo {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  .mainContainer {
+    position: fixed;
+    margin-top: 550px;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .homeContainer {
+    height: 70vh;
+    width: 100%;
+    overflow: hidden;
+    text-align: right;
+    display: flex;
+    align-items: center;
+
+    .animation {
+      position: relative;
+      width: 80vh;
+      height: 90vw;
+      transform: rotate(90deg);
+      margin-bottom: auto;
+    }
+
+    overflow: hidden;
+
+    .spinningLogoContainer {
+      width: 30vh;
+    }
+
+    .emailFormContainer {
+      display: none;
+      padding-top: 30%;
+      padding-bottom: 20%;
+    }
+  }
+}
