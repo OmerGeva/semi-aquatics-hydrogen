@@ -1,5 +1,4 @@
-import {useCart} from '@shopify/hydrogen-react';
-import styles from './CartSidebar.module.scss';
+import { useCart } from '@shopify/hydrogen-react';
 import { IoClose } from 'react-icons/io5';
 import { FiPlus } from "react-icons/fi"
 import { FiMinus } from "react-icons/fi";
@@ -7,11 +6,39 @@ import RecommendedProducts from './recommended-products/recommended-products.com
 import { useCallback, useState, useEffect } from 'react';
 import PaymentIcons from '../payment-icons/payment-icons.component';
 import { useDropLock } from '../../hooks/use-drop-lock';
-import {useCartDrawer} from '../../contexts/cart-drawer-context';
+import { useCartDrawer } from '../../contexts/cart-drawer-context';
+
+const styles = {
+  backdrop: 'backdrop',
+  visible: 'visible',
+  drawer: 'drawer',
+  open: 'open',
+  header: 'header',
+  closeBtn: 'closeBtn',
+  content: 'content',
+  lineItems: 'lineItems',
+  lineItem: 'lineItem',
+  imageContainer: 'imageContainer',
+  itemInfo: 'itemInfo',
+  flexBoxPriceSize: 'flexBoxPriceSize',
+  flex_grower: 'flex_grower',
+  sizeText: 'sizeText',
+  sizeAdjustments: 'sizeAdjustments',
+  sizeAdjuster: 'sizeAdjuster',
+  sizeAdjusterBtn: 'sizeAdjusterBtn',
+  sizeAdjusterCount: 'sizeAdjusterCount',
+  removeItem: 'removeItem',
+  recommendedProductsWrapper: 'recommendedProductsWrapper',
+  footer: 'footer',
+  checkoutText: 'checkoutText',
+  checkoutBtn: 'checkoutBtn',
+  checkoutBtnLoading: 'checkoutBtnLoading',
+  disabled: 'disabled',
+} as const;
 
 const CartSidebar: React.FC = () => {
-  const {isCartOpen, closeCart} = useCartDrawer();
-  const {lines, checkoutUrl, cost, status, linesUpdate} = useCart();
+  const { isCartOpen, closeCart } = useCartDrawer();
+  const { lines, checkoutUrl, cost, status, linesUpdate } = useCart();
 
   const items = lines ?? [];
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -29,7 +56,7 @@ const CartSidebar: React.FC = () => {
   const changeItemCount = useCallback(
     async (lineItemId: string, quantity: number) => {
       if (quantity < 0) return;
-      await linesUpdate([{id: lineItemId, quantity}]);
+      await linesUpdate([{ id: lineItemId, quantity }]);
     },
     [linesUpdate],
   );
@@ -83,48 +110,48 @@ const CartSidebar: React.FC = () => {
                         ''
                       }
                       alt={line.merchandise?.product?.title || 'Cart item'}
-                      />
-                    </div>
+                    />
+                  </div>
                   <div className={styles.itemInfo}>
                     <div className={styles.flexBoxPriceSize}>
-                    <p>{line.merchandise?.product?.title}</p>
+                      <p>{line.merchandise?.product?.title}</p>
                       <div className={styles.flex_grower}></div>
                       <p>
                         $
                         {Number(
                           line.cost?.totalAmount?.amount ??
-                            line.cost?.subtotalAmount?.amount ??
-                            0,
+                          line.cost?.subtotalAmount?.amount ??
+                          0,
                         ).toFixed(2)}
                       </p>
                     </div>
-                      <p className={styles.sizeText}>
-                        {line.merchandise?.title}
-                      </p>
+                    <p className={styles.sizeText}>
+                      {line.merchandise?.title}
+                    </p>
                     <div className={styles.sizeAdjustments}>
-                    <div className={styles.sizeAdjuster}>
-                      <div
-                        className={styles.sizeAdjusterBtn}
-                        onClick={() => {
-                          void changeItemCount(
-                            line.id,
-                            Math.max(line.quantity - 1, 0),
-                          );
-                        }}
-                      >
-                        <FiMinus />
-                      </div>
-                      <div className={styles.sizeAdjusterCount}>
-                        {line.quantity}
-                      </div>
-                      <div
-                        className={styles.sizeAdjusterBtn}
-                        onClick={() => {
-                          void changeItemCount(line.id, line.quantity + 1);
-                        }}
-                      >
-                        <FiPlus />
-                      </div>
+                      <div className={styles.sizeAdjuster}>
+                        <div
+                          className={styles.sizeAdjusterBtn}
+                          onClick={() => {
+                            void changeItemCount(
+                              line.id,
+                              Math.max(line.quantity - 1, 0),
+                            );
+                          }}
+                        >
+                          <FiMinus />
+                        </div>
+                        <div className={styles.sizeAdjusterCount}>
+                          {line.quantity}
+                        </div>
+                        <div
+                          className={styles.sizeAdjusterBtn}
+                          onClick={() => {
+                            void changeItemCount(line.id, line.quantity + 1);
+                          }}
+                        >
+                          <FiPlus />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -135,7 +162,7 @@ const CartSidebar: React.FC = () => {
         </div>
         {!dropLockLoading && !isDropLocked && (
           <div className={styles.recommendedProductsWrapper}>
-            <RecommendedProducts withAddToCart onClick={closeCart} />
+            <RecommendedProducts withAddToCart onClick={closeCart} columns={4} productContainerClassName="!w-full !aspect-[3/4] mx-auto !flex !justify-center !items-center" />
           </div>
         )}
         <div className={styles.footer}>

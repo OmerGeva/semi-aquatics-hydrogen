@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styles from './Footer.module.scss';
 import { Link } from 'react-router';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 
@@ -10,6 +9,33 @@ import { INTERNAL_LINKS } from '../../constants/internal-links';
 import { INSTAGRAM_LINK } from '../../constants/external-links';
 import { useIsMobile } from '../../hooks/use-is-mobile';
 import { useNewsletterModal } from '../../hooks/use-newsletter-modal';
+
+const styles = {
+  footerContainer: 'footerContainer',
+  footerTable: 'footerTable',
+  footerColumn: 'footerColumn',
+  columnHeader: 'columnHeader',
+  columnContent: 'columnContent',
+  logo: 'logo',
+  linksList: 'linksList',
+  divider: 'divider',
+  emailLink: 'emailLink',
+  bottomSection: 'bottomSection',
+  countrySelector: 'countrySelector',
+  copyright: 'copyright',
+  shopPowered: 'shopPowered',
+  newsletterRegisterButton: 'newsletterRegisterButton',
+  mobileSection: 'mobileSection',
+  mobileSectionHeader: 'mobileSectionHeader',
+  mobileSectionContent: 'mobileSectionContent',
+  expanded: 'expanded',
+  mobileSectionContentAlways: 'mobileSectionContentAlways',
+  brandTitle: 'brandTitle',
+  mobileLogo: 'mobileLogo',
+  mobileLinksList: 'mobileLinksList',
+  mobileBottomSection: 'mobileBottomSection',
+  mobileBottomContent: 'mobileBottomContent',
+} as const;
 
 const Footer: React.FC = () => {
   const isMobile = useIsMobile();

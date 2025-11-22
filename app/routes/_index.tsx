@@ -1,7 +1,12 @@
 import {useEffect, useMemo, useState} from 'react';
 import {useNavigate} from 'react-router';
-import styles from '~/styles/Home.module.scss';
 import {useIsMobile} from '~/hooks/use-is-mobile';
+
+const styles = {
+  homeContainer: 'homeContainer',
+  videoContainer: 'videoContainer',
+  mainVideo: 'mainVideo',
+} as const;
 
 export default function IndexRoute() {
   const isMobile = useIsMobile();

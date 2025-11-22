@@ -1,6 +1,13 @@
 import { TABS } from "../../tab-content/constants";
-import styles from "./DescriptionTabs.module.scss";
 import { FaChevronUp } from 'react-icons/fa';
+
+const styles = {
+  accordionContainer: 'accordionContainer',
+  accordionItem: 'accordionItem',
+  accordionHeader: 'accordionHeader',
+  open: 'open',
+  accordionContent: 'accordionContent',
+} as const;
 
 interface DescriptionTabsProps {
   activeTab: number;

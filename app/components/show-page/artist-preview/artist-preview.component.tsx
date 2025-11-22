@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
-import styles from './ArtistPreview.module.scss';
 import Cms from '../../../cms'
 import { ArtistT } from '../../../types';
+
+const styles = {
+  artistPreview: 'artistPreview',
+  artistHeader: 'artistHeader',
+  artistDetails: 'artistDetails',
+  instagram: 'instagram',
+  seeMore: 'seeMore',
+  artworkGrid: 'artworkGrid',
+  artworkItem: 'artworkItem',
+  error: 'error',
+} as const;
 
 
 interface ArtistPreviewProps {

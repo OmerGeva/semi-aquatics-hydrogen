@@ -1,4 +1,7 @@
-import styles from './LookbookPage.module.scss'
+const styles = {
+  lookbookPageContainer: 'lookbookPageContainer',
+  title: 'title',
+} as const;
 
 interface LookbookPageProps {
 }

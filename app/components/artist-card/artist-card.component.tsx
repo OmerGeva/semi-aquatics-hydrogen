@@ -1,6 +1,17 @@
 import { useState } from 'react';
-import styles from './ArtistCard.module.scss';
 import { Link } from 'react-router';
+
+const styles = {
+  artistCardContainer: 'artistCardContainer',
+  open: 'open',
+  artistAndIcon: 'artistAndIcon',
+  isOpenColor: 'isOpenColor',
+  artist: 'artist',
+  icon: 'icon',
+  isOpenIcon: 'isOpenIcon',
+  artworkContainer: 'artworkContainer',
+  linkImageText: 'linkImageText',
+} as const;
 
 // Icons
 import { BsArrowUp } from 'react-icons/bs';

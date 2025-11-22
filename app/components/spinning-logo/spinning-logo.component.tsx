@@ -1,4 +1,6 @@
-import styles from './SpinningLogo.module.scss';
+const styles = {
+  spinningLogoContainer: 'spinningLogoContainer',
+} as const;
 
 const SpinningLogo = () => (
   <div className={styles.spinningLogoContainer}>

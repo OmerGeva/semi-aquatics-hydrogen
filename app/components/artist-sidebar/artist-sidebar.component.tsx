@@ -1,9 +1,15 @@
 import { Link } from 'react-router';
 import { useLocation } from 'react-router';
 import { HiOutlineArrowRight } from 'react-icons/hi';
-import styles from './ArtistSidebar.module.scss';
 import { ArtistsT } from '../../types';
 import { Dispatch, SetStateAction } from 'react';
+
+const styles = {
+  artistSidebar: 'artistSidebar',
+  artistItem: 'artistItem',
+  selected: 'selected',
+  arrowIcon: 'arrowIcon',
+} as const;
 
 interface ArtistSidebarProps {
   artists: ArtistsT;

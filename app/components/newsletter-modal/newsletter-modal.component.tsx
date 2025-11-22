@@ -1,7 +1,18 @@
 import React from 'react';
 import EmailForm from '../email-form/email-form.component';
-import styles from './NewsletterModal.module.scss';
 import { IoClose } from 'react-icons/io5';
+
+const styles = {
+  overlay: 'overlay',
+  modalContent: 'modalContent',
+  closeButton: 'closeButton',
+  modalTitle: 'modalTitle',
+  modalSubtitle: 'modalSubtitle',
+  formOverrides: 'formOverrides',
+  modalInput: 'modalInput',
+  modalSubmitButton: 'modalSubmitButton',
+  modalMessageContainer: 'modalMessageContainer',
+} as const;
 
 interface NewsletterModalProps {
   isOpen: boolean;

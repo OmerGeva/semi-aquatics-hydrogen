@@ -1,5 +1,10 @@
 import React from "react";
-import styles from "./LoadingState.module.scss";
+
+const styles = {
+  loadingContainer: 'loadingContainer',
+  loadingGrid: 'loadingGrid',
+  loadingBox: 'loadingBox',
+} as const;
 
 const LoadingState: React.FC = () => {
   return (

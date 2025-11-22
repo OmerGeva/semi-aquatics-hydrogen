@@ -1,4 +1,6 @@
-import styles from './PrivacyPolicyPage.module.scss';
+const styles = {
+  privacyPolicyContainer: 'privacyPolicyContainer',
+} as const;
 
 const PrivacyPolicyPage: React.FC = () => (
   <div className={styles.privacyPolicyContainer}>

@@ -1,8 +1,27 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react';
-import styles from './SizePickerDesktop.module.scss';
 import { useOnClickOutside } from '../../../hooks/use-on-click-outside';
 import { useRef } from 'react';
 import { SELECT_SIZE_LABEL } from './constants';
+
+const styles = {
+  sizePickerDesktop: 'sizePickerDesktop',
+  inputWrapper: 'inputWrapper',
+  floatingLabel: 'floatingLabel',
+  shrunk: 'shrunk',
+  dropdownHeader: 'dropdownHeader',
+  selectedItem: 'selectedItem',
+  dropdownIcon: 'dropdownIcon',
+  nativeInput: 'nativeInput',
+  dropdownList: 'dropdownList',
+  open: 'open',
+  closed: 'closed',
+  dropdownItem: 'dropdownItem',
+  unavailable: 'unavailable',
+  selected: 'selected',
+  selectedDot: 'selectedDot',
+  sizeLinks: 'sizeLinks',
+  sizeLink: 'sizeLink',
+} as const;
 
 interface SizePickerDesktopProps {
   items: any[]; // Array of size objects (e.g., { node: { title: 'XS' } })

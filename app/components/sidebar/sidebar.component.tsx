@@ -1,5 +1,3 @@
-import styles from './Sidebar.module.scss';
-
 // Packages
 import { GrClose } from 'react-icons/gr';
 import { FaInstagram } from 'react-icons/fa';
@@ -14,6 +12,21 @@ import WaveToggle from '../wave-toggle/wave-toggle.component';
 import { HELP_EMAIL_LINK, INSTAGRAM_LINK } from '../../constants/external-links';
 import { links } from './constants';
 import { INTERNAL_LINKS } from '../../constants/internal-links';
+
+const styles = {
+  sidebarContainer: 'sidebarContainer',
+  sidebarContainerClosed: 'sidebarContainerClosed',
+  closeMenuToggle: 'closeMenuToggle',
+  sidebarWrapper: 'sidebarWrapper',
+  innerContainer: 'innerContainer',
+  dropLink: 'dropLink',
+  flexGrow: 'flexGrow',
+  bottomNavbar: 'bottomNavbar',
+  waveToggleContainer: 'waveToggleContainer',
+  emailFormContainer: 'emailFormContainer',
+  flexer: 'flexer',
+  footerEmail: 'footerEmail',
+} as const;
 
 interface SidebarProps {
   sidebarOpen: boolean;

@@ -1,5 +1,12 @@
 import { Dispatch, SetStateAction } from 'react';
-import styles from './SizePicker.module.scss';
+
+const styles = {
+  sizePickerContainer: 'sizePickerContainer',
+  size: 'size',
+  sizeSelected: 'sizeSelected',
+  sizeNotPicked: 'sizeNotPicked',
+  unavailableItem: 'unavailableItem',
+} as const;
 
 interface SizePickerProps {
   chosenVariant: string,

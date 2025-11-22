@@ -1,7 +1,6 @@
 import { Link } from 'react-router';
 import { useLocation } from 'react-router';
 import {useCart} from '@shopify/hydrogen-react';
-import styles from './Navbar.module.scss';
 import { VscMenu } from 'react-icons/vsc';
 import { useIsMobile } from '../../hooks/use-is-mobile';
 import { IoBagSharp } from 'react-icons/io5';
@@ -10,6 +9,25 @@ import NewsletterModal from '../newsletter-modal/newsletter-modal.component';
 import WaveToggle from '../wave-toggle/wave-toggle.component';
 import { useNewsletterModal } from '../../hooks/use-newsletter-modal';
 import {useCartDrawer} from '../../contexts/cart-drawer-context';
+
+const styles = {
+  announcementBanner: 'announcementBanner',
+  homepageBanner: 'homepageBanner',
+  scrollingText: 'scrollingText',
+  navbarContainer: 'navbarContainer',
+  navLink: 'navLink',
+  navLinksPill: 'navLinksPill',
+  logoLink: 'logoLink',
+  topLogo: 'topLogo',
+  rightContainer: 'rightContainer',
+  waveToggleDesktop: 'waveToggleDesktop',
+  signUpNewsletter: 'signUpNewsletter',
+  bagContainer: 'bagContainer',
+  mobileCartWrapper: 'mobileCartWrapper',
+  mobileBadge: 'mobileBadge',
+  cartCount: 'cartCount',
+  active: 'active',
+} as const;
 
 interface NavbarProps {
   title?: string;

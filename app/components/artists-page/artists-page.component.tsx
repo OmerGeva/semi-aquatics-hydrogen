@@ -1,9 +1,15 @@
-import styles from './ArtistsPage.module.scss';
 import ArtistSidebar from '../artist-sidebar/artist-sidebar.component';
 import ArtistDetails from '../artist-details/artist-details.component';
 import { useEffect, useState } from 'react';
 import { ArtistsT, ArtistT } from '../../types';
 import { useIsMobile } from '../../hooks/use-is-mobile';
+
+const styles = {
+  artistsPageContainer: 'artistsPageContainer',
+  mobileToggleButton: 'mobileToggleButton',
+  sidebarContainer: 'sidebarContainer',
+  open: 'open',
+} as const;
 
 interface ArtistsPageProps {
   artists: ArtistsT;

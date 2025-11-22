@@ -1,7 +1,12 @@
-import styles from './FaqPage.module.scss'
-
 // Components
 import FaqQuestion from '../faq-question/faq-question.component'
+
+const styles = {
+  faqPageContainer: 'faqPageContainer',
+  section: 'section',
+  sectionTitle: 'sectionTitle',
+  list: 'list',
+} as const;
 
 type FaqItem = { question: string; answer: string };
 

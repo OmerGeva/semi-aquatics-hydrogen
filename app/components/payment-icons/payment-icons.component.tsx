@@ -1,6 +1,10 @@
 import React from 'react';
-import styles from './PaymentIcons.module.scss';
 import { useIsMobile } from '../../hooks/use-is-mobile';
+
+const styles = {
+  paymentIcons: 'paymentIcons',
+  icon: 'icon',
+} as const;
 
 const PaymentIcons = () => {
   const isMobile = useIsMobile();

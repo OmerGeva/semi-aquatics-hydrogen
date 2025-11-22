@@ -1,6 +1,12 @@
 import { Link } from 'react-router';
 import { UpcomingDropPreviewProps } from '../../interfaces/page_interface';
-import styles from './UpcomingDropPreview.module.scss'
+
+const styles = {
+  upcomingDropPreviewContainer: 'upcomingDropPreviewContainer',
+  productsPreviewContainer: 'productsPreviewContainer',
+  productPreviewImage: 'productPreviewImage',
+  titleAndTimer: 'titleAndTimer',
+} as const;
 
 const UpcomingDropPreview: React.FC<UpcomingDropPreviewProps> = ({ timeLeftObj, products, dropTitle }) => (
   <div className={styles.upcomingDropPreviewContainer}>

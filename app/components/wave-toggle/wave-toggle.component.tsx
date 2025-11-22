@@ -1,6 +1,16 @@
 import React from 'react';
 import { useWaveSounds } from '../../contexts/wave-sounds-context';
-import styles from './WaveToggle.module.scss';
+
+const styles = {
+  waveToggle: 'waveToggle',
+  active: 'active',
+  waveIcon: 'waveIcon',
+  wave: 'wave',
+  wave1: 'wave1',
+  wave2: 'wave2',
+  wave3: 'wave3',
+  label: 'label',
+} as const;
 
 interface WaveToggleProps {
   className?: string;

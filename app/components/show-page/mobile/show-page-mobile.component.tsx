@@ -1,10 +1,9 @@
-import styles from './ShowPageMobile.module.scss';
 import { useState, useCallback, useRef } from 'react';
 
 // Types
 import { ShowPageChildProps } from '../../../interfaces/page_interface';
 // Packages
-import {Carousel} from 'nuka-carousel';
+import { Carousel } from 'nuka-carousel';
 
 // Components
 import Button from "../../button/button.component";
@@ -20,6 +19,33 @@ import TabContent from '../tab-content/tab-content.component';
 import DescriptionTabs from './description-tabs/description-tabs.component';
 import RecommendedProducts from '../../cart-sidebar/recommended-products/recommended-products.component';
 import { INTERNAL_LINKS } from '../../../constants/internal-links';
+
+const styles = {
+  showPageMobile: 'showPageMobile',
+  imageContainer: 'imageContainer',
+  imageContainerLarge: 'imageContainerLarge',
+  productCarousel: 'productCarousel',
+  dotsContainer: 'dotsContainer',
+  dot: 'dot',
+  colored: 'colored',
+  closed: 'closed',
+  mobileInfo: 'mobileInfo',
+  titlePrice: 'titlePrice',
+  description: 'description',
+  openDescriptionBtn: 'openDescriptionBtn',
+  icon: 'icon',
+  descriptionInner: 'descriptionInner',
+  descriptionInnerLarge: 'descriptionInnerLarge',
+  sizingLink: 'sizingLink',
+  sizePickerContainer: 'sizePickerContainer',
+  addToCart: 'addToCart',
+  half: 'half',
+  shippingInfo: 'shippingInfo',
+  shippingItem: 'shippingItem',
+  recommendedProductsWrapper: 'recommendedProductsWrapper',
+  disclaimer: 'disclaimer',
+  flexGrow1: 'flexGrow1',
+} as const;
 
 const ShowPageMobile: React.FC<ShowPageChildProps> = ({
   product,
@@ -38,7 +64,7 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
   const lastSlideIndexRef = useRef(slideNumber);
 
   const isTimeLeft = useIsTimeLeft();
-  
+
   // More robust slide handler to prevent rapid state updates
   const handleSlideChange = useCallback((index: number) => {
     // Don't update if we're already transitioning or if it's the same slide
@@ -54,7 +80,7 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
     // Set transitioning flag
     isTransitioningRef.current = true;
     lastSlideIndexRef.current = index;
-    
+
     timeoutRef.current = setTimeout(() => {
       setSlideNumber(index);
       // Allow transitions again after a longer delay
@@ -65,10 +91,10 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
   }, [setSlideNumber]);
 
   const slides = product.node.images.edges.slice(1).map((image: any, index: number) =>
-    (<div key={`slide-${index}-${image.node.transformedSrc}`} style={{textAlign: 'center', height: '100%'}}>
-        <img src={image.node.transformedSrc} alt={image.node.altText} />
-    </div>
-    )
+  (<div key={`slide-${index}-${image.node.transformedSrc}`} style={{ textAlign: 'center', height: '100%' }}>
+    <img src={image.node.transformedSrc} alt={image.node.altText} />
+  </div>
+  )
   )
 
   // Cleanup timeout on unmount
@@ -86,7 +112,7 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
     lastSlideIndexRef.current = slideNumber;
   }, [slideNumber]);
 
-  return(
+  return (
     <div className={styles.showPageMobile}>
       <div className={`${styles.imageContainer} ${isNewProduct ? '' : styles.imageContainerLarge}`}>
         <div className={styles.productCarousel}>
@@ -98,6 +124,7 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
             enableKeyboardControls={false}
             pauseOnHover={false}
             wrapAround={false}
+            slidesToShow={1}
           >
             {slides}
           </Carousel>
@@ -119,63 +146,63 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
           <h1>{product.node.title}</h1>
           {
             isNewProduct &&
-              <p>${product.node.variants.edges[0].node.priceV2.amount}0</p>
+            <p>${product.node.variants.edges[0].node.priceV2.amount}0</p>
           }
         </div>
-      {
-        isNewProduct &&
-      <React.Fragment>
-        <div className={styles.sizePickerContainer}>
-          <SizePicker variants={product.node.variants.edges}  availability={variantAvailability(product)}chosenVariant={selected} setChosenVariant={setSelected} />
-        </div>
-        <div className={styles.addToCart}>
-        <Button
-              soldOut={!selected.node.availableForSale}
-              isSelected={selected !== ''}
-              selected={selected}
-              mobile={true}
-              isLoading={isAddingToCart}
-              isSuccess={addToCartSuccess}
-              onClick={() => handleOnAddToCart(selected)}>
-              {
-                selected.node.availableForSale ?
-                  "Add to bag"
-                  :
-                  isNewProduct && isTimeLeft ?
-                  "Coming soon"
-                  :
-                  "Sold Out"
-              }
-            </Button>
-        </div>
+        {
+          isNewProduct &&
+          <React.Fragment>
+            <div className={styles.sizePickerContainer}>
+              <SizePicker variants={product.node.variants.edges} availability={variantAvailability(product)} chosenVariant={selected} setChosenVariant={setSelected} />
+            </div>
+            <div className={styles.addToCart}>
+              <Button
+                soldOut={!selected.node.availableForSale}
+                isSelected={selected !== ''}
+                selected={selected}
+                mobile={true}
+                isLoading={isAddingToCart}
+                isSuccess={addToCartSuccess}
+                onClick={() => handleOnAddToCart(selected)}>
+                {
+                  selected.node.availableForSale ?
+                    "Add to bag"
+                    :
+                    isNewProduct && isTimeLeft ?
+                      "Coming soon"
+                      :
+                      "Sold Out"
+                }
+              </Button>
+            </div>
 
-        <div className={styles.shippingInfo}>
-        <div className={styles.shippingItem}>
-            <img src="/svgs/globe.svg" alt="Globe icon" />
-            <p>Worldwide shipping available.*</p>
-          </div>
-          <div className={styles.shippingItem}>
-            <img src="/svgs/plant.svg" alt="Plant icon" />
-            <p>Every order restores a kelp forest**</p>
-          </div>
-        </div>
-        <DescriptionTabs activeTab={activeTab} setActiveTab={setActiveTab} >
-          <TabContent tabNumber={activeTab} description={product.node.descriptionHtml} product={product} />
-        </DescriptionTabs>
-      </React.Fragment>
-    }
-    </div>
-    <div className={styles.recommendedProductsWrapper}>
-      <RecommendedProducts textAlign='center' itemCount={3}/>
-    </div>
-    <div className={styles.disclaimer}>
-      <p>
-        * Orders typically ship within 1–2 business days. Transit time varies by destination.
-      </p>
-      <p>
-        ** For every order, Semi Aquatics restores kelp forests in Cascais, Portugal through our partnership with SeaTrees and SeaForester. We're supporting a restoration technique called green gravel, tiny stones seeded with seaweed spores and scattered across the ocean floor to regrow underwater forests.
-      </p>
-    </div>
+            <div className={styles.shippingInfo}>
+              <div className={styles.shippingItem}>
+                <img src="/svgs/globe.svg" alt="Globe icon" />
+                <p>Worldwide shipping available.*</p>
+              </div>
+              <div className={styles.shippingItem}>
+                <img src="/svgs/plant.svg" alt="Plant icon" />
+                <p>Every order restores a kelp forest**</p>
+              </div>
+            </div>
+            <DescriptionTabs activeTab={activeTab} setActiveTab={setActiveTab} >
+              <TabContent tabNumber={activeTab} description={product.node.descriptionHtml} product={product} />
+            </DescriptionTabs>
+          </React.Fragment>
+        }
+      </div>
+      <div className={styles.recommendedProductsWrapper}>
+        <RecommendedProducts textAlign='center' itemCount={3} />
+      </div>
+      <div className={styles.disclaimer}>
+        <p>
+          * Orders typically ship within 1–2 business days. Transit time varies by destination.
+        </p>
+        <p>
+          ** For every order, Semi Aquatics restores kelp forests in Cascais, Portugal through our partnership with SeaTrees and SeaForester. We're supporting a restoration technique called green gravel, tiny stones seeded with seaweed spores and scattered across the ocean floor to regrow underwater forests.
+        </p>
+      </div>
     </div >
   )
 }

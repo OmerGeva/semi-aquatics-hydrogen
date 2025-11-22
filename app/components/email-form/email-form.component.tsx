@@ -1,10 +1,22 @@
 import React from 'react';
-import styles from  './EmailForm.module.scss';
 
 // Packages
 import axios from 'axios';
 import { EmailFormProps } from '../../interfaces/page_interface';
 import Form from '../form/form.component';
+
+const styles = {
+  sidebarEmailFormContainer: 'sidebarEmailFormContainer',
+  isSidebar: 'isSidebar',
+  isNotSidebar: 'isNotSidebar',
+  emailForm: 'emailForm',
+  emailInput: 'emailInput',
+  submitButton: 'submitButton',
+  messageContainer: 'messageContainer',
+  hasMessage: 'hasMessage',
+  errorMessage: 'errorMessage',
+  successMessage: 'successMessage',
+} as const;
 
 const EmailForm: React.FC<EmailFormProps> = ({
   isSidebar,

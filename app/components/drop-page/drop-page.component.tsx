@@ -1,4 +1,3 @@
-import styles from './DropPage.module.scss';
 import { useEffect, useMemo, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import CountdownTimer from '../countdown-timer/countdown-timer.component';
@@ -7,6 +6,28 @@ import ProductPreview from '../product-preview/product-preview.component';
 import { CollectionT } from '../../types';
 import { useIsMobile } from '../../hooks/use-is-mobile';
 import { useDropLock } from '../../hooks/use-drop-lock';
+
+const styles = {
+  dropPageContainer: 'dropPageContainer',
+  dropHeader: 'dropHeader',
+  dropTitle: 'dropTitle',
+  lockerDropHeader: 'lockerDropHeader',
+  dropDescription: 'dropDescription',
+  productsSection: 'productsSection',
+  productsWrapper: 'productsWrapper',
+  categoryHeader: 'categoryHeader',
+  categoryDescription: 'categoryDescription',
+  filterTabsWrapper: 'filterTabsWrapper',
+  hasOverflow: 'hasOverflow',
+  scrolledToEnd: 'scrolledToEnd',
+  filterTabs: 'filterTabs',
+  filterButton: 'filterButton',
+  mobileFilterButton: 'mobileFilterButton',
+  active: 'active',
+  productsContainer: 'productsContainer',
+  noProducts: 'noProducts',
+  lockedDropContainer: 'lockedDropContainer',
+} as const;
 
 type ProductType = 'all' | 'drop' | 'mainline' | 'tshirt' | 'hoodie' | 'crewneck';
 

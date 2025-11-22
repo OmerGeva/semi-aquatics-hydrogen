@@ -1,7 +1,22 @@
 import React from 'react';
 import { SIZING_DATA } from './constants';
-import styles from './SizingChart.module.scss';
 import { useIsMobile } from '../../hooks/use-is-mobile';
+
+const styles = {
+  sizingChartContainer: 'sizingChartContainer',
+  sizingChartImage: 'sizingChartImage',
+  sizingHeader: 'sizingHeader',
+  sizingBody: 'sizingBody',
+  sizingRow: 'sizingRow',
+  sizingHeaderCell: 'sizingHeaderCell',
+  sizingValue: 'sizingValue',
+  sizeLabel: 'sizeLabel',
+  sizingNote: 'sizingNote',
+  noData: 'noData',
+  tabs: 'tabs',
+  tab: 'tab',
+  indicator: 'indicator',
+} as const;
 // import sizingChartImage from '../../assets/sizing-chart.png';
 
 const sizingCharts = {

@@ -1,8 +1,16 @@
 import { useState } from 'react';
-import styles from './FaqQuestion.module.scss';
 
 // Icons
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
+
+const styles = {
+  questionContainer: 'questionContainer',
+  open: 'open',
+  questionAndIcon: 'questionAndIcon',
+  question: 'question',
+  icon: 'icon',
+  answer: 'answer',
+} as const;
 
 interface FaqQuestionProps {
     question: string;

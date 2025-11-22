@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { calculateTimeLeft } from '../../utils/calculate_time_left';
-import styles from './CountdownTimer.module.scss';
+
+const styles = {
+  countdownTimerContainer: 'countdownTimerContainer',
+} as const;
 
 type PropsT = {
   dropDateTime: Date;

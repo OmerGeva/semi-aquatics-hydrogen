@@ -1,9 +1,19 @@
 import { Dispatch, useMemo, useState, useEffect, useRef } from 'react';
-import styles from './PasswordWall.module.scss'
 import { useDispatch } from 'react-redux';
 import { setPasswordGuessed } from '../../redux/user/user.actions';
 import EmailForm from '../email-form/email-form.component';
 import Form from '../form/form.component';
+
+const styles = {
+  PasswordWallContainer: 'PasswordWallContainer',
+  imageContainer: 'imageContainer',
+  emptySlot: 'emptySlot',
+  emailFormContainerPW: 'emailFormContainerPW',
+  emailFormContainerPWInner: 'emailFormContainerPWInner',
+  inputContainer: 'inputContainer',
+  submitBtn: 'submitBtn',
+  errorMessage: 'errorMessage',
+} as const;
 // import { useNextDrop } from '../../contexts/drop-context';
 
 interface PasswordWallProps {

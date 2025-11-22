@@ -1,6 +1,11 @@
-import styles from './NumberPicker.module.scss'
 import { Dispatch, SetStateAction, useState } from 'react';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
+
+const styles = {
+  soldOutNumberPickerContainer: 'soldOutNumberPickerContainer',
+  numberPickerContainer: 'numberPickerContainer',
+  addSubtractSigns: 'addSubtractSigns',
+} as const;
 
 interface ShowPageProps {
     number: number,

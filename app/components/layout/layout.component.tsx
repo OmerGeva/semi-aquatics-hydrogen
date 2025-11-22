@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router';
 import Lenis from '@studio-freight/lenis';
 
-import styles from './Layout.module.scss'
 import Navbar from '../navbar/navbar.component'
 import Sidebar from '../sidebar/sidebar.component';
 import SpinningLogo from '../spinning-logo/spinning-logo.component';
@@ -17,6 +16,13 @@ import { useIsTimeLeft } from '../../hooks/use-is-time-left'
 import Footer from '../footer/footer.component';
 import CartSidebar from '../cart-sidebar/cart-sidebar';
 import { useIsMobile } from '../../hooks/use-is-mobile';
+
+const styles = {
+  layoutContainer: 'layoutContainer',
+  spinningLogoContainer: 'spinningLogoContainer',
+  countdown: 'countdown',
+  contentContainer: 'contentContainer',
+} as const;
 
 interface LayoutProps {
     children: React.ReactNode;

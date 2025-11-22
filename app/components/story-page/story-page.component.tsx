@@ -1,5 +1,15 @@
 import EmailForm from '../email-form/email-form.component';
-import styles from './StoryPage.module.scss';
+
+const styles = {
+  storyPageContainer: 'storyPageContainer',
+  storyContent: 'storyContent',
+  imageColumn: 'imageColumn',
+  imageWrapper: 'imageWrapper',
+  textColumn: 'textColumn',
+  aboutTitle: 'aboutTitle',
+  textContainer: 'textContainer',
+  emailSignup: 'emailSignup',
+} as const;
 // Note: Video file should be placed in `public/` and referenced by path.
 
 const StoryPage: React.FC = () => (

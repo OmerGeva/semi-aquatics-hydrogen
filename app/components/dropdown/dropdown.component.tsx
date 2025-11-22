@@ -1,7 +1,16 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import styles from './Dropdown.module.scss'
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
 import { useRef } from 'react'
+
+const styles = {
+  ddWraper: 'ddWraper',
+  ddHeader: 'ddHeader',
+  ddHeaderTitle: 'ddHeaderTitle',
+  ddListOpen: 'ddListOpen',
+  ddListClosed: 'ddListClosed',
+  ddListItem: 'ddListItem',
+  unavailableItem: 'unavailableItem',
+} as const;
 
 interface DropdownProps {
     items: any[],

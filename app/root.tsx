@@ -13,9 +13,9 @@ import {
   useRouteLoaderData,
 } from 'react-router';
 import type {Route} from './+types/root';
-import favicon from '~/assets/favicon.svg';
-import globalStyles from '~/styles/globals.scss?url';
 import SiteLayout from '~/components/layout/layout.component';
+import favicon from '~/assets/favicon.svg';
+import tailwindStyles from '~/styles/tailwind.css?url';
 import {Provider as ReduxProvider} from 'react-redux';
 import {ApolloProvider} from '@apollo/client/react';
 import {CookiesProvider} from 'react-cookie';
@@ -70,7 +70,7 @@ export function links() {
       href: 'https://shop.app',
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
-    {rel: 'stylesheet', href: globalStyles},
+    {rel: 'stylesheet', href: tailwindStyles},
     // Preload fonts to prevent FOUT
     {
       rel: 'preconnect',
@@ -81,15 +81,6 @@ export function links() {
       href: 'https://fonts.gstatic.com',
       crossOrigin: 'anonymous',
     },
-    // Preload route-specific CSS modules to prevent FOUC in dev mode
-    // These ensure CSS loads before content renders
-    {rel: 'preload', as: 'style', href: '/app/components/show-page/ShowPage.module.scss'},
-    {rel: 'preload', as: 'style', href: '/app/components/show-page/desktop/ShowPageDesktop.module.scss'},
-    {rel: 'preload', as: 'style', href: '/app/components/show-page/mobile/ShowPageMobile.module.scss'},
-    {rel: 'preload', as: 'style', href: '/app/components/show-page/desktop/description-tabs/DescriptionTabs.module.scss'},
-    {rel: 'preload', as: 'style', href: '/app/components/show-page/mobile/description-tabs/DescriptionTabs.module.scss'},
-    {rel: 'preload', as: 'style', href: '/app/components/show-page/tab-content/TabContent.module.scss'},
-    {rel: 'preload', as: 'style', href: '/app/components/show-page/artist-preview/ArtistPreview.module.scss'},
   ];
 }
 

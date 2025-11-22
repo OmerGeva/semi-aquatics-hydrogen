@@ -1,5 +1,21 @@
 import { useState, useEffect } from 'react';
-import styles from './Button.module.scss';
+
+const styles = {
+  buttonContainer: 'buttonContainer',
+  mobileButtonContainer: 'mobileButtonContainer',
+  mobileSoldOutButton: 'mobileSoldOutButton',
+  soldOut: 'soldOut',
+  black: 'black',
+  white: 'white',
+  flex: 'flex',
+  clicked: 'clicked',
+  adding: 'adding',
+  added: 'added',
+  idle: 'idle',
+  buttonContent: 'buttonContent',
+  buttonText: 'buttonText',
+  additionalText: 'additionalText',
+} as const;
 
 type ButtonState = 'idle' | 'clicked' | 'adding' | 'added';
 

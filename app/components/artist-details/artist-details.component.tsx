@@ -1,7 +1,13 @@
-import styles from './ArtistDetails.module.scss';
 import ProductPreview from '../product-preview/product-preview.component';
 import { ArtistT } from '../../types';
 import { HiOutlineArrowRight } from "react-icons/hi2";
+
+const styles = {
+  artistDetails: 'artistDetails',
+  artistNameHeader: 'artistNameHeader',
+  artistName: 'artistName',
+  artistProductsContainer: 'artistProductsContainer',
+} as const;
 
 interface ArtistDetailsProps {
   artist: ArtistT;
@@ -24,6 +30,9 @@ const ArtistDetails: React.FC<ArtistDetailsProps> = ({ artist }) => {
             isSoldOut={true}
             isArchive={true}
             isTimeLeft={false}
+            disableDefaultImageContainer={true}
+            imageClassName="!h-full !w-full !object-contain !object-center"
+            containerClassName="!w-full !aspect-[3/4] mx-auto !flex !justify-center !items-center"
           />
         ))}
       </div>

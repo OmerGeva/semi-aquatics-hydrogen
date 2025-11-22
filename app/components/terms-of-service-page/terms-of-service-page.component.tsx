@@ -1,4 +1,6 @@
-import styles from './TermsOfServicePage.module.scss';
+const styles = {
+  privacyPolicyContainer: 'privacyPolicyContainer',
+} as const;
 
 const TermsOfServicePage: React.FC = () => (
   <div className={styles.privacyPolicyContainer}>

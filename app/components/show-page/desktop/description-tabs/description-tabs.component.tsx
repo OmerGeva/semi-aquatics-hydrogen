@@ -1,5 +1,14 @@
 import { TABS } from "../../tab-content/constants";
-import styles from "./DescriptionTabs.module.scss";
+
+const styles = {
+  tabs: 'tabs',
+  tab: 'tab',
+  selected: 'selected',
+  tabText: 'tabText',
+  medium: 'medium',
+  regular: 'regular',
+  indicator: 'indicator',
+} as const;
 
 interface DescriptionTabsProps {
   activeTab: number;

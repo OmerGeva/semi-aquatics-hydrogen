@@ -1,7 +1,10 @@
-import styles from "./TabContent.module.scss";
 import SizingChart from "../../sizing-chart/sizing-chart.component";
 import ArtistPreview from "../artist-preview/artist-preview.component";
 import { ProductT } from "../../../types";
+
+const styles = {
+  tabContent: 'tabContent',
+} as const;
 
 interface TabContentProps {
   tabNumber: number;

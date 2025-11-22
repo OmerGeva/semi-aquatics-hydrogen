@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import styles from './ImageSlider.module.scss'
+
+const styles = {
+  imageSliderContainer: 'imageSliderContainer',
+  individualPic: 'individualPic',
+} as const;
 
 interface ImageSliderProps {
     index: number,

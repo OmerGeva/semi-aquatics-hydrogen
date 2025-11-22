@@ -1,9 +1,16 @@
 import { useState } from 'react';
-import styles from './ImageCarousel.module.scss'
 import {
     Magnifier,
     // @ts-ignore
   } from "@africasokoni/react-image-magnifiers";
+
+const styles = {
+  productImagesContainer: 'productImagesContainer',
+  topImage: 'topImage',
+  productImagesPreview: 'productImagesPreview',
+  smallImage: 'smallImage',
+  smallImageSelected: 'smallImageSelected',
+} as const;
 
 interface ImageCarouselProps {
     images: any[],

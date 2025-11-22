@@ -1,9 +1,28 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import styles from './CookieBanner.module.scss'
 import { useGeoAndConsent } from '../../lib/consent/useConsent'
 import { useOnClickOutside } from '../../hooks/use-on-click-outside'
 import { INTERNAL_LINKS } from '../../constants/internal-links'
 import { needsPriorConsent } from '../../lib/consent/regions'
+
+const styles = {
+  banner: 'banner',
+  card: 'card',
+  content: 'content',
+  text: 'text',
+  link: 'link',
+  actions: 'actions',
+  btn: 'btn',
+  btnPrimary: 'btnPrimary',
+  backdrop: 'backdrop',
+  modal: 'modal',
+  modalInner: 'modalInner',
+  modalHeader: 'modalHeader',
+  closeIcon: 'closeIcon',
+  toggleRow: 'toggleRow',
+  switch: 'switch',
+  on: 'on',
+  knob: 'knob',
+} as const;
 
 const POLICY_URL = INTERNAL_LINKS.PRIVACY_POLICY.url
 
@@ -150,5 +169,4 @@ export default function CookieBanner() {
     </>
   )
 }
-
 

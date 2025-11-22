@@ -1,7 +1,11 @@
 import { useState } from 'react';
-import styles from './Form.module.scss'
 import { IconContext } from 'react-icons';
 import { BsArrowRight } from 'react-icons/bs';
+
+const styles = {
+  formContainer: 'formContainer',
+  submitButton: 'submitButton',
+} as const;
 
 interface FormProps {
   placeholder?: string,
