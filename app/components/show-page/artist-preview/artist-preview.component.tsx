@@ -51,7 +51,7 @@ const ArtistPreview: React.FC<ArtistPreviewProps> = ({ artworkId }) => {
       <div className={styles.artistHeader}>
         <div className={styles.artistDetails}>
           <h3>{artist.name}</h3>
-          { artist.instagram &&
+          {artist.instagram &&
             <a href={`https://instagram.com/${artist.instagram}`} target="_blank" rel="noopener noreferrer" className={styles.instagram}>
               @{artist.instagram}
             </a>

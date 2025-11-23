@@ -33,14 +33,13 @@ const ArtistSidebar: React.FC<ArtistSidebarProps> = ({ artists, setIsSidebarOpen
         {artists.map((artist) => (
           <li
             key={artist.slug}
-            className={`${styles.artistItem} ${
-              currentSlug === artist.slug ? styles.selected : ''
-            }`}
+            className={`${styles.artistItem} ${currentSlug === artist.slug ? styles.selected : ''
+              }`}
             onClick={handleClick}
           >
             <Link to={`/artists/${artist.slug}`}>
-                <HiOutlineArrowRight className={styles.arrowIcon} />
-                <span>{artist.name}</span>
+              <HiOutlineArrowRight className={styles.arrowIcon} />
+              <span>{artist.name}</span>
             </Link>
           </li>
         ))}
