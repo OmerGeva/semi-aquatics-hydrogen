@@ -1268,9 +1268,6 @@
     width: fit-content;
     margin: 0 auto;
     padding: 14px 20px;
-    display: flex;
-    gap: 18px;
-    align-items: center;
   }
 
   .text {
@@ -3543,11 +3540,13 @@
   .content {
     padding: 16px;
     flex-grow: 1;
+    width: 100%;
     overflow-y: auto;
   }
 
   .content .lineItems {
     display: flex;
+    width: 100%;
     flex-direction: column;
   }
 
@@ -4510,19 +4509,6 @@
     font-weight: 400;
     font-size: 45px;
     margin-bottom: 1rem;
-  }
-
-  .imageContainer {
-    position: absolute;
-    top: 0;
-    width: 150%;
-    height: 100vh;
-    overflow: hidden;
-    object-fit: cover;
-  }
-
-  .imageContainer img {
-    height: 100vh;
   }
 
   .videoContainer {

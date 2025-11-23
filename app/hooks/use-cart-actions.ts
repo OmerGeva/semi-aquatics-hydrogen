@@ -1,18 +1,18 @@
-import {useMemo, useState} from 'react';
-import {useCart} from '@shopify/hydrogen-react';
-import {useCartDrawer} from '../contexts/cart-drawer-context';
+import { useMemo, useState } from 'react';
+import { useCart } from '@shopify/hydrogen-react';
+import { useCartDrawer } from '../contexts/cart-drawer-context';
 
 type VariantLike =
   | string
   | {
-      node?: {
-        id?: string;
-      };
+    node?: {
+      id?: string;
     };
+  };
 
 export const useCartActions = () => {
-  const {lines, linesAdd, linesUpdate, status} = useCart();
-  const {openCart} = useCartDrawer();
+  const { lines, linesAdd, linesUpdate, status } = useCart();
+  const { openCart } = useCartDrawer();
   const [pending, setPending] = useState(false);
 
   const cartCounts = useMemo(() => {
@@ -59,7 +59,7 @@ export const useCartActions = () => {
         ]);
       }
 
-      openCart();
+
       return true;
     } catch (error) {
       console.error('Error adding to cart:', error);
@@ -71,5 +71,5 @@ export const useCartActions = () => {
 
   const isLoading = pending || status === 'updating';
 
-  return {addToCart, isLoading, cartCounts};
+  return { addToCart, isLoading, cartCounts };
 };

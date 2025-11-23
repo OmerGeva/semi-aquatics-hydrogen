@@ -39,7 +39,6 @@ const styles = {
 const CartSidebar: React.FC = () => {
   const { isCartOpen, closeCart } = useCartDrawer();
   const { lines, checkoutUrl, cost, status, linesUpdate } = useCart();
-  console.log(status);
 
   const items = lines ?? [];
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -94,7 +93,7 @@ const CartSidebar: React.FC = () => {
         </div>
         <hr />
         <div className={styles.content} data-lenis-prevent>
-          {status === 'uninitialized' ? (
+          {status === 'uninitialized' && !checkoutUrl ? (
             <p>Loading cart...</p>
           ) : items.length === 0 ? (
             <p>Your bag is empty</p>

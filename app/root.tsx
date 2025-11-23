@@ -24,6 +24,7 @@ import { store } from '~/redux/store';
 import { WaveSoundsProvider } from '~/contexts/wave-sounds-context';
 import { CartDrawerProvider } from '~/contexts/cart-drawer-context';
 import { MobileProvider } from '~/contexts/mobile-context';
+import { CartAutoOpener } from '~/components/cart/cart-auto-opener';
 
 export type RootLoader = typeof loader;
 
@@ -193,14 +194,25 @@ export default function App() {
         countryIsoCode={data.consent.country}
         languageIsoCode={data.consent.language}
       >
-        {/* @ts-ignore */}
-        <CartProvider cart={data.cart}>
+        <CartProvider
+          data={
+            data.cart
+              ? {
+                ...data.cart,
+                lines: data.cart.lines || { nodes: [] },
+                note: data.cart.note || '',
+                discountCodes: data.cart.discountCodes || [],
+              }
+              : null
+          }
+        >
           <Analytics.Provider
             cart={data.cart}
             shop={data.shop}
             consent={data.consent}
           >
             <LegacyProviders>
+              <CartAutoOpener />
               <SiteLayout>
                 <Outlet />
               </SiteLayout>

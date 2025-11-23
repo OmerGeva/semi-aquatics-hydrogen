@@ -92,48 +92,47 @@ const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
 
   return (
     <React.Fragment>
-    {
-      isMobile ?
-        <ShowPageMobile
-          product={product}
-          selected={selected}
-          setSelected={setSelected}
-          handleOnAddToCart={product.node.availableForSale ? handleOnAddToCart : () => {}}
-          setNumberToAdd={setNumberToAdd}
-          slideNumber={slideNumber}
-          setSlideNumber={setSlideNumber}
-          numberToAdd={numberToAdd}
-          isNewProduct={isNewProduct}
-          isAddingToCart={isAddingToCart}
-          addToCartSuccess={addToCartSuccess} />
-      :
-        <ShowPageDesktop
-          product={product}
-          selected={selectedDesktop}
-          setSelected={setSelectedDesktop}
-          handleOnAddToCart={product.node.availableForSale ? handleOnAddToCart : () => {}}
-          isAddingToCart={isAddingToCart}
-          addToCartSuccess={addToCartSuccess}
-          setNumberToAdd={setNumberToAdd}
-          slideNumber={slideNumber}
-          setSlideNumber={setSlideNumber}
-          numberToAdd={numberToAdd}
-          isNewProduct={isNewProduct} />
-    }
+      {
+        isMobile ?
+          <ShowPageMobile
+            product={product}
+            selected={selected}
+            setSelected={setSelected}
+            handleOnAddToCart={product.node.availableForSale ? handleOnAddToCart : () => { }}
+            setNumberToAdd={setNumberToAdd}
+            slideNumber={slideNumber}
+            setSlideNumber={setSlideNumber}
+            numberToAdd={numberToAdd}
+            isNewProduct={isNewProduct}
+            isAddingToCart={isAddingToCart || isLoading}
+            addToCartSuccess={addToCartSuccess} />
+          :
+          <ShowPageDesktop
+            product={product}
+            selected={selectedDesktop}
+            setSelected={setSelectedDesktop}
+            handleOnAddToCart={product.node.availableForSale ? handleOnAddToCart : () => { }}
+            isAddingToCart={isAddingToCart || isLoading}
+            addToCartSuccess={addToCartSuccess}
+            setNumberToAdd={setNumberToAdd}
+            slideNumber={slideNumber}
+            setSlideNumber={setSlideNumber}
+            numberToAdd={numberToAdd}
+            isNewProduct={isNewProduct} />
+      }
 
-    <ToastContainer
-      position="top-right"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      draggablePercent={0}
-      closeOnClick
-      rtl={false}
-      draggable
-      pauseOnHover={false} />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        draggablePercent={0}
+        closeOnClick
+        rtl={false}
+        draggable
+        pauseOnHover={false} />
     </React.Fragment>
   );
 };
-
 
 export default ShowPage;

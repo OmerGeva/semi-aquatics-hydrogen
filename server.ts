@@ -1,8 +1,8 @@
 // Virtual entry point for the app
-import {storefrontRedirect} from '@shopify/hydrogen';
-import {createRequestHandler} from '@shopify/hydrogen/oxygen';
-import {createHydrogenRouterContext} from '~/lib/context';
-import type {ServerBuild} from 'react-router';
+import { storefrontRedirect } from '@shopify/hydrogen';
+import { createRequestHandler } from '@shopify/hydrogen/oxygen';
+import { createHydrogenRouterContext } from '~/lib/context';
+import type { ServerBuild } from 'react-router';
 
 /**
  * Export a fetch handler in module format.
@@ -44,6 +44,21 @@ export default {
         );
       }
 
+      // @ts-ignore
+      if (hydrogenContext.cart.setCartId) {
+
+
+        // @ts-ignore
+        const cartId = hydrogenContext.cart.getCartId();
+        if (cartId) {
+          // @ts-ignore
+          const headers = hydrogenContext.cart.setCartId(cartId);
+          headers.forEach((value: string, key: string) => {
+            response.headers.append(key, value);
+          });
+        }
+      }
+
       if (response.status === 404) {
         /**
          * Check for redirects only when there's a 404 from the app.
@@ -60,7 +75,7 @@ export default {
       return response;
     } catch (error) {
       console.error(error);
-      return new Response('An unexpected error occurred', {status: 500});
+      return new Response('An unexpected error occurred', { status: 500 });
     }
   },
 };

@@ -3,7 +3,7 @@ import { useState, useCallback, useRef } from 'react';
 // Types
 import { ShowPageChildProps } from '../../../interfaces/page_interface';
 // Packages
-import { Carousel } from 'nuka-carousel';
+import Carousel from 'nuka-carousel';
 
 // Components
 import Button from "../../button/button.component";
@@ -118,13 +118,12 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
         <div className={styles.productCarousel}>
           <Carousel
             withoutControls={true}
-            afterSlide={(index: any) => handleSlideChange(index)}
+            afterSlide={(index: number) => handleSlideChange(index)}
             speed={300}
             disableEdgeSwiping={false}
             enableKeyboardControls={false}
             pauseOnHover={false}
             wrapAround={false}
-            slidesToShow={1}
           >
             {slides}
           </Carousel>
