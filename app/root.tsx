@@ -1,6 +1,6 @@
-import type {ReactNode} from 'react';
-import {Analytics, getShopAnalytics, useNonce} from '@shopify/hydrogen';
-import {CartProvider} from '@shopify/hydrogen-react';
+import type { ReactNode } from 'react';
+import { Analytics, getShopAnalytics, useNonce } from '@shopify/hydrogen';
+import { CartProvider, ShopifyProvider } from '@shopify/hydrogen-react';
 import {
   Outlet,
   useRouteError,
@@ -12,18 +12,18 @@ import {
   ScrollRestoration,
   useRouteLoaderData,
 } from 'react-router';
-import type {Route} from './+types/root';
+import type { Route } from './+types/root';
 import SiteLayout from '~/components/layout/layout.component';
 import favicon from '~/assets/favicon.svg';
 import tailwindStyles from '~/styles/tailwind.css?url';
-import {Provider as ReduxProvider} from 'react-redux';
-import {ApolloProvider} from '@apollo/client/react';
-import {CookiesProvider} from 'react-cookie';
+import { Provider as ReduxProvider } from 'react-redux';
+import { ApolloProvider } from '@apollo/client/react';
+import { CookiesProvider } from 'react-cookie';
 import apolloClient from '~/apollo-client';
-import {store} from '~/redux/store';
-import {WaveSoundsProvider} from '~/contexts/wave-sounds-context';
-import {CartDrawerProvider} from '~/contexts/cart-drawer-context';
-import {MobileProvider} from '~/contexts/mobile-context';
+import { store } from '~/redux/store';
+import { WaveSoundsProvider } from '~/contexts/wave-sounds-context';
+import { CartDrawerProvider } from '~/contexts/cart-drawer-context';
+import { MobileProvider } from '~/contexts/mobile-context';
 
 export type RootLoader = typeof loader;
 
@@ -69,8 +69,8 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: favicon},
-    {rel: 'stylesheet', href: tailwindStyles},
+    { rel: 'icon', type: 'image/svg+xml', href: favicon },
+    { rel: 'stylesheet', href: tailwindStyles },
     // Preload fonts to prevent FOUT
     {
       rel: 'preconnect',
@@ -99,9 +99,14 @@ if (typeof window === 'undefined') {
 }
 
 export async function loader(args: Route.LoaderArgs) {
-  const {storefront, env, cart, customerAccount} = args.context;
+  const { storefront, env, cart, customerAccount } = args.context;
 
-  // Detect mobile from User-Agent to ensure server and client render the same version
+  let existingCart = await cart.get();
+
+  if (!existingCart) {
+    existingCart = await cart.create({});
+  }
+
   const userAgent = args.request.headers.get('user-agent') || '';
   const isMobileInitial = /mobile|android|phone|iphone/i.test(userAgent);
 
@@ -115,17 +120,17 @@ export async function loader(args: Route.LoaderArgs) {
       checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN,
       storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
       withPrivacyBanner: false,
-      // localize the privacy banner
-      country: args.context.storefront.i18n.country,
-      language: args.context.storefront.i18n.language,
+      country: storefront.i18n.country,
+      language: storefront.i18n.language,
     },
-    cart: cart.get(),
+    // @ts-ignore
+    cart: existingCart?.cart || existingCart,
     isLoggedIn: customerAccount.isLoggedIn(),
     isMobileInitial,
   };
 }
 
-export function Layout({children}: {children?: React.ReactNode}) {
+export function Layout({ children }: { children?: React.ReactNode }) {
   const nonce = useNonce();
 
   return (
@@ -181,24 +186,33 @@ export default function App() {
 
   return (
     <MobileProvider isMobileInitial={data.isMobileInitial || false}>
-      <CartProvider>
-        <Analytics.Provider
-          cart={data.cart}
-          shop={data.shop}
-          consent={data.consent}
-        >
-          <LegacyProviders>
-            <SiteLayout>
-              <Outlet />
-            </SiteLayout>
-          </LegacyProviders>
-        </Analytics.Provider>
-      </CartProvider>
+      <ShopifyProvider
+        storeDomain={data.publicStoreDomain}
+        storefrontToken={data.consent.storefrontAccessToken}
+        storefrontApiVersion="2025-07"
+        countryIsoCode={data.consent.country}
+        languageIsoCode={data.consent.language}
+      >
+        {/* @ts-ignore */}
+        <CartProvider cart={data.cart}>
+          <Analytics.Provider
+            cart={data.cart}
+            shop={data.shop}
+            consent={data.consent}
+          >
+            <LegacyProviders>
+              <SiteLayout>
+                <Outlet />
+              </SiteLayout>
+            </LegacyProviders>
+          </Analytics.Provider>
+        </CartProvider>
+      </ShopifyProvider>
     </MobileProvider>
   );
 }
 
-function LegacyProviders({children}: {children: ReactNode}) {
+function LegacyProviders({ children }: { children: ReactNode }) {
   return (
     <ReduxProvider store={store}>
       <CartDrawerProvider>

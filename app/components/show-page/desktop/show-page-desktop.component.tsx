@@ -90,24 +90,22 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
             )}
           </div>
           <div className={styles.productAddToCart}>
-            <div className={styles.buttonContainer}>
-              <Button
-                soldOut={selected && !selected.node.availableForSale}
-                isSelected={selected !== ''}
-                selected={selected}
-                mobile={false}
-                additionalText={`$${product.node.variants.edges[0].node.priceV2.amount}0`}
-                onClick={() => handleOnAddToCart(selected)}
-                isLoading={isAddingToCart}
-                isSuccess={addToCartSuccess}
-              >
-                {(!selected || selected.node.availableForSale)
-                  ? 'Add to bag'
-                  : isNewProduct && isTimeLeft
-                    ? 'Coming soon'
-                    : 'Sold Out'}
-              </Button>
-            </div>
+            <Button
+              soldOut={selected && !selected.node.availableForSale}
+              isSelected={selected !== ''}
+              selected={selected}
+              mobile={false}
+              additionalText={`$${product.node.variants.edges[0].node.priceV2.amount}0`}
+              onClick={() => handleOnAddToCart(selected)}
+              isLoading={isAddingToCart}
+              isSuccess={addToCartSuccess}
+            >
+              {(!selected || selected.node.availableForSale)
+                ? 'Add to bag'
+                : isNewProduct && isTimeLeft
+                  ? 'Coming soon'
+                  : 'Sold Out'}
+            </Button>
           </div>
           <div className={styles.paymentAndShipping}>
             <div className={styles.shippingInfo}>

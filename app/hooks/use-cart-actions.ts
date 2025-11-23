@@ -44,14 +44,14 @@ export const useCartActions = () => {
       );
 
       if (existingLine?.id) {
-        await linesUpdate([
+        linesUpdate([
           {
             id: existingLine.id,
             quantity: (existingLine.quantity ?? 0) + quantityToAdd,
           },
         ]);
       } else {
-        await linesAdd([
+        linesAdd([
           {
             merchandiseId,
             quantity: quantityToAdd,

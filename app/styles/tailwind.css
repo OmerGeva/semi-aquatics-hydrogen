@@ -4069,11 +4069,19 @@
     margin-top: 0.5rem;
   }
 
-  .recommendedWrapper .sizeFlex {
+  .recommendedWrapper .productTitle {
+    font-size: 0.75rem;
     margin-top: 0.5rem;
+    width: 100%;
+    font-weight: 500;
+
+  }
+
+  .recommendedWrapper .sizeFlex {
+
     display: flex;
     justify-content: space-between;
-    font-weight: 500;
+    width: 100%;
   }
 
   .recommendedWrapper .availableSize {
@@ -4436,10 +4444,10 @@
     color: #727272;
   }
 
-  .showPageMobile .shippingInfo .shippingItem svg {
+  .showPageMobile .shippingInfo .shippingItem img {
     color: #727272;
-    width: 60px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
   }
 
   .showPageMobile .shippingInfo .shippingItem p {
@@ -4507,7 +4515,6 @@
   .imageContainer {
     position: absolute;
     top: 0;
-    left: -50%;
     width: 150%;
     height: 100vh;
     overflow: hidden;

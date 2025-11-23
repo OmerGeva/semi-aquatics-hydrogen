@@ -1,0 +1,1 @@
+import{w as e}from"./chunk-TMI4QPZX-ByyJG4wn.js";import{j as o}from"./jsx-runtime-C2tkE_r8.js";const t={lookbookPageContainer:"lookbookPageContainer",title:"title"},s=()=>o.jsx("div",{className:t.lookbookPageContainer,children:o.jsx("h1",{className:t.title,children:"this is the Lookbook"})}),a=e(function(){return o.jsx(s,{})});export{a as default};

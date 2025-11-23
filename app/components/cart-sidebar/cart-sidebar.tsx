@@ -39,6 +39,7 @@ const styles = {
 const CartSidebar: React.FC = () => {
   const { isCartOpen, closeCart } = useCartDrawer();
   const { lines, checkoutUrl, cost, status, linesUpdate } = useCart();
+  console.log(status);
 
   const items = lines ?? [];
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -54,9 +55,9 @@ const CartSidebar: React.FC = () => {
   }, [items.length]);
 
   const changeItemCount = useCallback(
-    async (lineItemId: string, quantity: number) => {
+    (lineItemId: string, quantity: number) => {
       if (quantity < 0) return;
-      await linesUpdate([{ id: lineItemId, quantity }]);
+      linesUpdate([{ id: lineItemId, quantity }]);
     },
     [linesUpdate],
   );

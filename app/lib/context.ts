@@ -1,6 +1,6 @@
-import {createHydrogenContext} from '@shopify/hydrogen';
-import {AppSession} from '~/lib/session';
-import {CART_QUERY_FRAGMENT} from '~/lib/fragments';
+import { createHydrogenContext, cartGetIdDefault, cartSetIdDefault } from '@shopify/hydrogen';
+import { AppSession } from '~/lib/session';
+import { CART_QUERY_FRAGMENT } from '~/lib/fragments';
 
 // Define the additional context object
 const additionalContext = {
@@ -15,7 +15,7 @@ const additionalContext = {
 type AdditionalContextType = typeof additionalContext;
 
 declare global {
-  interface HydrogenAdditionalContext extends AdditionalContextType {}
+  interface HydrogenAdditionalContext extends AdditionalContextType { }
 }
 
 /**
@@ -48,9 +48,13 @@ export async function createHydrogenRouterContext(
       waitUntil,
       session,
       // Or detect from URL path based on locale subpath, cookies, or any other strategy
-      i18n: {language: 'EN', country: 'US'},
+      i18n: { language: 'EN', country: 'US' },
       cart: {
         queryFragment: CART_QUERY_FRAGMENT,
+        getId: cartGetIdDefault(request.headers),
+        setId: cartSetIdDefault({
+          maxage: 60 * 60 * 24 * 365, // One year expiry
+        }),
       },
     },
     additionalContext,
