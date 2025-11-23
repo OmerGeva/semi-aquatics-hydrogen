@@ -14,7 +14,7 @@ import {
 } from 'react-router';
 import type { Route } from './+types/root';
 import SiteLayout from '~/components/layout/layout.component';
-import favicon from '~/assets/favicon.svg';
+import favicon from '~/assets/favicon-32x32.png';
 import tailwindStyles from '~/styles/tailwind.css?url';
 import { Provider as ReduxProvider } from 'react-redux';
 import { ApolloProvider } from '@apollo/client/react';
