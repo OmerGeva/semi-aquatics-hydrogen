@@ -1,1 +1,0 @@
-import{w as e}from"./chunk-TMI4QPZX-ByyJG4wn.js";import{j as t}from"./jsx-runtime-C2tkE_r8.js";const i=e(function(){return t.jsxs("div",{style:{textAlign:"center",padding:"50px"},children:[t.jsx("h1",{children:"Page Not Found."}),t.jsx("a",{href:"/",style:{textDecoration:"underline"},children:"Go back home"})]})});export{i as default};

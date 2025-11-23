@@ -1,1 +1,0 @@
-import{w as s,B as r}from"./chunk-TMI4QPZX-ByyJG4wn.js";import{j as o}from"./jsx-runtime-C2tkE_r8.js";import{A as a}from"./artists-page.component-C4zO8oYP.js";import"./iconBase-BrRXCXs8.js";import"./product-preview.component-CGnctVRA.js";import"./use-is-mobile-T0pw4rL4.js";const d=s(function(){const t=r();return o.jsx(a,{artists:t.artists})});export{d as default};
