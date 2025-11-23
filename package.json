@@ -14,7 +14,6 @@
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
-    "@africasokoni/react-image-magnifiers": "^1.0.2",
     "@apollo/client": "^4.0.9",
     "@shopify/hydrogen": "2025.7.0",
     "@shopify/hydrogen-react": "^2025.7.0",
