@@ -7,6 +7,8 @@ import { useCallback, useState, useEffect } from 'react';
 import PaymentIcons from '../payment-icons/payment-icons.component';
 import { useDropLock } from '../../hooks/use-drop-lock';
 import { useCartDrawer } from '../../contexts/cart-drawer-context';
+import { useAnalytics } from '@shopify/hydrogen';
+import { SHOPIFY_EVENT } from '../../lib/analytics/shopify';
 
 const styles = {
   backdrop: 'backdrop',
@@ -38,27 +40,51 @@ const styles = {
 
 const CartSidebar: React.FC = () => {
   const { isCartOpen, closeCart } = useCartDrawer();
-  const { lines, checkoutUrl, cost, status, linesUpdate } = useCart();
+  const { lines, checkoutUrl, cost, status, linesUpdate, id: cartId } = useCart();
+  const { publish } = useAnalytics();
 
   const items = lines ?? [];
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const { isDropLocked, loading: dropLockLoading } = useDropLock();
+
+  useEffect(() => {
+    if (isCartOpen) {
+      publish(SHOPIFY_EVENT.CART_VIEW, {
+        cartId
+      });
+    }
+  }, [isCartOpen, cartId, publish]);
 
   const handleCheckout = useCallback((e: React.MouseEvent) => {
     if (items.length === 0) {
       e.preventDefault();
       return;
     }
+    publish(SHOPIFY_EVENT.CHECKOUT_START, {
+      cartId
+    });
     setIsCheckingOut(true);
     // The page will navigate away, so we don't need to reset the state
-  }, [items.length]);
+  }, [items.length, cartId, publish]);
 
   const changeItemCount = useCallback(
     (lineItemId: string, quantity: number) => {
       if (quantity < 0) return;
+
+      if (quantity === 0) {
+        publish(SHOPIFY_EVENT.REMOVE_FROM_CART, {
+          lineId: lineItemId
+        });
+      } else {
+        publish(SHOPIFY_EVENT.CART_UPDATE, {
+          lineId: lineItemId,
+          quantity
+        });
+      }
+
       linesUpdate([{ id: lineItemId, quantity }]);
     },
-    [linesUpdate],
+    [linesUpdate, publish],
   );
 
   useEffect(() => {

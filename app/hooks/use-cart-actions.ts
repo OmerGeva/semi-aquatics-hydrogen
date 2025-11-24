@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import { useCart } from '@shopify/hydrogen-react';
 import { useCartDrawer } from '../contexts/cart-drawer-context';
+import { useAnalytics } from '@shopify/hydrogen';
+import { SHOPIFY_EVENT } from '../lib/analytics/shopify';
 
 type VariantLike =
   | string
@@ -26,9 +28,12 @@ export const useCartActions = () => {
     return counts;
   }, [lines]);
 
+  const { publish } = useAnalytics();
+
   const addToCart = async (
     variant: VariantLike,
     quantityToAdd: number,
+    productGid?: string,
   ): Promise<boolean> => {
     const merchandiseId =
       (typeof variant === 'string' ? variant : variant?.node?.id) ?? '';
@@ -59,6 +64,13 @@ export const useCartActions = () => {
         ]);
       }
 
+      if (productGid) {
+        publish(SHOPIFY_EVENT.ADD_TO_CART, {
+          productGid,
+          variantGid: merchandiseId,
+          quantity: quantityToAdd,
+        });
+      }
 
       return true;
     } catch (error) {

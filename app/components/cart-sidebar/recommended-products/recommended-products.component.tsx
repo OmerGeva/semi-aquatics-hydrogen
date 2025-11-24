@@ -35,11 +35,11 @@ const DEFAULT_TEXT_ALIGN = 'left';
 const DEFAULT_TEXT_SIZE = 'small';
 
 // Subcomponent for displaying sizes
-const ProductSizes: React.FC<{ variants: any[] }> = ({ variants }) => {
+const ProductSizes: React.FC<{ variants: any[], productGid: string }> = ({ variants, productGid }) => {
   const { addToCart } = useCartActions();
 
   const handleSizeClick = (variantData: any) => {
-    void addToCart(variantData, 1);
+    void addToCart(variantData, 1, productGid);
   };
 
   return (
@@ -116,7 +116,7 @@ const RecommendedProducts: React.FC<PropsT & { columns?: number; productContaine
             </div>
             <div className={styles.productTitle}>
               {hoveredProductId === product.id && withAddToCart ? (
-                <ProductSizes variants={product.variants.edges} />
+                <ProductSizes variants={product.variants.edges} productGid={product.id} />
               ) : (
                 <h3>{product.title}</h3>
               )}

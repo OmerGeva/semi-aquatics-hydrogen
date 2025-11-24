@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { Analytics, getShopAnalytics, useNonce } from '@shopify/hydrogen';
+import { Analytics, getShopAnalytics, useNonce, useAnalytics } from '@shopify/hydrogen';
+import { useEffect } from 'react';
 import { CartProvider, ShopifyProvider } from '@shopify/hydrogen-react';
 import {
   Outlet,
@@ -11,9 +12,11 @@ import {
   Scripts,
   ScrollRestoration,
   useRouteLoaderData,
+  useLocation,
 } from 'react-router';
 import type { Route } from './+types/root';
 import SiteLayout from '~/components/layout/layout.component';
+import { SHOPIFY_EVENT } from '~/lib/analytics/shopify';
 import favicon from '~/assets/favicon-32x32.png';
 import tailwindStyles from '~/styles/tailwind.css?url';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -133,6 +136,16 @@ export async function loader(args: Route.LoaderArgs) {
 
 export function Layout({ children }: { children?: React.ReactNode }) {
   const nonce = useNonce();
+  const { publish } = useAnalytics();
+  const location = useLocation();
+
+  useEffect(() => {
+    publish(SHOPIFY_EVENT.PAGE_VIEW, {
+      url: window.location.href,
+      path: location.pathname,
+      title: document.title,
+    });
+  }, [location.pathname, location.search, publish]);
 
   return (
     <html lang="en">
