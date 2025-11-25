@@ -188,7 +188,12 @@ const CartSidebar: React.FC = () => {
         </div>
         {!dropLockLoading && !isDropLocked && (
           <div className={styles.recommendedProductsWrapper}>
-            <RecommendedProducts withAddToCart onClick={closeCart} columns={4} productContainerClassName="!w-full !aspect-[3/4] mx-auto !flex !justify-center !items-center" />
+            <RecommendedProducts
+              withAddToCart
+              onClick={closeCart}
+              columns={4}
+              productContainerClassName="!w-full !aspect-[3/4] mx-auto !flex !justify-center !items-center"
+            />
           </div>
         )}
         <div className={styles.footer}>

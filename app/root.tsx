@@ -20,13 +20,12 @@ import { SHOPIFY_EVENT } from '~/lib/analytics/shopify';
 import favicon from '~/assets/favicon-32x32.png';
 import tailwindStyles from '~/styles/tailwind.css?url';
 import { Provider as ReduxProvider } from 'react-redux';
-import { ApolloProvider } from '@apollo/client/react';
 import { CookiesProvider } from 'react-cookie';
-import apolloClient from '~/apollo-client';
 import { store } from '~/redux/store';
 import { WaveSoundsProvider } from '~/contexts/wave-sounds-context';
 import { CartDrawerProvider } from '~/contexts/cart-drawer-context';
 import { MobileProvider } from '~/contexts/mobile-context';
+import { RecommendedProductsProvider } from '~/contexts/recommended-products-context';
 import { CartAutoOpener } from '~/components/cart/cart-auto-opener';
 
 export type RootLoader = typeof loader;
@@ -114,6 +113,53 @@ export async function loader(args: Route.LoaderArgs) {
   const userAgent = args.request.headers.get('user-agent') || '';
   const isMobileInitial = /mobile|android|phone|iphone/i.test(userAgent);
 
+  // Fetch recommended products server-side to avoid CORS issues
+  let recommendedProducts = [];
+  try {
+    const recommendedData = await storefront.query(`#graphql
+      query GetRecommendedCollection {
+        collectionByHandle(handle: "2025-drop-1") {
+          id
+          title
+          products(first: 5) {
+            edges {
+              node {
+                id
+                handle
+                title
+                availableForSale
+                images(first: 5) {
+                  edges {
+                    node {
+                      altText
+                      transformedSrc
+                    }
+                  }
+                }
+                variants(first: 5) {
+                  edges {
+                    node {
+                      id
+                      title
+                      availableForSale
+                      priceV2 {
+                        amount
+                        currencyCode
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `);
+    recommendedProducts = recommendedData?.collectionByHandle?.products?.edges ?? [];
+  } catch (error) {
+    console.error('Failed to fetch recommended products:', error);
+  }
+
   return {
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
     shop: getShopAnalytics({
@@ -131,6 +177,7 @@ export async function loader(args: Route.LoaderArgs) {
     cart: existingCart?.cart || existingCart,
     isLoggedIn: customerAccount.isLoggedIn(),
     isMobileInitial,
+    recommendedProducts,
   };
 }
 
@@ -224,12 +271,14 @@ export default function App() {
             shop={data.shop}
             consent={data.consent}
           >
-            <LegacyProviders>
-              <CartAutoOpener />
-              <SiteLayout>
-                <Outlet />
-              </SiteLayout>
-            </LegacyProviders>
+            <RecommendedProductsProvider products={data.recommendedProducts || []}>
+              <LegacyProviders>
+                <CartAutoOpener />
+                <SiteLayout>
+                  <Outlet />
+                </SiteLayout>
+              </LegacyProviders>
+            </RecommendedProductsProvider>
           </Analytics.Provider>
         </CartProvider>
       </ShopifyProvider>
@@ -241,11 +290,9 @@ function LegacyProviders({ children }: { children: ReactNode }) {
   return (
     <ReduxProvider store={store}>
       <CartDrawerProvider>
-        <ApolloProvider client={apolloClient}>
-          <CookiesProvider>
-            <WaveSoundsProvider>{children}</WaveSoundsProvider>
-          </CookiesProvider>
-        </ApolloProvider>
+        <CookiesProvider>
+          <WaveSoundsProvider>{children}</WaveSoundsProvider>
+        </CookiesProvider>
       </CartDrawerProvider>
     </ReduxProvider>
   );

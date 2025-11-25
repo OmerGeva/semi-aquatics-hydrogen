@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useRecommendedProducts } from '../../../hooks/use-recommended-products';
 import ProductPreview from '../../product-preview/product-preview.component';
 import { useCartActions } from '../../../hooks/use-cart-actions';
 import { useIsMobile } from '../../../hooks/use-is-mobile';
+import { useRecommendedProducts } from '../../../contexts/recommended-products-context';
 
 const styles = {
   sizeFlex: 'sizeFlex',
@@ -69,11 +69,11 @@ const RecommendedProducts: React.FC<PropsT & { columns?: number; productContaine
   columns = 4,
   productContainerClassName = "!w-full !aspect-[3/4] mx-auto !flex !justify-center !items-center",
 }) => {
-  const { products, loading, error } = useRecommendedProducts();
+  const products = useRecommendedProducts();
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
   const isMobile = useIsMobile();
 
-  if (loading || error || products.length === 0) return null;
+  if (!products || products.length === 0) return null;
 
   const gridColsClass = {
     1: 'grid-cols-1',

@@ -288,6 +288,44 @@ export type FooterQuery = {
   >;
 };
 
+export type GetRecommendedCollectionQueryVariables = StorefrontAPI.Exact<{
+  [key: string]: never;
+}>;
+
+export type GetRecommendedCollectionQuery = {
+  collectionByHandle?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Collection, 'id' | 'title'> & {
+      products: {
+        edges: Array<{
+          node: Pick<
+            StorefrontAPI.Product,
+            'id' | 'handle' | 'title' | 'availableForSale'
+          > & {
+            images: {
+              edges: Array<{
+                node: Pick<StorefrontAPI.Image, 'altText' | 'transformedSrc'>;
+              }>;
+            };
+            variants: {
+              edges: Array<{
+                node: Pick<
+                  StorefrontAPI.ProductVariant,
+                  'id' | 'title' | 'availableForSale'
+                > & {
+                  priceV2: Pick<
+                    StorefrontAPI.MoneyV2,
+                    'amount' | 'currencyCode'
+                  >;
+                };
+              }>;
+            };
+          };
+        }>;
+      };
+    }
+  >;
+};
+
 export type ProductFragment = Pick<StorefrontAPI.Product, 'id' | 'title'> & {
   images: {
     edges: Array<{
@@ -378,44 +416,6 @@ export type GetProductByHandleQuery = {
   >;
 };
 
-export type GetCollectionByHandleQueryVariables = StorefrontAPI.Exact<{
-  handle: StorefrontAPI.Scalars['String']['input'];
-}>;
-
-export type GetCollectionByHandleQuery = {
-  collectionByHandle?: StorefrontAPI.Maybe<
-    Pick<StorefrontAPI.Collection, 'id' | 'title'> & {
-      products: {
-        edges: Array<{
-          node: Pick<
-            StorefrontAPI.Product,
-            'id' | 'handle' | 'title' | 'availableForSale'
-          > & {
-            images: {
-              edges: Array<{
-                node: Pick<StorefrontAPI.Image, 'altText' | 'transformedSrc'>;
-              }>;
-            };
-            variants: {
-              edges: Array<{
-                node: Pick<
-                  StorefrontAPI.ProductVariant,
-                  'id' | 'title' | 'availableForSale'
-                > & {
-                  priceV2: Pick<
-                    StorefrontAPI.MoneyV2,
-                    'amount' | 'currencyCode'
-                  >;
-                };
-              }>;
-            };
-          };
-        }>;
-      };
-    }
-  >;
-};
-
 interface GeneratedQueryTypes {
   '#graphql\n  fragment Shop on Shop {\n    id\n    name\n    description\n    primaryDomain {\n      url\n    }\n    brand {\n      logo {\n        image {\n          url\n        }\n      }\n    }\n  }\n  query Header(\n    $country: CountryCode\n    $headerMenuHandle: String!\n    $language: LanguageCode\n  ) @inContext(language: $language, country: $country) {\n    shop {\n      ...Shop\n    }\n    menu(handle: $headerMenuHandle) {\n      ...Menu\n    }\n  }\n  #graphql\n  fragment MenuItem on MenuItem {\n    id\n    resourceId\n    tags\n    title\n    type\n    url\n  }\n  fragment ChildMenuItem on MenuItem {\n    ...MenuItem\n  }\n  fragment ParentMenuItem on MenuItem {\n    ...MenuItem\n    items {\n      ...ChildMenuItem\n    }\n  }\n  fragment Menu on Menu {\n    id\n    items {\n      ...ParentMenuItem\n    }\n  }\n\n': {
     return: HeaderQuery;
@@ -425,6 +425,10 @@ interface GeneratedQueryTypes {
     return: FooterQuery;
     variables: FooterQueryVariables;
   };
+  '#graphql\n      query GetRecommendedCollection {\n        collectionByHandle(handle: "2025-drop-1") {\n          id\n          title\n          products(first: 5) {\n            edges {\n              node {\n                id\n                handle\n                title\n                availableForSale\n                images(first: 5) {\n                  edges {\n                    node {\n                      altText\n                      transformedSrc\n                    }\n                  }\n                }\n                variants(first: 5) {\n                  edges {\n                    node {\n                      id\n                      title\n                      availableForSale\n                      priceV2 {\n                        amount\n                        currencyCode\n                      }\n                    }\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    ': {
+    return: GetRecommendedCollectionQuery;
+    variables: GetRecommendedCollectionQueryVariables;
+  };
   '#graphql\nquery GetProduct($productId: ID!) {\n  node(id: $productId) {\n    ...on Product {\n      title\n      id\n      handle\n      description\n      productType\n      descriptionHtml\n      availableForSale\n      images(first: 10) {\n        edges {\n          node {\n            altText\n            transformedSrc\n          }\n        }\n      }\n      options {\n        id\n        name\n        values\n      }\n      variants(first: 10) {\n        edges {\n          node {\n            id\n            title\n            availableForSale\n            priceV2 {\n              amount\n            }\n            selectedOptions {\n              name\n              value\n            }\n          }\n        }\n      }\n    }\n  }\n}\n': {
     return: GetProductQuery;
     variables: GetProductQueryVariables;
@@ -432,10 +436,6 @@ interface GeneratedQueryTypes {
   '#graphql\nquery GetProductByHandle($handle: String!) {\n  productByHandle(handle: $handle) {\n    title\n    id\n    handle\n    description\n    productType\n    descriptionHtml\n    availableForSale\n    images(first: 10) {\n      edges {\n        node {\n          altText\n          transformedSrc\n        }\n      }\n    }\n    options {\n      id\n      name\n      values\n    }\n    variants(first: 10) {\n      edges {\n        node {\n          id\n          title\n          availableForSale\n          priceV2 {\n            amount\n          }\n          selectedOptions {\n            name\n            value\n          }\n        }\n      }\n    }\n  }\n}\n': {
     return: GetProductByHandleQuery;
     variables: GetProductByHandleQueryVariables;
-  };
-  '\n  query GetCollectionByHandle($handle: String!) {\n    collectionByHandle(handle: $handle) {\n      id\n      title\n      products(first: 5) {\n        edges {\n          node {\n            id\n            handle\n            title\n            availableForSale\n            images(first: 5) {\n              edges {\n                node {\n                  altText\n                  transformedSrc\n                }\n              }\n            }\n            variants(first: 5) {\n              edges {\n                node {\n                  id\n                  title\n                  availableForSale\n                  priceV2 {\n                    amount\n                    currencyCode\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
-    return: GetCollectionByHandleQuery;
-    variables: GetCollectionByHandleQueryVariables;
   };
 }
 

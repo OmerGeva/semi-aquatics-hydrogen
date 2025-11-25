@@ -126,7 +126,11 @@ const ShowPageDesktop: React.FC<ShowPageChildProps> = ({
         </div>
       </div>
       <div className={styles.recommendedProductsWrapper}>
-        <RecommendedProducts textAlign='center' textSize='large' productContainerClassName="!w-full !aspect-[3/4] mx-auto !flex !justify-center !items-center" />
+        <RecommendedProducts
+          textAlign='center'
+          textSize='large'
+          productContainerClassName="!w-full !aspect-[3/4] mx-auto !flex !justify-center !items-center"
+        />
       </div>
 
       <div className={styles.disclaimer}>

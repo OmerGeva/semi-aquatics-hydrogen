@@ -1,5 +1,3 @@
-import { gql } from 'graphql-tag';
-
 // ============================================
 // Hydrogen Queries (string format)
 // ============================================
@@ -171,47 +169,3 @@ query GetProductByHandle($handle: String!) {
   }
 }
 ` as const;
-
-// ============================================
-// Apollo Client Queries (DocumentNode format)
-// ============================================
-
-export const GET_DROP_BY_HANDLE = gql`
-  query GetCollectionByHandle($handle: String!) {
-    collectionByHandle(handle: $handle) {
-      id
-      title
-      products(first: 5) {
-        edges {
-          node {
-            id
-            handle
-            title
-            availableForSale
-            images(first: 5) {
-              edges {
-                node {
-                  altText
-                  transformedSrc
-                }
-              }
-            }
-            variants(first: 5) {
-              edges {
-                node {
-                  id
-                  title
-                  availableForSale
-                  priceV2 {
-                    amount
-                    currencyCode
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
