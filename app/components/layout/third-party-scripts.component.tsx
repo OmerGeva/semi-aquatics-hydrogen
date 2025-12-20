@@ -12,6 +12,11 @@ const ThirdPartyScripts = () => {
   }, [consent])
 
   useEffect(() => {
+    console.log('consent', consent)
+    console.log('allowAnalytics', allowAnalytics);
+    console.log('allowMarketing', allowMarketing);
+    console.log((window as any).Shopify?.customerPrivacy);
+
     if (typeof window === 'undefined') return;
     if (!consent?.analytics) return;
 
