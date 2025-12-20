@@ -349,6 +349,7 @@ export type GetProductQuery = {
       | 'productType'
       | 'descriptionHtml'
       | 'availableForSale'
+      | 'tags'
     > & {
       images: {
         edges: Array<{
@@ -390,6 +391,7 @@ export type GetProductByHandleQuery = {
       | 'productType'
       | 'descriptionHtml'
       | 'availableForSale'
+      | 'tags'
     > & {
       images: {
         edges: Array<{
@@ -429,11 +431,11 @@ interface GeneratedQueryTypes {
     return: GetRecommendedCollectionQuery;
     variables: GetRecommendedCollectionQueryVariables;
   };
-  '#graphql\nquery GetProduct($productId: ID!) {\n  node(id: $productId) {\n    ...on Product {\n      title\n      id\n      handle\n      description\n      productType\n      descriptionHtml\n      availableForSale\n      images(first: 10) {\n        edges {\n          node {\n            altText\n            transformedSrc\n          }\n        }\n      }\n      options {\n        id\n        name\n        values\n      }\n      variants(first: 10) {\n        edges {\n          node {\n            id\n            title\n            availableForSale\n            priceV2 {\n              amount\n            }\n            selectedOptions {\n              name\n              value\n            }\n          }\n        }\n      }\n    }\n  }\n}\n': {
+  '#graphql\nquery GetProduct($productId: ID!) {\n  node(id: $productId) {\n    ...on Product {\n      title\n      id\n      handle\n      description\n      productType\n      descriptionHtml\n      availableForSale\n      tags\n      images(first: 10) {\n        edges {\n          node {\n            altText\n            transformedSrc\n          }\n        }\n      }\n      options {\n        id\n        name\n        values\n      }\n      variants(first: 10) {\n        edges {\n          node {\n            id\n            title\n            availableForSale\n            priceV2 {\n              amount\n            }\n            selectedOptions {\n              name\n              value\n            }\n          }\n        }\n      }\n    }\n  }\n}\n': {
     return: GetProductQuery;
     variables: GetProductQueryVariables;
   };
-  '#graphql\nquery GetProductByHandle($handle: String!) {\n  productByHandle(handle: $handle) {\n    title\n    id\n    handle\n    description\n    productType\n    descriptionHtml\n    availableForSale\n    images(first: 10) {\n      edges {\n        node {\n          altText\n          transformedSrc\n        }\n      }\n    }\n    options {\n      id\n      name\n      values\n    }\n    variants(first: 10) {\n      edges {\n        node {\n          id\n          title\n          availableForSale\n          priceV2 {\n            amount\n          }\n          selectedOptions {\n            name\n            value\n          }\n        }\n      }\n    }\n  }\n}\n': {
+  '#graphql\nquery GetProductByHandle($handle: String!) {\n  productByHandle(handle: $handle) {\n    title\n    id\n    handle\n    description\n    productType\n    descriptionHtml\n    availableForSale\n    tags\n    images(first: 10) {\n      edges {\n        node {\n          altText\n          transformedSrc\n        }\n      }\n    }\n    options {\n      id\n      name\n      values\n    }\n    variants(first: 10) {\n      edges {\n        node {\n          id\n          title\n          availableForSale\n          priceV2 {\n            amount\n          }\n          selectedOptions {\n            name\n            value\n          }\n        }\n      }\n    }\n  }\n}\n': {
     return: GetProductByHandleQuery;
     variables: GetProductByHandleQueryVariables;
   };

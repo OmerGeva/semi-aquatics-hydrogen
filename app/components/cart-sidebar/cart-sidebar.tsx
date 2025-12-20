@@ -41,50 +41,56 @@ const styles = {
 const CartSidebar: React.FC = () => {
   const { isCartOpen, closeCart } = useCartDrawer();
   const { lines, checkoutUrl, cost, status, linesUpdate, id: cartId } = useCart();
-  const { publish } = useAnalytics();
+  const { publish, ready } = useAnalytics() as any;
 
   const items = lines ?? [];
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const { isDropLocked, loading: dropLockLoading } = useDropLock();
 
   useEffect(() => {
-    if (isCartOpen) {
+    if (isCartOpen && ready) {
       publish(SHOPIFY_EVENT.CART_VIEW, {
         cartId
       });
     }
-  }, [isCartOpen, cartId, publish]);
+  }, [isCartOpen, cartId, publish, ready]);
 
   const handleCheckout = useCallback((e: React.MouseEvent) => {
     if (items.length === 0) {
       e.preventDefault();
       return;
     }
-    publish(SHOPIFY_EVENT.CHECKOUT_START, {
-      cartId
-    });
+    if (ready) {
+      publish(SHOPIFY_EVENT.CHECKOUT_START, {
+        cartId
+      });
+    }
     setIsCheckingOut(true);
     // The page will navigate away, so we don't need to reset the state
-  }, [items.length, cartId, publish]);
+  }, [items.length, cartId, publish, ready]);
 
   const changeItemCount = useCallback(
     (lineItemId: string, quantity: number) => {
       if (quantity < 0) return;
 
       if (quantity === 0) {
-        publish(SHOPIFY_EVENT.REMOVE_FROM_CART, {
-          lineId: lineItemId
-        });
+        if (ready) {
+          publish(SHOPIFY_EVENT.REMOVE_FROM_CART, {
+            lineId: lineItemId
+          });
+        }
       } else {
-        publish(SHOPIFY_EVENT.CART_UPDATE, {
-          lineId: lineItemId,
-          quantity
-        });
+        if (ready) {
+          publish(SHOPIFY_EVENT.CART_UPDATE, {
+            lineId: lineItemId,
+            quantity
+          });
+        }
       }
 
       linesUpdate([{ id: lineItemId, quantity }]);
     },
-    [linesUpdate, publish],
+    [linesUpdate, publish, ready],
   );
 
   useEffect(() => {
@@ -125,64 +131,68 @@ const CartSidebar: React.FC = () => {
             <p>Your bag is empty</p>
           ) : (
             <div className={styles.lineItems}>
-              {items.map((line: any) => (
-                <div className={styles.lineItem} key={line.id}>
-                  <div className={styles.imageContainer}>
-                    <img
-                      src={
-                        line.merchandise?.image?.url ||
-                        line.merchandise?.product?.images?.edges?.[0]?.node
-                          ?.transformedSrc ||
-                        ''
-                      }
-                      alt={line.merchandise?.product?.title || 'Cart item'}
-                    />
-                  </div>
-                  <div className={styles.itemInfo}>
-                    <div className={styles.flexBoxPriceSize}>
-                      <p>{line.merchandise?.product?.title}</p>
-                      <div className={styles.flex_grower}></div>
-                      <p>
-                        $
-                        {Number(
-                          line.cost?.totalAmount?.amount ??
-                          line.cost?.subtotalAmount?.amount ??
-                          0,
-                        ).toFixed(2)}
-                      </p>
+              {items.map((line: any) => {
+                const isArchiveProduct = line.merchandise?.product?.tags?.includes('shop-archive') || false;
+                const imageIndex = isArchiveProduct ? 0 : 2;
+                const imageUrl = line.merchandise?.image?.url ||
+                  line.merchandise?.product?.images?.edges?.[imageIndex]?.node?.transformedSrc ||
+                  '';
+
+                return (
+                  <div className={styles.lineItem} key={line.id}>
+                    <div className={`${styles.imageContainer} ${isArchiveProduct ? 'archiveProduct' : ''}`}>
+                      <img
+                        src={imageUrl}
+                        alt={line.merchandise?.product?.title || 'Cart item'}
+                        style={isArchiveProduct ? { objectFit: 'contain' } : {}}
+                      />
                     </div>
-                    <p className={styles.sizeText}>
-                      {line.merchandise?.title}
-                    </p>
-                    <div className={styles.sizeAdjustments}>
-                      <div className={styles.sizeAdjuster}>
-                        <div
-                          className={styles.sizeAdjusterBtn}
-                          onClick={() => {
-                            void changeItemCount(
-                              line.id,
-                              Math.max(line.quantity - 1, 0),
-                            );
-                          }}
-                        >
-                          <FiMinus />
-                        </div>
-                        <div className={styles.sizeAdjusterCount}>
-                          {line.quantity}
-                        </div>
-                        <div
-                          className={styles.sizeAdjusterBtn}
-                          onClick={() => {
-                            void changeItemCount(line.id, line.quantity + 1);
-                          }}
-                        >
-                          <FiPlus />
+                    <div className={styles.itemInfo}>
+                      <div className={styles.flexBoxPriceSize}>
+                        <p>{line.merchandise?.product?.title}</p>
+                        <div className={styles.flex_grower}></div>
+                        <p>
+                          $
+                          {Number(
+                            line.cost?.totalAmount?.amount ??
+                            line.cost?.subtotalAmount?.amount ??
+                            0,
+                          ).toFixed(2)}
+                        </p>
+                      </div>
+                      <p className={styles.sizeText}>
+                        {line.merchandise?.title}
+                      </p>
+                      <div className={styles.sizeAdjustments}>
+                        <div className={styles.sizeAdjuster}>
+                          <div
+                            className={styles.sizeAdjusterBtn}
+                            onClick={() => {
+                              void changeItemCount(
+                                line.id,
+                                Math.max(line.quantity - 1, 0),
+                              );
+                            }}
+                          >
+                            <FiMinus />
+                          </div>
+                          <div className={styles.sizeAdjusterCount}>
+                            {line.quantity}
+                          </div>
+                          <div
+                            className={styles.sizeAdjusterBtn}
+                            onClick={() => {
+                              void changeItemCount(line.id, line.quantity + 1);
+                            }}
+                          >
+                            <FiPlus />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

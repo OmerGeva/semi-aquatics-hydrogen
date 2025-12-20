@@ -28,7 +28,7 @@ export const useCartActions = () => {
     return counts;
   }, [lines]);
 
-  const { publish } = useAnalytics();
+  const { publish, ready } = useAnalytics() as any;
 
   const addToCart = async (
     variant: VariantLike,
@@ -64,7 +64,7 @@ export const useCartActions = () => {
         ]);
       }
 
-      if (productGid) {
+      if (productGid && ready) {
         publish(SHOPIFY_EVENT.ADD_TO_CART, {
           productGid,
           variantGid: merchandiseId,

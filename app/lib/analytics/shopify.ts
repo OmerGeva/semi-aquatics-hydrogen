@@ -16,14 +16,14 @@ const canPublish = (): boolean => {
 };
 
 export const SHOPIFY_EVENT = {
-  PAGE_VIEW: 'PAGE_VIEW' as any,
-  PRODUCT_VIEW: 'PRODUCT_VIEW' as any,
-  SEARCH_SUBMIT: 'SEARCH_SUBMIT' as any,
-  ADD_TO_CART: 'ADD_TO_CART' as any,
-  REMOVE_FROM_CART: 'REMOVE_FROM_CART' as any,
-  CART_UPDATE: 'CART_UPDATE' as any,
-  CART_VIEW: 'CART_VIEW' as any,
-  CHECKOUT_START: 'CHECKOUT_START' as any,
+  PAGE_VIEW: 'page_view' as any,
+  PRODUCT_VIEW: 'product_view' as any,
+  SEARCH_SUBMIT: 'search_submit' as any,
+  ADD_TO_CART: 'add_to_cart' as any,
+  REMOVE_FROM_CART: 'remove_from_cart' as any,
+  CART_UPDATE: 'cart_update' as any,
+  CART_VIEW: 'cart_view' as any,
+  CHECKOUT_START: 'checkout_start' as any,
 } as const;
 
 export function publishShopifyEvent(event: string, payload?: Record<string, any>): void {

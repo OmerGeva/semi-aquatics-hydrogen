@@ -183,16 +183,6 @@ export async function loader(args: Route.LoaderArgs) {
 
 export function Layout({ children }: { children?: React.ReactNode }) {
   const nonce = useNonce();
-  const { publish } = useAnalytics();
-  const location = useLocation();
-
-  useEffect(() => {
-    publish(SHOPIFY_EVENT.PAGE_VIEW, {
-      url: window.location.href,
-      path: location.pathname,
-      title: document.title,
-    });
-  }, [location.pathname, location.search, publish]);
 
   return (
     <html lang="en">
@@ -271,6 +261,7 @@ export default function App() {
             shop={data.shop}
             consent={data.consent}
           >
+            <PageViewTracker />
             <RecommendedProductsProvider products={data.recommendedProducts || []}>
               <LegacyProviders>
                 <CartAutoOpener />
@@ -284,6 +275,23 @@ export default function App() {
       </ShopifyProvider>
     </MobileProvider>
   );
+}
+
+function PageViewTracker() {
+  const { publish, ready } = useAnalytics() as any;
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!ready) return;
+
+    publish(SHOPIFY_EVENT.PAGE_VIEW, {
+      url: window.location.href,
+      path: location.pathname + location.search,
+      title: document.title,
+    });
+  }, [ready, location.pathname, location.search, publish]);
+
+  return null;
 }
 
 function LegacyProviders({ children }: { children: ReactNode }) {

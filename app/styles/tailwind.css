@@ -130,6 +130,10 @@
     border-top: 1px solid #e0e0e0;
     margin: 0;
   }
+
+  .archiveProduct img {
+    object-fit: contain !important;
+  }
 }
 
 @layer components {
@@ -2647,8 +2651,9 @@
   .emailFormContainer .emailForm .submitButton {
     cursor: pointer;
     width: 20%;
-    color: black;
-    border: 2px solid black;
+    /* color: black;
+    border: 2px solid black; */
+    color: white;
     border-left: none;
     display: flex;
     align-items: center;
@@ -3117,10 +3122,6 @@
     opacity: 0.4;
   }
 
-  .sidebarContainer path {
-    stroke: black;
-  }
-
   .sidebarContainer {
     width: 35vw;
     height: 100vh;
@@ -3150,6 +3151,7 @@
     right: 20px;
     z-index: 1000;
   }
+
 
   .sidebarContainer .sidebarWrapper {
     padding-left: 35px;
@@ -3220,6 +3222,7 @@
 
   .sidebarContainer p {
     cursor: pointer;
+    margin: 1rem 0;
   }
 
   .sidebarContainer .flexGrow {

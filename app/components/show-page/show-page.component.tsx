@@ -25,9 +25,13 @@ import { useAnalytics } from '@shopify/hydrogen';
 import { useEffect } from 'react';
 import { SHOPIFY_EVENT } from '../../lib/analytics/shopify';
 
-const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
+interface ShowPagePropsWithArchive extends ShowPageProps {
+  isArchiveProduct?: boolean;
+}
+
+const ShowPage: React.FC<ShowPagePropsWithArchive> = ({ product, isArchiveProduct = false }) => {
   const { addToCart, isLoading } = useCartActions();
-  const { publish } = useAnalytics();
+  const { publish, ready } = useAnalytics() as any;
 
   const [numberToAdd, setNumberToAdd] = useState(1);
   const [selectedDesktop, setSelectedDesktop] = useState(null);
@@ -43,12 +47,14 @@ const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
   const passwordGuessed = useSelector((state: any) => state.user.passwordGuessed);
 
   useEffect(() => {
-    const variant = selected || firstSelectedVariant(product);
-    publish(SHOPIFY_EVENT.PRODUCT_VIEW, {
-      productGid: product.node.id,
-      variantGid: variant?.id || '',
-    });
-  }, [product.node.id, selected, publish]);
+    if (ready) {
+      const variant = selected || firstSelectedVariant(product);
+      publish(SHOPIFY_EVENT.PRODUCT_VIEW, {
+        productGid: product.node.id,
+        variantGid: variant?.id || '',
+      });
+    }
+  }, [product.node.id, selected, publish, ready]);
 
   // Wrap addToCart with Meta Pixel tracking
   const addToCartTracked = useMemo(
@@ -118,7 +124,8 @@ const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
             numberToAdd={numberToAdd}
             isNewProduct={isNewProduct}
             isAddingToCart={isAddingToCart || isLoading}
-            addToCartSuccess={addToCartSuccess} />
+            addToCartSuccess={addToCartSuccess}
+            isArchiveProduct={isArchiveProduct} />
           :
           <ShowPageDesktop
             product={product}
@@ -131,7 +138,8 @@ const ShowPage: React.FC<ShowPageProps> = ({ product }) => {
             slideNumber={slideNumber}
             setSlideNumber={setSlideNumber}
             numberToAdd={numberToAdd}
-            isNewProduct={isNewProduct} />
+            isNewProduct={isNewProduct}
+            isArchiveProduct={isArchiveProduct} />
       }
 
       <ToastContainer
