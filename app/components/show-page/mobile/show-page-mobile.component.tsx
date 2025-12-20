@@ -47,7 +47,11 @@ const styles = {
   flexGrow1: 'flexGrow1',
 } as const;
 
-const ShowPageMobile: React.FC<ShowPageChildProps> = ({
+interface ShowPageMobileProps extends ShowPageChildProps {
+  isArchiveProduct?: boolean;
+}
+
+const ShowPageMobile: React.FC<ShowPageMobileProps> = ({
   product,
   selected,
   setSelected,
@@ -56,7 +60,8 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
   isNewProduct,
   setSlideNumber,
   isAddingToCart = false,
-  addToCartSuccess = false
+  addToCartSuccess = false,
+  isArchiveProduct = false,
 }) => {
   const [activeTab, setActiveTab] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -64,6 +69,8 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
   const lastSlideIndexRef = useRef(slideNumber);
 
   const isTimeLeft = useIsTimeLeft();
+  const startImageIndex = isArchiveProduct ? 0 : 1;
+  const hasAvailableVariants = product.node.variants.edges.some((variant: any) => variant.node.availableForSale);
 
   // More robust slide handler to prevent rapid state updates
   const handleSlideChange = useCallback((index: number) => {
@@ -90,7 +97,7 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
     }, 100); // Increased debounce time
   }, [setSlideNumber]);
 
-  const slides = product.node.images.edges.slice(1).map((image: any, index: number) =>
+  const slides = product.node.images.edges.slice(startImageIndex).map((image: any, index: number) =>
   (<div key={`slide-${index}-${image.node.transformedSrc}`} style={{ textAlign: 'center', height: '100%' }}>
     <img src={image.node.transformedSrc} alt={image.node.altText} />
   </div>
@@ -130,7 +137,7 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
 
           <div className={styles.dotsContainer}>
             {
-              product.node.images.edges.slice(1).map((_: any, index: number) => (
+              product.node.images.edges.slice(startImageIndex).map((_: any, index: number) => (
                 <div className={`${styles.dot} ${index == slideNumber ? styles.colored : ''}`} key={`dot-${index}`}>
                   <BsCircleFill />
                 </div>
@@ -156,7 +163,7 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
             </div>
             <div className={styles.addToCart}>
               <Button
-                soldOut={!selected.node.availableForSale}
+                soldOut={!hasAvailableVariants || !selected.node.availableForSale}
                 isSelected={selected !== ''}
                 selected={selected}
                 mobile={true}
@@ -164,13 +171,16 @@ const ShowPageMobile: React.FC<ShowPageChildProps> = ({
                 isSuccess={addToCartSuccess}
                 onClick={() => handleOnAddToCart(selected)}>
                 {
-                  selected.node.availableForSale ?
-                    "Add to bag"
+                  !hasAvailableVariants ?
+                    "Sold Out"
                     :
-                    isNewProduct && isTimeLeft ?
-                      "Coming soon"
+                    selected.node.availableForSale ?
+                      "Add to bag"
                       :
-                      "Sold Out"
+                      isNewProduct && isTimeLeft ?
+                        "Coming soon"
+                        :
+                        "Sold Out"
                 }
               </Button>
             </div>

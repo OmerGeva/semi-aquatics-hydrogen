@@ -68,11 +68,11 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
         <div className={`${!disableDefaultImageContainer ? styles.imageContainer : ''} ${secondaryImage ? styles.hasSecondary : ''} ${containerClassName}`}>
           {secondaryImage ? (
             <>
-              <img className={`${styles.primaryImage} ${imageClassName}`} src={image} alt={title} />
+              <img className={`${styles.primaryImage} ${imageClassName}`} src={image} alt={title} style={isArchive ? { objectFit: 'contain', objectPosition: 'center' } : {}} />
               <img className={`${styles.secondaryImage} ${imageClassName}`} src={secondaryImage} alt={`${title} alternate view`} />
             </>
           ) : (
-            <img src={image} className={`${isArtistPage ? styles.isArtistPage : ''} ${imageClassName}`} alt={title} />
+            <img src={image} className={`${isArtistPage ? styles.isArtistPage : ''} ${imageClassName}`} style={isArchive ? { objectFit: 'contain', objectPosition: 'center' } : {}} alt={title} />
           )}
         </div>
         {title &&

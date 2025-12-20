@@ -1,5 +1,3 @@
-import { gql } from 'graphql-tag';
-
 // ============================================
 // Hydrogen Queries (string format)
 // ============================================
@@ -17,6 +15,46 @@ query {
           title
           productType
           availableForSale
+          tags
+          images(first: 5) {
+            edges {
+              node {
+                altText
+                transformedSrc
+              }
+            }
+          }
+          variants(first: 5) {
+            edges {
+              node {
+                priceV2 {
+                  amount
+                  currencyCode
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+` as const;
+
+export const GET_ARCHIVE_SALE_QUERY = `#graphql
+query {
+  collection(id: "gid://shopify/Collection/268665258059") {
+    title
+    id
+    products(first: 30) {
+      edges {
+        node {
+          id
+          handle
+          title
+          productType
+          availableForSale
+          tags
           images(first: 5) {
             edges {
               node {
@@ -57,6 +95,7 @@ query {
               title
               productType
               availableForSale
+              tags
               images(first: 5) {
                 edges {
                   node {
@@ -95,6 +134,7 @@ query GetProduct($productId: ID!) {
       productType
       descriptionHtml
       availableForSale
+      tags
       images(first: 10) {
         edges {
           node {
@@ -139,6 +179,7 @@ query GetProductByHandle($handle: String!) {
     productType
     descriptionHtml
     availableForSale
+    tags
     images(first: 10) {
       edges {
         node {
@@ -171,47 +212,3 @@ query GetProductByHandle($handle: String!) {
   }
 }
 ` as const;
-
-// ============================================
-// Apollo Client Queries (DocumentNode format)
-// ============================================
-
-export const GET_DROP_BY_HANDLE = gql`
-  query GetCollectionByHandle($handle: String!) {
-    collectionByHandle(handle: $handle) {
-      id
-      title
-      products(first: 5) {
-        edges {
-          node {
-            id
-            handle
-            title
-            availableForSale
-            images(first: 5) {
-              edges {
-                node {
-                  altText
-                  transformedSrc
-                }
-              }
-            }
-            variants(first: 5) {
-              edges {
-                node {
-                  id
-                  title
-                  availableForSale
-                  priceV2 {
-                    amount
-                    currencyCode
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;

@@ -18,7 +18,7 @@ const StoryPage: React.FC = () => (
       <div className={styles.imageColumn}>
         <div className={styles.imageWrapper}>
           <video
-            src="/GODPLEASEWORKGOD.MOV"
+            src="https://cdn.shopify.com/videos/c/o/v/bee3bd7a3cda4771937553f697198dbc.mov"
             muted
             autoPlay
             loop

@@ -10,7 +10,7 @@ export type Consent = {
   country?: string;
 }
 
-const STORAGE_KEY = 'consent:v1'
+const STORAGE_KEY = 'consent:v2'
 
 function readCookie(name: string): string | undefined {
   if (typeof document === 'undefined') return undefined
@@ -51,12 +51,12 @@ export function useGeoAndConsent() {
       if (typeof window !== 'undefined' && (window as any).gtag) {
         const analyticsStorage = stored.analytics ? 'granted' : 'denied'
         const adValue = stored.marketing ? 'granted' : 'denied'
-        ;(window as any).gtag('consent', 'update', {
-          analytics_storage: analyticsStorage,
-          ad_storage: adValue,
-          ad_user_data: adValue,
-          ad_personalization: adValue,
-        })
+          ; (window as any).gtag('consent', 'update', {
+            analytics_storage: analyticsStorage,
+            ad_storage: adValue,
+            ad_user_data: adValue,
+            ad_personalization: adValue,
+          })
       }
     } else if (isNoticeRegion) {
       // For NOTICE regions (like US), auto-consent to analytics and marketing
@@ -81,7 +81,7 @@ export function useGeoAndConsent() {
       }
       // Update Consent Mode
       if (typeof window !== 'undefined' && (window as any).gtag) {
-        ;(window as any).gtag('consent', 'update', {
+        ; (window as any).gtag('consent', 'update', {
           analytics_storage: 'granted',
           ad_storage: 'granted',
           ad_user_data: 'granted',
@@ -120,12 +120,12 @@ export function useGeoAndConsent() {
       if (typeof window !== 'undefined' && (window as any).gtag) {
         const analyticsStorage = record.analytics ? 'granted' : 'denied'
         const adValue = record.marketing ? 'granted' : 'denied'
-        ;(window as any).gtag('consent', 'update', {
-          analytics_storage: analyticsStorage,
-          ad_storage: adValue,
-          ad_user_data: adValue,
-          ad_personalization: adValue,
-        })
+          ; (window as any).gtag('consent', 'update', {
+            analytics_storage: analyticsStorage,
+            ad_storage: adValue,
+            ad_user_data: adValue,
+            ad_personalization: adValue,
+          })
       }
     } catch (error) {
       if (import.meta.env.DEV) {

@@ -1,14 +1,14 @@
-import {useLoaderData} from 'react-router';
-import type {Route} from './+types/shop.$productId';
+import { useLoaderData } from 'react-router';
+import type { Route } from './+types/shop.$productId';
 import ShowPage from '~/components/show-page/show-page.component';
-import {GET_PRODUCT_BY_PRODUCT_ID} from '~/services/queries/queries';
+import { GET_PRODUCT_BY_PRODUCT_ID } from '~/services/queries/queries';
 
-export async function loader({context, params}: Route.LoaderArgs) {
-  const {storefront} = context;
-  const {productId} = params;
+export async function loader({ context, params }: Route.LoaderArgs) {
+  const { storefront } = context;
+  const { productId } = params;
 
   if (!productId) {
-    throw new Response('Not Found', {status: 404});
+    throw new Response('Not Found', { status: 404 });
   }
 
   const data = await storefront.query(GET_PRODUCT_BY_PRODUCT_ID, {
@@ -18,13 +18,18 @@ export async function loader({context, params}: Route.LoaderArgs) {
   });
 
   if (!data?.node) {
-    throw new Response('Not Found', {status: 404});
+    throw new Response('Not Found', { status: 404 });
   }
 
-  return {product: data};
+  const isArchiveProduct = data.node.tags?.includes('shop-archive') || false;
+
+  return {
+    product: data,
+    isArchiveProduct,
+  };
 }
 
 export default function ShopProductRoute() {
   const data = useLoaderData<typeof loader>();
-  return <ShowPage product={data.product} />;
+  return <ShowPage product={data.product} isArchiveProduct={data.isArchiveProduct} />;
 }

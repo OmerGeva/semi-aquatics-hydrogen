@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useRecommendedProducts } from '../../../hooks/use-recommended-products';
 import ProductPreview from '../../product-preview/product-preview.component';
 import { useCartActions } from '../../../hooks/use-cart-actions';
 import { useIsMobile } from '../../../hooks/use-is-mobile';
+import { useRecommendedProducts } from '../../../contexts/recommended-products-context';
 
 const styles = {
   sizeFlex: 'sizeFlex',
@@ -35,11 +35,11 @@ const DEFAULT_TEXT_ALIGN = 'left';
 const DEFAULT_TEXT_SIZE = 'small';
 
 // Subcomponent for displaying sizes
-const ProductSizes: React.FC<{ variants: any[] }> = ({ variants }) => {
+const ProductSizes: React.FC<{ variants: any[], productGid: string }> = ({ variants, productGid }) => {
   const { addToCart } = useCartActions();
 
   const handleSizeClick = (variantData: any) => {
-    void addToCart(variantData, 1);
+    void addToCart(variantData, 1, productGid);
   };
 
   return (
@@ -69,11 +69,11 @@ const RecommendedProducts: React.FC<PropsT & { columns?: number; productContaine
   columns = 4,
   productContainerClassName = "!w-full !aspect-[3/4] mx-auto !flex !justify-center !items-center",
 }) => {
-  const { products, loading, error } = useRecommendedProducts();
+  const products = useRecommendedProducts();
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
   const isMobile = useIsMobile();
 
-  if (loading || error || products.length === 0) return null;
+  if (!products || products.length === 0) return null;
 
   const gridColsClass = {
     1: 'grid-cols-1',
@@ -116,7 +116,7 @@ const RecommendedProducts: React.FC<PropsT & { columns?: number; productContaine
             </div>
             <div className={styles.productTitle}>
               {hoveredProductId === product.id && withAddToCart ? (
-                <ProductSizes variants={product.variants.edges} />
+                <ProductSizes variants={product.variants.edges} productGid={product.id} />
               ) : (
                 <h3>{product.title}</h3>
               )}

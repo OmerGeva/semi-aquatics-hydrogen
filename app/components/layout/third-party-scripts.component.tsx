@@ -11,6 +11,20 @@ const ThirdPartyScripts = () => {
     setAllowMarketing(!!consent?.marketing)
   }, [consent])
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!consent?.analytics) return;
+
+    const privacy = (window as any).Shopify?.customerPrivacy;
+    if (!privacy?.setTrackingConsent) return;
+
+    privacy.setTrackingConsent(true, {
+      analytics: true,
+      marketing: !!consent.marketing,
+      preferences: false,
+    });
+  }, [consent]);
+
   return (
     <>
       {allowAnalytics && (
@@ -46,7 +60,7 @@ const ThirdPartyScripts = () => {
             `
           }} />
           <noscript>
-            <img height="1" width="1" style={{display: 'none'}}
+            <img height="1" width="1" style={{ display: 'none' }}
               src="https://www.facebook.com/tr?id=269716947689981&ev=PageView&noscript=1" />
           </noscript>
         </>

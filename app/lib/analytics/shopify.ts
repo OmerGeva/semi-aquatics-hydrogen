@@ -7,7 +7,7 @@
 const canPublish = (): boolean => {
   if (typeof window === 'undefined') return false;
   try {
-    const publish = (window as typeof window & {Shopify?: Record<string, any>})
+    const publish = (window as typeof window & { Shopify?: Record<string, any> })
       .Shopify?.analytics?.publish;
     return typeof publish === 'function';
   } catch {
@@ -16,14 +16,20 @@ const canPublish = (): boolean => {
 };
 
 export const SHOPIFY_EVENT = {
-  PAGE_VIEW: 'PAGE_VIEW',
-  ADD_TO_CART: 'ADD_TO_CART',
+  PAGE_VIEW: 'page_view' as any,
+  PRODUCT_VIEW: 'product_view' as any,
+  SEARCH_SUBMIT: 'search_submit' as any,
+  ADD_TO_CART: 'add_to_cart' as any,
+  REMOVE_FROM_CART: 'remove_from_cart' as any,
+  CART_UPDATE: 'cart_update' as any,
+  CART_VIEW: 'cart_view' as any,
+  CHECKOUT_START: 'checkout_start' as any,
 } as const;
 
 export function publishShopifyEvent(event: string, payload?: Record<string, any>): void {
   if (!canPublish()) return;
   try {
-    const scopedWindow = window as typeof window & {Shopify?: Record<string, any>};
+    const scopedWindow = window as typeof window & { Shopify?: Record<string, any> };
     scopedWindow.Shopify?.analytics?.publish?.(event, payload ?? {});
   } catch {
     // never throw from analytics
@@ -38,11 +44,11 @@ export function trackPageView(payload?: {
 }): void {
   const defaultPayload = typeof window !== 'undefined'
     ? {
-        url: window.location.href,
-        path: window.location.pathname + window.location.search,
-        title: document?.title,
-        referrer: document?.referrer,
-      }
+      url: window.location.href,
+      path: window.location.pathname + window.location.search,
+      title: document?.title,
+      referrer: document?.referrer,
+    }
     : {};
   publishShopifyEvent(SHOPIFY_EVENT.PAGE_VIEW, { ...defaultPayload, ...(payload ?? {}) });
 }
