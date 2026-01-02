@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
-import { Analytics, getShopAnalytics, useNonce, useAnalytics } from '@shopify/hydrogen';
-import { useEffect } from 'react';
+import { Analytics, getShopAnalytics, useNonce } from '@shopify/hydrogen';
 import { CartProvider, ShopifyProvider } from '@shopify/hydrogen-react';
 import {
   Outlet,
@@ -12,11 +11,9 @@ import {
   Scripts,
   ScrollRestoration,
   useRouteLoaderData,
-  useLocation,
 } from 'react-router';
 import type { Route } from './+types/root';
 import SiteLayout from '~/components/layout/layout.component';
-import { SHOPIFY_EVENT } from '~/lib/analytics/shopify';
 import favicon from '~/assets/favicon-32x32.png';
 import tailwindStyles from '~/styles/tailwind.css?url';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -27,6 +24,8 @@ import { CartDrawerProvider } from '~/contexts/cart-drawer-context';
 import { MobileProvider } from '~/contexts/mobile-context';
 import { RecommendedProductsProvider } from '~/contexts/recommended-products-context';
 import { CartAutoOpener } from '~/components/cart/cart-auto-opener';
+import { AnalyticsDebug } from '~/components/analytics-debug';
+import { AnalyticsSubscriber } from '~/components/analytics-subscriber';
 
 export type RootLoader = typeof loader;
 
@@ -160,18 +159,20 @@ export async function loader(args: Route.LoaderArgs) {
     console.error('Failed to fetch recommended products:', error);
   }
 
+  const shop = getShopAnalytics({
+    storefront,
+    publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
+  });
+
   return {
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
-    shop: getShopAnalytics({
-      storefront,
-      publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
-    }),
+    shop,
     consent: {
-      checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN,
-      storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
-      withPrivacyBanner: false,
-      country: storefront.i18n.country,
-      language: storefront.i18n.language,
+      checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN || env.PUBLIC_STORE_DOMAIN,
+      storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN || '',
+      withPrivacyBanner: false, // Using custom cookie banner
+      country: storefront?.i18n?.country || 'US',
+      language: storefront?.i18n?.language || 'EN',
     },
     // @ts-ignore
     cart: existingCart?.cart || existingCart,
@@ -261,7 +262,8 @@ export default function App() {
             shop={data.shop}
             consent={data.consent}
           >
-            <PageViewTracker />
+            <AnalyticsSubscriber />
+            <AnalyticsDebug />
             <RecommendedProductsProvider products={data.recommendedProducts || []}>
               <LegacyProviders>
                 <CartAutoOpener />
@@ -275,23 +277,6 @@ export default function App() {
       </ShopifyProvider>
     </MobileProvider>
   );
-}
-
-function PageViewTracker() {
-  const { publish, ready } = useAnalytics() as any;
-  const location = useLocation();
-
-  useEffect(() => {
-    if (!ready) return;
-
-    publish(SHOPIFY_EVENT.PAGE_VIEW, {
-      url: window.location.href,
-      path: location.pathname + location.search,
-      title: document.title,
-    });
-  }, [ready, location.pathname, location.search, publish]);
-
-  return null;
 }
 
 function LegacyProviders({ children }: { children: ReactNode }) {

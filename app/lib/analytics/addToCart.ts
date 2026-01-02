@@ -4,7 +4,6 @@
  */
 
 import { metaPixel } from './metaPixel';
-import { trackAddToCartShopify } from './shopify';
 import { gidToNumericId } from '../shopify/gid';
 
 export type MetaContent = { id: string; quantity: number; item_price?: number };
@@ -51,19 +50,8 @@ export function trackAddToCart(input: TrackAddToCartInput): void {
     ...(input.eventId ? { event_id: input.eventId } : {}),
   });
 
-  // Shopify analytics (minimal, payload is optional for storefronts)
-  try {
-    trackAddToCartShopify({
-      variantGids: input.variantGids,
-      quantities: input.quantities,
-      currency: input.currency,
-      value: Number(value.toFixed(2)),
-    });
-  } catch (error) {
-    if (import.meta.env.DEV) {
-      console.warn('Shopify add-to-cart tracking failed', error);
-    }
-  }
+  // Shopify analytics are now handled by Hydrogen's Analytics.Provider
+  // via the publish() function in useCartActions hook
 }
 
 /**

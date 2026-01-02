@@ -6,9 +6,9 @@ import RecommendedProducts from './recommended-products/recommended-products.com
 import { useCallback, useState, useEffect } from 'react';
 import PaymentIcons from '../payment-icons/payment-icons.component';
 import { useDropLock } from '../../hooks/use-drop-lock';
+import { useIsMobile } from '../../hooks/use-is-mobile';
 import { useCartDrawer } from '../../contexts/cart-drawer-context';
 import { useAnalytics } from '@shopify/hydrogen';
-import { SHOPIFY_EVENT } from '../../lib/analytics/shopify';
 
 const styles = {
   backdrop: 'backdrop',
@@ -41,56 +41,33 @@ const styles = {
 const CartSidebar: React.FC = () => {
   const { isCartOpen, closeCart } = useCartDrawer();
   const { lines, checkoutUrl, cost, status, linesUpdate, id: cartId } = useCart();
-  const { publish, ready } = useAnalytics() as any;
+  const { publish } = useAnalytics();
 
   const items = lines ?? [];
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const { isDropLocked, loading: dropLockLoading } = useDropLock();
 
   useEffect(() => {
-    if (isCartOpen && ready) {
-      publish(SHOPIFY_EVENT.CART_VIEW, {
-        cartId
-      });
+    if (isCartOpen) {
+      publish('cart_viewed', {});
     }
-  }, [isCartOpen, cartId, publish, ready]);
+  }, [isCartOpen, publish]);
 
   const handleCheckout = useCallback((e: React.MouseEvent) => {
     if (items.length === 0) {
       e.preventDefault();
       return;
     }
-    if (ready) {
-      publish(SHOPIFY_EVENT.CHECKOUT_START, {
-        cartId
-      });
-    }
     setIsCheckingOut(true);
     // The page will navigate away, so we don't need to reset the state
-  }, [items.length, cartId, publish, ready]);
+  }, [items.length]);
 
   const changeItemCount = useCallback(
-    (lineItemId: string, quantity: number) => {
-      if (quantity < 0) return;
-
-      if (quantity === 0) {
-        if (ready) {
-          publish(SHOPIFY_EVENT.REMOVE_FROM_CART, {
-            lineId: lineItemId
-          });
-        }
-      } else {
-        if (ready) {
-          publish(SHOPIFY_EVENT.CART_UPDATE, {
-            lineId: lineItemId,
-            quantity
-          });
-        }
-      }
-
-      linesUpdate([{ id: lineItemId, quantity }]);
+    (lineItemId: string, newQuantity: number) => {
+      if (newQuantity < 0) return;
+      linesUpdate([{ id: lineItemId, quantity: newQuantity }]);
     },
-    [linesUpdate, publish, ready],
+    [linesUpdate],
   );
 
   useEffect(() => {

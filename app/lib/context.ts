@@ -1,4 +1,4 @@
-import { createHydrogenContext, cartGetIdDefault, cartSetIdDefault } from '@shopify/hydrogen';
+import { createHydrogenContext, cartGetIdDefault, cartSetIdDefault, getStorefrontHeaders } from '@shopify/hydrogen';
 import { AppSession } from '~/lib/session';
 import { CART_QUERY_FRAGMENT } from '~/lib/fragments';
 
@@ -56,6 +56,7 @@ export async function createHydrogenRouterContext(
           maxage: 60 * 60 * 24 * 365, // One year expiry
         }),
       },
+      storefrontHeaders: getStorefrontHeaders(request),
     },
     additionalContext,
   );

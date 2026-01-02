@@ -15,6 +15,7 @@ query {
           title
           productType
           availableForSale
+          vendor
           tags
           images(first: 5) {
             edges {
@@ -54,6 +55,7 @@ query {
           title
           productType
           availableForSale
+          vendor
           tags
           images(first: 5) {
             edges {
@@ -95,6 +97,7 @@ query {
               title
               productType
               availableForSale
+              vendor
               tags
               images(first: 5) {
                 edges {
@@ -134,6 +137,7 @@ query GetProduct($productId: ID!) {
       productType
       descriptionHtml
       availableForSale
+      vendor
       tags
       images(first: 10) {
         edges {
@@ -156,6 +160,7 @@ query GetProduct($productId: ID!) {
             availableForSale
             priceV2 {
               amount
+              currencyCode
             }
             selectedOptions {
               name
@@ -179,6 +184,7 @@ query GetProductByHandle($handle: String!) {
     productType
     descriptionHtml
     availableForSale
+    vendor
     tags
     images(first: 10) {
       edges {
@@ -201,6 +207,7 @@ query GetProductByHandle($handle: String!) {
           availableForSale
           priceV2 {
             amount
+            currencyCode
           }
           selectedOptions {
             name

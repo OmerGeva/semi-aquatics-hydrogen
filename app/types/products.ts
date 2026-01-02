@@ -15,6 +15,7 @@ export type ProductT = {
     description: string;
     options: Array<ProductOptionT>;
     variants: ProductVariantT;
+    vendor: string;
   };
 };
 
