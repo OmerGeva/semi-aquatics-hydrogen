@@ -41,7 +41,7 @@ export default function CookieBanner() {
   // Check localStorage after hydration
   useEffect(() => {
     try {
-      const hasConsent = window.localStorage.getItem('consent:v1')
+      const hasConsent = window.localStorage.getItem('consent:v2')
       setOpen(!hasConsent)
     } catch {
       setOpen(true)
@@ -53,7 +53,7 @@ export default function CookieBanner() {
   // Keep state in sync if another tab updates consent
   useEffect(() => {
     function onStorage(e: StorageEvent) {
-      if (e.key === 'consent:v1') {
+      if (e.key === 'consent:v2') {
         setOpen(!e.newValue)
       }
     }

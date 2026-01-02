@@ -1,7 +1,7 @@
 import { ShowPageProps } from '../../interfaces/page_interface';
 
 // packages
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
@@ -21,9 +21,7 @@ import { useCartActions } from '../../hooks/use-cart-actions';
 
 // analytics
 import { withAddToCartTracking } from '../../lib/analytics/addToCart';
-import { useAnalytics } from '@shopify/hydrogen';
-import { useEffect } from 'react';
-import { SHOPIFY_EVENT } from '../../lib/analytics/shopify';
+import { Analytics, useAnalytics } from '@shopify/hydrogen';
 
 interface ShowPagePropsWithArchive extends ShowPageProps {
   isArchiveProduct?: boolean;
@@ -31,7 +29,7 @@ interface ShowPagePropsWithArchive extends ShowPageProps {
 
 const ShowPage: React.FC<ShowPagePropsWithArchive> = ({ product, isArchiveProduct = false }) => {
   const { addToCart, isLoading } = useCartActions();
-  const { publish, ready } = useAnalytics() as any;
+  const { publish } = useAnalytics();
 
   const [numberToAdd, setNumberToAdd] = useState(1);
   const [selectedDesktop, setSelectedDesktop] = useState(null);
@@ -45,16 +43,6 @@ const ShowPage: React.FC<ShowPagePropsWithArchive> = ({ product, isArchiveProduc
   const isNewProduct = true;
   const navigate = useNavigate();
   const passwordGuessed = useSelector((state: any) => state.user.passwordGuessed);
-
-  useEffect(() => {
-    if (ready) {
-      const variant = selected || firstSelectedVariant(product);
-      publish(SHOPIFY_EVENT.PRODUCT_VIEW, {
-        productGid: product.node.id,
-        variantGid: variant?.id || '',
-      });
-    }
-  }, [product.node.id, selected, publish, ready]);
 
   // Wrap addToCart with Meta Pixel tracking
   const addToCartTracked = useMemo(
@@ -108,6 +96,18 @@ const ShowPage: React.FC<ShowPagePropsWithArchive> = ({ product, isArchiveProduc
   ) {
     navigate('/shop')
   };
+
+  useEffect(() => {
+    publish('product_viewed', {
+      products: [{
+        productGid: product.node.id,
+        variantGid: selected?.id,
+        name: product.node.title,
+        brand: product.node.vendor,
+        price: selected?.priceV2?.amount,
+      }]
+    });
+  }, [product.node.id, publish]);
 
   return (
     <React.Fragment>
