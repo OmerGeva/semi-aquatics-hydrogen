@@ -57,12 +57,21 @@ type Pages = {
       "*": string;
     };
   };
+  "/graphiql": {
+    params: {};
+  };
+  "/subrequest-profiler": {
+    params: {};
+  };
+  "/.well-known/appspecific/com.chrome.devtools.json": {
+    params: {};
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/products/:handle" | "/terms-of-service" | "/shop/:productId" | "/api/revalidate" | "/artists" | "/privacy-policy" | "/artists/:slug" | "/shop" | "/lookbook" | "/story" | "/faq" | "/*";
+    page: "/" | "/products/:handle" | "/terms-of-service" | "/shop/:productId" | "/api/revalidate" | "/artists" | "/privacy-policy" | "/artists/:slug" | "/shop" | "/lookbook" | "/story" | "/faq" | "/*" | "/graphiql" | "/subrequest-profiler" | "/.well-known/appspecific/com.chrome.devtools.json";
   };
   "routes/products.$handle.tsx": {
     id: "routes/products.$handle";
@@ -115,5 +124,25 @@ type RouteFiles = {
   "routes/$.tsx": {
     id: "routes/$";
     page: "/*";
+  };
+  "../node_modules/@shopify/hydrogen/dist/vite/virtual-routes/layout.jsx": {
+    id: "/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/node_modules/@shopify/hydrogen/dist/vite/virtual-routes/layout";
+    page: "/graphiql" | "/subrequest-profiler" | "/.well-known/appspecific/com.chrome.devtools.json" | "/";
+  };
+  "../node_modules/@shopify/hydrogen/dist/vite/virtual-routes/routes/graphiql.jsx": {
+    id: "vite/virtual-routes/routes/graphiql";
+    page: "/graphiql";
+  };
+  "../node_modules/@shopify/hydrogen/dist/vite/virtual-routes/routes/subrequest-profiler.jsx": {
+    id: "vite/virtual-routes/routes/subrequest-profiler";
+    page: "/subrequest-profiler";
+  };
+  "../node_modules/@shopify/hydrogen/dist/vite/virtual-routes/routes/[.]well-known.appspecific.com[.]chrome[.]devtools[.]json.jsx": {
+    id: "vite/virtual-routes/routes/[.]well-known.appspecific.com[.]chrome[.]devtools[.]json";
+    page: "/.well-known/appspecific/com.chrome.devtools.json";
+  };
+  "../node_modules/@shopify/hydrogen/dist/vite/virtual-routes/routes/index.jsx": {
+    id: "vite/virtual-routes/routes/index";
+    page: "/";
   };
 };
