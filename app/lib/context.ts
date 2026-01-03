@@ -1,6 +1,19 @@
-import { createHydrogenContext, cartGetIdDefault, cartSetIdDefault, getStorefrontHeaders } from '@shopify/hydrogen';
+import { createHydrogenContext, cartGetIdDefault, cartSetIdDefault } from '@shopify/hydrogen';
 import { AppSession } from '~/lib/session';
 import { CART_QUERY_FRAGMENT } from '~/lib/fragments';
+
+/**
+ * Helper function to extract Storefront API headers from the request
+ */
+function getStorefrontHeaders(request: Request) {
+  const headers = request.headers;
+  return {
+    requestGroupId: headers.get('request-id') || null,
+    buyerIp: headers.get('cf-connecting-ip') || headers.get('x-forwarded-for') || null,
+    cookie: headers.get('cookie') || null,
+    purpose: headers.get('purpose') || null,
+  };
+}
 
 // Define the additional context object
 const additionalContext = {
