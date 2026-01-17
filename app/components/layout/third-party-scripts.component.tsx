@@ -1,90 +1,24 @@
-import { useEffect, useState, useRef } from 'react'
-import { useGeoAndConsent } from '../../lib/consent/useConsent'
+import { useEffect, useState } from 'react'
 import { useAnalytics } from '@shopify/hydrogen'
 
 const ThirdPartyScripts = () => {
-  const { consent } = useGeoAndConsent()
   const [allowAnalytics, setAllowAnalytics] = useState(false)
   const [allowMarketing, setAllowMarketing] = useState(false)
-  const { register, customerPrivacy: customerPrivacyFromAnalytics } = useAnalytics()
-  const { ready } = register('CustomConsentBanner')
+  const { customerPrivacy } = useAnalytics()
 
   useEffect(() => {
-    setAllowAnalytics(!!consent?.analytics)
-    setAllowMarketing(!!consent?.marketing)
-  }, [consent])
-
-  const lastConsentRef = useRef<string | null>(null);
-  const hasSetConsent = useRef(false);
-  const retryCount = useRef(0);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const consentKey = JSON.stringify(consent);
-    if (lastConsentRef.current === consentKey) {
-      return;
-    }
-
-    // Reset retry count and hasSetConsent flag if consent changes
-    hasSetConsent.current = false;
-    retryCount.current = 0;
-
-    const getConsentPayload = () => {
-      return {
-        analytics: !!consent?.analytics,
-        marketing: !!consent?.marketing,
-        preferences: false,
-        sale_of_data: false,
-      };
+    const updateConsent = () => {
+      if (!customerPrivacy) return;
+      setAllowAnalytics(customerPrivacy.analyticsProcessingAllowed());
+      setAllowMarketing(customerPrivacy.marketingAllowed());
     };
 
-    const initConsent = () => {
-      if (hasSetConsent.current) {
-        return;
-      }
+    updateConsent();
 
-      const shopify = (window as any).Shopify;
-      const customerPrivacy = shopify?.customerPrivacy;
-
-      if (customerPrivacy?.setTrackingConsent) {
-        const consentPayload = getConsentPayload();
-        customerPrivacy.setTrackingConsent(consentPayload, (error: any) => {
-          if (error) {
-            console.error('[ThirdPartyScripts] Shopify tracking consent error:', error);
-          } else {
-            hasSetConsent.current = true;
-            lastConsentRef.current = consentKey;
-            // Signal to Analytics.Provider that consent integration is ready
-            ready();
-          }
-        });
-      } else if (shopify?.loadFeatures) {
-        shopify.loadFeatures([
-          {
-            name: 'consent-tracking-api',
-            version: '0.1',
-          },
-        ], (error: any) => {
-          if (error) {
-            console.error('[ThirdPartyScripts] Error loading Shopify features:', error);
-          } else {
-            // Retry initConsent after loading features
-            setTimeout(initConsent, 500);
-          }
-        });
-      } else {
-        if (retryCount.current < 10) {
-          retryCount.current++;
-          setTimeout(initConsent, 1000);
-        } else {
-          console.error('[ThirdPartyScripts] Shopify Privacy SDK failed to load after 10 retries');
-        }
-      }
-    };
-
-    initConsent();
-  }, [consent]);
+    const handler = () => updateConsent();
+    document.addEventListener('visitorConsentCollected', handler as EventListener);
+    return () => document.removeEventListener('visitorConsentCollected', handler as EventListener);
+  }, [customerPrivacy]);
 
   return (
     <>

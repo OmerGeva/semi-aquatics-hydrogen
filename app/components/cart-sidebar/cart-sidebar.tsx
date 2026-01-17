@@ -8,7 +8,7 @@ import PaymentIcons from '../payment-icons/payment-icons.component';
 import { useDropLock } from '../../hooks/use-drop-lock';
 import { useIsMobile } from '../../hooks/use-is-mobile';
 import { useCartDrawer } from '../../contexts/cart-drawer-context';
-import { useAnalytics } from '@shopify/hydrogen';
+import { Analytics } from '@shopify/hydrogen';
 
 const styles = {
   backdrop: 'backdrop',
@@ -41,17 +41,12 @@ const styles = {
 const CartSidebar: React.FC = () => {
   const { isCartOpen, closeCart } = useCartDrawer();
   const { lines, checkoutUrl, cost, status, linesUpdate, id: cartId } = useCart();
-  const { publish } = useAnalytics();
 
   const items = lines ?? [];
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const { isDropLocked, loading: dropLockLoading } = useDropLock();
 
-  useEffect(() => {
-    if (isCartOpen) {
-      publish('cart_viewed', {});
-    }
-  }, [isCartOpen, publish]);
+  const shouldTrackCartView = isCartOpen;
 
   const handleCheckout = useCallback((e: React.MouseEvent) => {
     if (items.length === 0) {
@@ -80,6 +75,7 @@ const CartSidebar: React.FC = () => {
 
   return (
     <>
+      {shouldTrackCartView && <Analytics.CartView />}
       <div
         className={`${styles.backdrop} ${isCartOpen ? styles.visible : ''}`}
         onClick={closeCart}

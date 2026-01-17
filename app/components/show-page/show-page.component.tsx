@@ -1,7 +1,7 @@
 import { ShowPageProps } from '../../interfaces/page_interface';
 
 // packages
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
@@ -21,7 +21,7 @@ import { useCartActions } from '../../hooks/use-cart-actions';
 
 // analytics
 import { withAddToCartTracking } from '../../lib/analytics/addToCart';
-import { Analytics, useAnalytics } from '@shopify/hydrogen';
+import { Analytics } from '@shopify/hydrogen';
 
 interface ShowPagePropsWithArchive extends ShowPageProps {
   isArchiveProduct?: boolean;
@@ -29,7 +29,6 @@ interface ShowPagePropsWithArchive extends ShowPageProps {
 
 const ShowPage: React.FC<ShowPagePropsWithArchive> = ({ product, isArchiveProduct = false }) => {
   const { addToCart, isLoading } = useCartActions();
-  const { publish } = useAnalytics();
 
   const [numberToAdd, setNumberToAdd] = useState(1);
   const [selectedDesktop, setSelectedDesktop] = useState(null);
@@ -97,20 +96,26 @@ const ShowPage: React.FC<ShowPagePropsWithArchive> = ({ product, isArchiveProduc
     navigate('/shop')
   };
 
-  useEffect(() => {
-    publish('product_viewed', {
-      products: [{
-        productGid: product.node.id,
-        variantGid: selected?.id,
-        name: product.node.title,
-        brand: product.node.vendor,
-        price: selected?.priceV2?.amount,
-      }]
-    });
-  }, [product.node.id, publish]);
+  const variants = product?.node?.variants?.edges?.map((edge: any) => edge?.node) ?? [];
+  const fallbackVariant = variants[0];
+  const activeVariant = selectedDesktop ?? selected ?? fallbackVariant;
+  const analyticsProduct = product?.node?.id
+    ? {
+      id: product.node.id,
+      title: product.node.title,
+      vendor: product.node.vendor,
+      productType: product.node.productType,
+      variantId: activeVariant?.id,
+      variantTitle: activeVariant?.title,
+      price: activeVariant?.priceV2?.amount,
+    }
+    : null;
 
   return (
     <React.Fragment>
+      {analyticsProduct && (
+        <Analytics.ProductView data={{ products: [analyticsProduct] }} />
+      )}
       {
         isMobile ?
           <ShowPageMobile
