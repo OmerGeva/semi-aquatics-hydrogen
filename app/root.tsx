@@ -26,6 +26,7 @@ import { RecommendedProductsProvider } from '~/contexts/recommended-products-con
 import { CartAutoOpener } from '~/components/cart/cart-auto-opener';
 import { AnalyticsDebug } from '~/components/analytics-debug';
 import { AnalyticsSubscriber } from '~/components/analytics-subscriber';
+import { CART_QUERY_FRAGMENT } from '~/lib/fragments';
 
 export type RootLoader = typeof loader;
 
@@ -247,6 +248,7 @@ export default function App() {
         languageIsoCode={data.consent.language}
       >
         <CartProvider
+          cartFragment={CART_QUERY_FRAGMENT}
           data={
             data.cart
               ? {

@@ -98,18 +98,26 @@ const ShowPage: React.FC<ShowPagePropsWithArchive> = ({ product, isArchiveProduc
 
   const variants = product?.node?.variants?.edges?.map((edge: any) => edge?.node) ?? [];
   const fallbackVariant = variants[0];
-  const activeVariant = selectedDesktop ?? selected ?? fallbackVariant;
-  const analyticsProduct = product?.node?.id
-    ? {
-      id: product.node.id,
-      title: product.node.title,
-      vendor: product.node.vendor,
-      productType: product.node.productType,
-      variantId: activeVariant?.id,
-      variantTitle: activeVariant?.title,
-      price: activeVariant?.priceV2?.amount,
-    }
-    : null;
+  const preferredVariant = selectedDesktop ?? selected;
+  const activeVariant = preferredVariant?.priceV2?.amount ? preferredVariant : fallbackVariant;
+  const priceAmount = activeVariant?.priceV2?.amount;
+  const analyticsProduct =
+    product?.node?.id &&
+    activeVariant?.id &&
+    activeVariant?.title &&
+    product.node.vendor &&
+    priceAmount != null &&
+    priceAmount !== ''
+      ? {
+        id: product.node.id,
+        title: product.node.title,
+        vendor: product.node.vendor,
+        productType: product.node.productType,
+        variantId: activeVariant.id,
+        variantTitle: activeVariant.title,
+        price: priceAmount,
+      }
+      : null;
 
   return (
     <React.Fragment>
