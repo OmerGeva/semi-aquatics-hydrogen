@@ -9,7 +9,6 @@ import SpinningLogo from '../spinning-logo/spinning-logo.component';
 import CountdownTimer from '../countdown-timer/countdown-timer.component';
 import ThirdPartyScripts from './third-party-scripts.component';
 import MainHead from './main-head.component';
-import CookieBanner from '../consent/CookieBanner';
 
 // Hooks
 import { useIsTimeLeft } from '../../hooks/use-is-time-left'
@@ -82,7 +81,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
         { pathname !== '/' && <Footer /> }
         <ThirdPartyScripts />
-        <CookieBanner />
         </div>
     );
 };

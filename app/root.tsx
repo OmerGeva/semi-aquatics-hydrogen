@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Analytics, getShopAnalytics, useNonce } from '@shopify/hydrogen';
-import { CartProvider, ShopifyProvider } from '@shopify/hydrogen-react';
+import { CartProvider, ShopifyProvider, useCart } from '@shopify/hydrogen-react';
 import {
   Outlet,
   useRouteError,
@@ -170,7 +170,7 @@ export async function loader(args: Route.LoaderArgs) {
     consent: {
       checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN || env.PUBLIC_STORE_DOMAIN,
       storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN || '',
-      withPrivacyBanner: false, // Using custom cookie banner
+      withPrivacyBanner: true,
       country: storefront?.i18n?.country || 'US',
       language: storefront?.i18n?.language || 'EN',
     },
@@ -232,6 +232,7 @@ export function Layout({ children }: { children?: React.ReactNode }) {
 export default function App() {
   const data = useRouteLoaderData<RootLoader>('root');
 
+
   if (!data) {
     return <Outlet />;
   }
@@ -257,11 +258,7 @@ export default function App() {
               : null
           }
         >
-          <Analytics.Provider
-            cart={data.cart}
-            shop={data.shop}
-            consent={data.consent}
-          >
+          <AnalyticsProviderWithCart shop={data.shop} consent={data.consent}>
             <AnalyticsSubscriber />
             <AnalyticsDebug />
             <RecommendedProductsProvider products={data.recommendedProducts || []}>
@@ -272,10 +269,32 @@ export default function App() {
                 </SiteLayout>
               </LegacyProviders>
             </RecommendedProductsProvider>
-          </Analytics.Provider>
+          </AnalyticsProviderWithCart>
         </CartProvider>
       </ShopifyProvider>
     </MobileProvider>
+  );
+}
+
+function AnalyticsProviderWithCart({
+  children,
+  shop,
+  consent,
+}: {
+  children: ReactNode;
+  shop: RootLoader['shop'];
+  consent: RootLoader['consent'];
+}) {
+  const cart = useCart();
+  const analyticsCart =
+    cart?.lines && Array.isArray(cart.lines)
+      ? { ...cart, lines: { nodes: cart.lines } }
+      : cart;
+
+  return (
+    <Analytics.Provider cart={analyticsCart} shop={shop} consent={consent}>
+      {children}
+    </Analytics.Provider>
   );
 }
 
