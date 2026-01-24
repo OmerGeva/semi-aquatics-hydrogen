@@ -21,6 +21,7 @@ import { CookiesProvider } from 'react-cookie';
 import { store } from '~/redux/store';
 import { WaveSoundsProvider } from '~/contexts/wave-sounds-context';
 import { CartDrawerProvider } from '~/contexts/cart-drawer-context';
+import { SafeCartProvider } from '~/contexts/safe-cart-context';
 import { MobileProvider } from '~/contexts/mobile-context';
 import { RecommendedProductsProvider } from '~/contexts/recommended-products-context';
 import { CartAutoOpener } from '~/components/cart/cart-auto-opener';
@@ -264,7 +265,7 @@ export default function App() {
             <AnalyticsSubscriber />
             <AnalyticsDebug />
             <RecommendedProductsProvider products={data.recommendedProducts || []}>
-              <LegacyProviders>
+              <LegacyProviders countryCode={data.consent.country} languageCode={data.consent.language}>
                 <CartAutoOpener />
                 <SiteLayout>
                   <Outlet />
@@ -300,14 +301,25 @@ function AnalyticsProviderWithCart({
   );
 }
 
-function LegacyProviders({ children }: { children: ReactNode }) {
+function LegacyProviders({ children, countryCode, languageCode }: { children: ReactNode; countryCode?: string; languageCode?: string }) {
   return (
     <ReduxProvider store={store}>
-      <CartDrawerProvider>
-        <CookiesProvider>
-          <WaveSoundsProvider>{children}</WaveSoundsProvider>
-        </CookiesProvider>
-      </CartDrawerProvider>
+      <SafeCartProvider
+        countryCode={countryCode || 'US'}
+        languageCode={languageCode || 'EN'}
+        onRecovery={(newCartId) => {
+          console.log('[CartRecovery] Cart recovered with new ID:', newCartId);
+        }}
+        onRecoveryFailed={(errors) => {
+          console.error('[CartRecovery] Failed to recover cart:', errors);
+        }}
+      >
+        <CartDrawerProvider>
+          <CookiesProvider>
+            <WaveSoundsProvider>{children}</WaveSoundsProvider>
+          </CookiesProvider>
+        </CartDrawerProvider>
+      </SafeCartProvider>
     </ReduxProvider>
   );
 }
