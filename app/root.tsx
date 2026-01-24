@@ -21,7 +21,6 @@ import { CookiesProvider } from 'react-cookie';
 import { store } from '~/redux/store';
 import { WaveSoundsProvider } from '~/contexts/wave-sounds-context';
 import { CartDrawerProvider } from '~/contexts/cart-drawer-context';
-import { SafeCartProvider } from '~/contexts/safe-cart-context';
 import { MobileProvider } from '~/contexts/mobile-context';
 import { RecommendedProductsProvider } from '~/contexts/recommended-products-context';
 import { CartAutoOpener } from '~/components/cart/cart-auto-opener';
@@ -265,7 +264,7 @@ export default function App() {
             <AnalyticsSubscriber />
             <AnalyticsDebug />
             <RecommendedProductsProvider products={data.recommendedProducts || []}>
-              <LegacyProviders countryCode={data.consent.country} languageCode={data.consent.language}>
+              <LegacyProviders>
                 <CartAutoOpener />
                 <SiteLayout>
                   <Outlet />
@@ -301,25 +300,14 @@ function AnalyticsProviderWithCart({
   );
 }
 
-function LegacyProviders({ children, countryCode, languageCode }: { children: ReactNode; countryCode?: string; languageCode?: string }) {
+function LegacyProviders({ children }: { children: ReactNode }) {
   return (
     <ReduxProvider store={store}>
-      <SafeCartProvider
-        countryCode={countryCode || 'US'}
-        languageCode={languageCode || 'EN'}
-        onRecovery={(newCartId) => {
-          console.log('[CartRecovery] Cart recovered with new ID:', newCartId);
-        }}
-        onRecoveryFailed={(errors) => {
-          console.error('[CartRecovery] Failed to recover cart:', errors);
-        }}
-      >
-        <CartDrawerProvider>
-          <CookiesProvider>
-            <WaveSoundsProvider>{children}</WaveSoundsProvider>
-          </CookiesProvider>
-        </CartDrawerProvider>
-      </SafeCartProvider>
+      <CartDrawerProvider>
+        <CookiesProvider>
+          <WaveSoundsProvider>{children}</WaveSoundsProvider>
+        </CookiesProvider>
+      </CartDrawerProvider>
     </ReduxProvider>
   );
 }
