@@ -69,7 +69,8 @@ export const useCartActions = () => {
     }
   };
 
-  const isLoading = pending || status === 'updating';
+  // Only use local pending state - status can be 'updating' during hydration
+  const isLoading = pending;
 
   return { addToCart, isLoading, cartCounts };
 };
