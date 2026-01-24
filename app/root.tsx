@@ -101,12 +101,25 @@ if (typeof window === 'undefined') {
   };
 }
 
+// Check if cart is stale (older than 7 days since last update)
+function isCartStale(cartUpdatedAt: string | undefined): boolean {
+  if (!cartUpdatedAt) return true;
+
+  const updatedAt = new Date(cartUpdatedAt);
+  const now = new Date();
+  const daysSinceUpdate = (now.getTime() - updatedAt.getTime()) / (1000 * 60 * 60 * 24);
+
+  // Consider cart stale if not updated in 7 days
+  return daysSinceUpdate > 7;
+}
+
 export async function loader(args: Route.LoaderArgs) {
   const { storefront, env, cart, customerAccount } = args.context;
 
   let existingCart = await cart.get();
 
-  if (!existingCart) {
+  // Create new cart if none exists or if existing cart is stale
+  if (!existingCart || isCartStale(existingCart?.updatedAt)) {
     existingCart = await cart.create({});
   }
 
