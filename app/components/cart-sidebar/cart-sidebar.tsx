@@ -153,13 +153,6 @@ const CartSidebar: React.FC = () => {
         </div>
         <hr />
 
-        {/* Recovery indicator */}
-        {isRecovering && (
-          <div className={styles.recoveringBanner}>
-            Updating cart...
-          </div>
-        )}
-
         {/* Error banner */}
         {lastErrors.length > 0 && (
           <div className={styles.errorBanner}>
