@@ -105,7 +105,7 @@ export const CART_QUERY_FRAGMENT = `#graphql
       }
     }
   }
-  fragment CartApiQuery on Cart {
+  fragment CartFragment on Cart {
     updatedAt
     id
     appliedGiftCards {

@@ -6,6 +6,7 @@ declare module "react-router" {
   interface Register {
     pages: Pages
     routeFiles: RouteFiles
+    routeModules: RouteModules
   }
 }
 
@@ -145,4 +146,26 @@ type RouteFiles = {
     id: "vite/virtual-routes/routes/index";
     page: "/";
   };
+};
+
+type RouteModules = {
+  "root": typeof import("./app/root.tsx");
+  "routes/products.$handle": typeof import("./app/routes/products.$handle.tsx");
+  "routes/terms-of-service": typeof import("./app/routes/terms-of-service.tsx");
+  "routes/shop.$productId": typeof import("./app/routes/shop.$productId.tsx");
+  "routes/api.revalidate": typeof import("./app/routes/api.revalidate.tsx");
+  "routes/artists._index": typeof import("./app/routes/artists._index.tsx");
+  "routes/privacy-policy": typeof import("./app/routes/privacy-policy.tsx");
+  "routes/artists.$slug": typeof import("./app/routes/artists.$slug.tsx");
+  "routes/shop._index": typeof import("./app/routes/shop._index.tsx");
+  "routes/lookbook": typeof import("./app/routes/lookbook.tsx");
+  "routes/_index": typeof import("./app/routes/_index.tsx");
+  "routes/story": typeof import("./app/routes/story.tsx");
+  "routes/faq": typeof import("./app/routes/faq.tsx");
+  "routes/$": typeof import("./app/routes/$.tsx");
+  "/Users/omergeva/code/omergeva/dub-denim/semiaquatics-hydrogen/node_modules/@shopify/hydrogen/dist/vite/virtual-routes/layout": unknown;
+  "vite/virtual-routes/routes/graphiql": unknown;
+  "vite/virtual-routes/routes/subrequest-profiler": unknown;
+  "vite/virtual-routes/routes/[.]well-known.appspecific.com[.]chrome[.]devtools[.]json": unknown;
+  "vite/virtual-routes/routes/index": unknown;
 };
