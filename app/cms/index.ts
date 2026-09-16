@@ -7,16 +7,10 @@ const baseUri =
     : 'https://semi-aquatics-cms.onrender.com');
 
 class Cms {
+  // The drop CMS service is offline. Report the last drop as already released
+  // so the drop page is never locked.
   async getNextDrop() {
-    try {
-      const response = await axios.get(`${baseUri}/api/next-drop`);
-      // Keep the UTC Date as returned by the API for accurate comparisons across timezones.
-      // Display conversions to EST should be handled at render time if needed.
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching next drop:', error);
-      throw error;
-    }
+    return { _id: 'last-drop', title: 'Latest Drop', dateTime: '2026-01-01T00:00:00.000Z', __v: 0 };
   }
   
   async getArtistByArtwork(artworkId: string): Promise<ArtistT | null> {
@@ -29,14 +23,8 @@ class Cms {
     }
   }
 
-  async getNextDropPassword(): Promise<{ password: string }> {
-    try {
-      const response = await axios.get(`${baseUri}/api/nxt-drop-password`);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching next drop:', error);
-      throw error;
-    }
+  async getNextDropPassword(): Promise<{ password: string | null }> {
+    return { password: null };
   }
 
   async getArtists(): Promise<ArtistsT> {
