@@ -301,8 +301,15 @@ function AnalyticsProviderWithCart({
   consent: RootLoader['consent'];
 }) {
   const cart = useCart();
-  const analyticsCart =
-    cart?.lines && Array.isArray(cart.lines)
+  // Hydrogen's cart analytics (cart_updated, product_added_to_cart) need
+  // `cart.updatedAt`. The cart the server sends on first load comes from
+  // `cart.create()` and does not include it, so analytics only receive the
+  // cart once the client has fetched the full cart. Passing the partial cart
+  // made Hydrogen log an error and skip cart analytics set-up.
+  const hasFullCart = Boolean(cart?.id && (cart as any)?.updatedAt);
+  const analyticsCart = !hasFullCart
+    ? null
+    : cart?.lines && Array.isArray(cart.lines)
       ? { ...cart, lines: { nodes: cart.lines } }
       : cart;
 
