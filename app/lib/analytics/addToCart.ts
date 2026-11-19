@@ -4,6 +4,7 @@
  */
 
 import { metaPixel } from './metaPixel';
+import { trackGa } from './third-party';
 import { gidToNumericId } from '../shopify/gid';
 
 export type MetaContent = { id: string; quantity: number; item_price?: number };
@@ -50,8 +51,20 @@ export function trackAddToCart(input: TrackAddToCartInput): void {
     ...(input.eventId ? { event_id: input.eventId } : {}),
   });
 
-  // Shopify analytics are now handled by Hydrogen's Analytics.Provider
-  // via the publish() function in useCartActions hook
+  trackGa('add_to_cart', {
+    currency: input.currency,
+    value: Number(value.toFixed(2)),
+    items: contents.map((content) => ({
+      item_id: content.id,
+      item_name: input.contentName,
+      item_category: input.contentCategory,
+      price: content.item_price,
+      quantity: content.quantity,
+    })),
+  });
+
+  // Shopify's own add-to-cart analytics are published by Hydrogen's
+  // Analytics.Provider when the cart it is given changes (see root.tsx).
 }
 
 /**
@@ -73,6 +86,8 @@ export function withAddToCartTracking<T extends (...args: any[]) => Promise<any>
 ): T {
   return (async (...args: Parameters<T>) => {
     const res = await addFn(...args);
+    // The add-to-cart helpers resolve to `false` when nothing was added.
+    if (res === false) return res;
     try {
       const payload = buildPayload(args, res);
       trackAddToCart(payload);

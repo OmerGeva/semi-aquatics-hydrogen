@@ -1,7 +1,6 @@
 import React from 'react';
 
-// Packages
-import axios from 'axios';
+import { subscribeToNewsletter } from '../../lib/klaviyo/subscribe';
 import { EmailFormProps } from '../../interfaces/page_interface';
 import Form from '../form/form.component';
 
@@ -31,7 +30,7 @@ const EmailForm: React.FC<EmailFormProps> = ({
   const [email, setEmail] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
   const [successMessage, setSuccessMessage] = React.useState('');
-  const handleSuccessResponse = (response: any) => {
+  const handleSuccessResponse = () => {
     setEmail('');
     setErrorMessage('');
     setSuccessMessage('Thank you for subscribing!');
@@ -47,7 +46,7 @@ const EmailForm: React.FC<EmailFormProps> = ({
 
   const handleErrorResponse = (error: any) => {
     setSuccessMessage('');
-    setErrorMessage(error.message);
+    setErrorMessage(error instanceof Error && error.message ? error.message : 'Something went wrong. Please try again.');
     setTimeout(() => {
       setErrorMessage('');
     }, 5000);
@@ -64,10 +63,9 @@ const EmailForm: React.FC<EmailFormProps> = ({
       return;
     }
 
-    const apiUrl = `https://proxy-semi-aquatics.onrender.com/api/subscribe/${email}`;
     try {
-      const response = await axios.post(apiUrl, {});
-      handleSuccessResponse(response);
+      await subscribeToNewsletter(email.trim());
+      handleSuccessResponse();
     } catch (error) {
       handleErrorResponse(error);
     }
