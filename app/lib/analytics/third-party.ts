@@ -53,6 +53,9 @@ export const THIRD_PARTY_CSP = {
   ],
   styleSrc: ['https://fonts.googleapis.com'],
   fontSrc: ['https://fonts.gstatic.com'],
+  // The Meta Pixel sends larger events by posting a form into a hidden
+  // iframe on www.facebook.com. Without this, those events are blocked.
+  frameSrc: ['https://www.facebook.com'],
 } as const;
 
 type QueuedCall = unknown[];

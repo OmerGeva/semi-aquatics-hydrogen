@@ -20,7 +20,7 @@ export default async function handleRequest(
 ) {
   // Hydrogen's defaults only allow Shopify hosts. Anything a third-party tag
   // loads or calls has to be listed here, or the browser blocks it silently.
-  // `scriptSrc`, `imgSrc` and `fontSrc` have no Hydrogen default, so the
+  // `scriptSrc`, `imgSrc`, `fontSrc` and `frameSrc` have no Hydrogen default, so the
   // Shopify hosts they previously inherited from `default-src` are repeated.
   const shopifyHosts = ["'self'", 'https://cdn.shopify.com', 'https://shopify.com'];
   const {nonce, header, NonceProvider} = createContentSecurityPolicy({
@@ -33,6 +33,7 @@ export default async function handleRequest(
     imgSrc: [...shopifyHosts, 'data:', ...THIRD_PARTY_CSP.imgSrc],
     styleSrc: [...THIRD_PARTY_CSP.styleSrc],
     fontSrc: [...shopifyHosts, 'data:', ...THIRD_PARTY_CSP.fontSrc],
+    frameSrc: [...shopifyHosts, ...THIRD_PARTY_CSP.frameSrc],
   });
 
   // Render the full app routes
