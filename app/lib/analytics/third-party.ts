@@ -153,9 +153,22 @@ export function initMetaPixel(): void {
   pendingMetaCalls.splice(0).forEach((call) => window.fbq!(...call));
 }
 
-/** Alia popups (email capture). */
+/**
+ * Alia popups (email capture).
+ *
+ * The popup opens a few seconds after its script loads and, on a phone, covers
+ * the price, the size picker and the Add to bag button. Loading the script
+ * later lets a visitor see the product first; the timer keeps running across
+ * client-side page changes, so it counts time on the site, not on one page.
+ */
+const ALIA_DELAY_MS = 25_000;
+let aliaTimer: ReturnType<typeof setTimeout> | null = null;
+
 export function initAlia(): void {
-  loadScriptOnce(ALIA_EMBED_URL, 'alia-embed');
+  if (!isBrowser() || aliaTimer !== null) return;
+  aliaTimer = setTimeout(() => {
+    loadScriptOnce(ALIA_EMBED_URL, 'alia-embed');
+  }, ALIA_DELAY_MS);
 }
 
 /**
