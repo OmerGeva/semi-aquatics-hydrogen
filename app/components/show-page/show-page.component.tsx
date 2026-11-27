@@ -1,7 +1,7 @@
 import { ShowPageProps } from '../../interfaces/page_interface';
 
 // packages
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
@@ -36,6 +36,17 @@ const ShowPage: React.FC<ShowPagePropsWithArchive> = ({ product, isArchiveProduc
   const [slideNumber, setSlideNumber] = useState(0);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [addToCartSuccess, setAddToCartSuccess] = useState(false);
+
+  // The page component is reused when moving from one product to another
+  // inside the site, so the previous product's size stayed selected and
+  // "Add to bag" added the previous product. Start again on a new product.
+  useEffect(() => {
+    setSelected(firstSelectedVariant(product));
+    setSelectedDesktop(null);
+    setNumberToAdd(1);
+    setSlideNumber(0);
+    setAddToCartSuccess(false);
+  }, [product?.node?.id]);
   const isMobile = useIsMobile();
   const isTimeLeft = useIsTimeLeft();
   // const isNewProduct = useIsNewProduct(product.node.id);

@@ -162,10 +162,16 @@ export function initMetaPixel(): void {
  * client-side page changes, so it counts time on the site, not on one page.
  */
 const ALIA_DELAY_MS = 25_000;
+// Paused for the Black Friday sale (ends Mon 30 Nov 2026, 11:59 pm ET): the
+// popup offers 15% off, which no longer applies to sale items, and on phones
+// its "Get 15% off" tab covered part of the Add to bag button. It comes back
+// by itself after this time.
+const ALIA_PAUSED_UNTIL = Date.parse('2026-12-01T05:00:00Z');
 let aliaTimer: ReturnType<typeof setTimeout> | null = null;
 
 export function initAlia(): void {
   if (!isBrowser() || aliaTimer !== null) return;
+  if (Date.now() < ALIA_PAUSED_UNTIL) return;
   aliaTimer = setTimeout(() => {
     loadScriptOnce(ALIA_EMBED_URL, 'alia-embed');
   }, ALIA_DELAY_MS);

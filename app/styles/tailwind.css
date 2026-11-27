@@ -2300,6 +2300,11 @@
       overflow: hidden;
     }
 
+    /* the sale banner pushes the header down by its height: the tabs follow */
+    .layoutContainer:has(.saleBanner) .dropPageContainer .filterTabsWrapper {
+      top: calc(-20px + var(--sale-banner-height));
+    }
+
     .dropPageContainer .filterTabs {
       position: relative;
       display: flex;
