@@ -19,6 +19,7 @@ import TabContent from '../tab-content/tab-content.component';
 import DescriptionTabs from './description-tabs/description-tabs.component';
 import RecommendedProducts from '../../cart-sidebar/recommended-products/recommended-products.component';
 import { INTERNAL_LINKS } from '../../../constants/internal-links';
+import CompareAtPrice from '../../compare-at-price/compare-at-price.component';
 
 const styles = {
   showPageMobile: 'showPageMobile',
@@ -152,7 +153,7 @@ const ShowPageMobile: React.FC<ShowPageMobileProps> = ({
           <h1>{product.node.title}</h1>
           {
             isNewProduct &&
-            <p>${product.node.variants.edges[0].node.priceV2.amount}0</p>
+            <p><CompareAtPrice price={product.node.variants.edges[0].node.priceV2.amount} compareAtPrice={product.node.variants.edges[0].node.compareAtPrice?.amount} />${product.node.variants.edges[0].node.priceV2.amount}0</p>
           }
         </div>
         {

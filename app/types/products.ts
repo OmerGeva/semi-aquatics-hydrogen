@@ -34,6 +34,10 @@ export type ProductVariantT = {
         amount: string;
         currencyCode?: string;
       };
+      compareAtPrice?: {
+        amount: string;
+        currencyCode?: string;
+      } | null;
       selectedOptions: Array<{
         name: string;
         value: string;

@@ -32,6 +32,10 @@ query {
                   amount
                   currencyCode
                 }
+                compareAtPrice {
+                  amount
+                  currencyCode
+                }
               }
             }
           }
@@ -69,6 +73,10 @@ query {
             edges {
               node {
                 priceV2 {
+                  amount
+                  currencyCode
+                }
+                compareAtPrice {
                   amount
                   currencyCode
                 }
@@ -111,6 +119,10 @@ query {
                 edges {
                   node {
                     priceV2 {
+                      amount
+                      currencyCode
+                    }
+                    compareAtPrice {
                       amount
                       currencyCode
                     }
@@ -162,6 +174,10 @@ query GetProduct($productId: ID!) {
               amount
               currencyCode
             }
+            compareAtPrice {
+              amount
+              currencyCode
+            }
             selectedOptions {
               name
               value
@@ -206,6 +222,10 @@ query GetProductByHandle($handle: String!) {
           title
           availableForSale
           priceV2 {
+            amount
+            currencyCode
+          }
+          compareAtPrice {
             amount
             currencyCode
           }

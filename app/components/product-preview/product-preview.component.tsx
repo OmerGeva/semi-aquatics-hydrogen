@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { useIsNewProduct } from '../../hooks/use-is-new-product';
 import { Link } from 'react-router';
 import { useLocation } from 'react-router';
+import CompareAtPrice from '../compare-at-price/compare-at-price.component';
 
 const styles = {
   productPreviewContainer: 'productPreviewContainer',
@@ -28,6 +29,7 @@ interface ProductPreviewProps {
   isArchive: boolean;
   secondaryImage?: string;
   price?: string;
+  compareAtPrice?: string;
   isTimeLeft?: boolean;
   imageClassName?: string;
   containerClassName?: string;
@@ -44,6 +46,7 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
   isSmallText,
   isArchive,
   price,
+  compareAtPrice,
   isTimeLeft,
   imageClassName = '',
   containerClassName = '',
@@ -79,7 +82,7 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
           <div className={`${styles.previewDetails} ${isSmallText ? styles.isSmallText : ''}`}>
             <h3 className={styles.cardDetail}>{title}</h3>
             {!isArchive && price && parseInt(price) > 0 &&
-              <h3 className={styles.cardDetail}>${price}0</h3>}
+              <h3 className={styles.cardDetail}><CompareAtPrice price={price} compareAtPrice={compareAtPrice} />${price}0</h3>}
           </div>
         }
       </Link>

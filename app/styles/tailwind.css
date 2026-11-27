@@ -1196,6 +1196,58 @@
     }
   }
 
+  /* Sale banner (Black Friday 2026). Remove with the SaleBanner component. */
+  .layoutContainer:has(.saleBanner) {
+    --sale-banner-height: 28px;
+  }
+
+  .saleBanner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--sale-banner-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    background: #fff;
+    color: #000;
+    border-bottom: 1px solid #e0e0e0;
+    z-index: 100;
+  }
+
+  .saleBanner p {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: center;
+  }
+
+  .saleBannerSpacer {
+    height: var(--sale-banner-height);
+  }
+
+  .layoutContainer:has(.saleBanner) .navbarContainer {
+    top: var(--sale-banner-height);
+  }
+
+  @media (max-width: 768px) {
+    .layoutContainer:has(.saleBanner) {
+      --sale-banner-height: 36px;
+    }
+
+    .saleBanner p {
+      font-size: 11px;
+    }
+  }
+
+  .compareAtPrice {
+    margin-right: 6px;
+    opacity: 0.5;
+  }
+
   @media (max-width: 768px) {
     .contentContainer {
       margin-top: 28px;
