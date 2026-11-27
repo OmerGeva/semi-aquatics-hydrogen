@@ -3,6 +3,7 @@ import type { Route } from './+types/shop._index';
 import DropPage from '~/components/drop-page/drop-page.component';
 import { GET_DROP_QUERY, GET_MAIN_LINE_QUERY, GET_ARCHIVE_SALE_QUERY } from '~/services/queries/queries';
 import Cms from '~/cms';
+import { pageTitle } from '~/lib/meta';
 
 export async function loader({ context }: Route.LoaderArgs) {
   const { storefront } = context;
@@ -31,6 +32,10 @@ export async function loader({ context }: Route.LoaderArgs) {
     password: passwordResponse?.password ?? null,
     dropData: dropData ?? null,
   };
+}
+
+export function meta() {
+  return [{ title: pageTitle('Shop') }];
 }
 
 export default function ShopRoute() {
