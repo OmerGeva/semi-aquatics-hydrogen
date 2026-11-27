@@ -2,7 +2,11 @@ import { ShowPageProps } from '../../interfaces/page_interface';
 
 // packages
 import React, { useEffect, useState, useMemo } from 'react';
-import { ToastContainer } from 'react-toastify';
+// The default 'react-toastify' entry inserts a <style> at the top of <head>
+// as soon as it loads, before React hydrates, which broke hydration of the
+// whole page (React errors #418/#423). The stylesheet below is imported
+// instead, so the unstyled entry looks the same.
+import { ToastContainer, toast } from 'react-toastify/unstyled';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -79,6 +83,12 @@ const ShowPage: React.FC<ShowPagePropsWithArchive> = ({ product, isArchiveProduc
 
   const handleOnAddToCart = async (selected: any) => {
     if (isAddingToCart) return;
+
+    // Desktop starts with no size chosen; say so instead of doing nothing.
+    if (!selected) {
+      toast('Select a size', { toastId: 'select-size' });
+      return;
+    }
 
     setIsAddingToCart(true);
     setAddToCartSuccess(false);
