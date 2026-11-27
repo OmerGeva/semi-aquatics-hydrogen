@@ -63,7 +63,15 @@ export async function createHydrogenRouterContext(
       // Or detect from URL path based on locale subpath, cookies, or any other strategy
       i18n: { language: 'EN', country: 'US' },
       cart: {
-        queryFragment: CART_QUERY_FRAGMENT,
+        // Hydrogen's cart query spreads a fragment named `CartApiQuery`. The
+        // shared fragment is named `CartFragment` (the name the client-side
+        // CartProvider requires), so under that name the server query was
+        // invalid, `cart.get()` always came back empty and the root loader
+        // started a new cart on every page load: a refresh emptied the bag.
+        queryFragment: CART_QUERY_FRAGMENT.replace(
+          'fragment CartFragment on Cart',
+          'fragment CartApiQuery on Cart',
+        ),
         getId: cartGetIdDefault(request.headers),
         setId: cartSetIdDefault({
           maxage: 60 * 60 * 24 * 365, // One year expiry
