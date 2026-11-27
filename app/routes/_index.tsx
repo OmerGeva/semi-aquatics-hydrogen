@@ -1,12 +1,17 @@
 import {useEffect, useMemo, useState} from 'react';
 import {useNavigate} from 'react-router';
 import {useIsMobile} from '~/hooks/use-is-mobile';
+import {pageTitle} from '~/lib/meta';
 
 const styles = {
   homeContainer: 'homeContainer',
   videoContainer: 'videoContainer',
   mainVideo: 'mainVideo',
 } as const;
+
+export function meta() {
+  return [{ title: pageTitle() }];
+}
 
 export default function IndexRoute() {
   const isMobile = useIsMobile();
