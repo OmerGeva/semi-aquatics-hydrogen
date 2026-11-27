@@ -3,7 +3,7 @@ import { IoClose } from 'react-icons/io5';
 import { FiPlus } from "react-icons/fi"
 import { FiMinus } from "react-icons/fi";
 import RecommendedProducts from './recommended-products/recommended-products.component';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import PaymentIcons from '../payment-icons/payment-icons.component';
 import { useDropLock } from '../../hooks/use-drop-lock';
 import { useIsMobile } from '../../hooks/use-is-mobile';
@@ -57,10 +57,55 @@ const CartSidebar: React.FC = () => {
     // The page will navigate away, so we don't need to reset the state
   }, [items.length]);
 
+  // hydrogen-react's cart ignores linesUpdate while a cart request is in
+  // flight, so a quick second tap on "+" or "-" was lost. Queue the taps, and
+  // send each one once the cart is free, counting from the bag's latest
+  // quantity (same approach as addToCart in hooks/use-cart-actions.ts).
+  const statusRef = useRef(status);
+  const linesRef = useRef(lines);
+  statusRef.current = status;
+  linesRef.current = lines;
+  const queueRef = useRef<Promise<void>>(Promise.resolve());
+
+  const isBusy = () =>
+    statusRef.current === 'creating' ||
+    statusRef.current === 'fetching' ||
+    statusRef.current === 'updating';
+
+  const waitWhile = async (condition: () => boolean, timeoutMs: number) => {
+    const start = Date.now();
+    while (condition() && Date.now() - start < timeoutMs) {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    }
+    return !condition();
+  };
+
+  const quantityOf = (lineItemId: string) =>
+    (linesRef.current ?? []).find((line: any) => line?.id === lineItemId)
+      ?.quantity ?? 0;
+
   const changeItemCount = useCallback(
-    (lineItemId: string, newQuantity: number) => {
-      if (newQuantity < 0) return;
-      linesUpdate([{ id: lineItemId, quantity: newQuantity }]);
+    (lineItemId: string, change: number) => {
+      queueRef.current = queueRef.current
+        .then(async () => {
+          if (!(await waitWhile(isBusy, 15000))) return;
+
+          const before = quantityOf(lineItemId);
+          const newQuantity = Math.max(before + change, 0);
+          if (before === 0 || newQuantity === before) return;
+
+          linesUpdate([{ id: lineItemId, quantity: newQuantity }]);
+
+          // Wait for this update to finish before the next queued tap.
+          await waitWhile(
+            () => !isBusy() && quantityOf(lineItemId) === before,
+            2000,
+          );
+          await waitWhile(isBusy, 15000);
+        })
+        .catch((error) => {
+          console.error('Error updating bag quantity:', error);
+        });
     },
     [linesUpdate],
   );
@@ -141,10 +186,7 @@ const CartSidebar: React.FC = () => {
                           <div
                             className={styles.sizeAdjusterBtn}
                             onClick={() => {
-                              void changeItemCount(
-                                line.id,
-                                Math.max(line.quantity - 1, 0),
-                              );
+                              changeItemCount(line.id, -1);
                             }}
                           >
                             <FiMinus />
@@ -155,7 +197,7 @@ const CartSidebar: React.FC = () => {
                           <div
                             className={styles.sizeAdjusterBtn}
                             onClick={() => {
-                              void changeItemCount(line.id, line.quantity + 1);
+                              changeItemCount(line.id, 1);
                             }}
                           >
                             <FiPlus />
