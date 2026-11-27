@@ -278,6 +278,7 @@ const DropPage: React.FC<DropPageProps> = ({ dropItems, mainLineItems, archiveSa
                       title={product.node.title}
                       isSoldOut={!product.node.availableForSale}
                       price={product.node.variants.edges[0] ? product.node.variants.edges[0].node.priceV2.amount : ''}
+                      compareAtPrice={product.node.variants.edges[0]?.node.compareAtPrice?.amount}
                       id={product.node.id}
                       handle={product.node.handle}
                       isArchive={isArchiveProduct}

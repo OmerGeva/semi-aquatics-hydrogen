@@ -367,6 +367,9 @@ export type GetProductQuery = {
             'id' | 'title' | 'availableForSale'
           > & {
             priceV2: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+            compareAtPrice?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+            >;
             selectedOptions: Array<
               Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
             >;
@@ -410,6 +413,9 @@ export type GetProductByHandleQuery = {
             'id' | 'title' | 'availableForSale'
           > & {
             priceV2: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+            compareAtPrice?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+            >;
             selectedOptions: Array<
               Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
             >;
@@ -433,11 +439,11 @@ interface GeneratedQueryTypes {
     return: GetRecommendedCollectionQuery;
     variables: GetRecommendedCollectionQueryVariables;
   };
-  '#graphql\nquery GetProduct($productId: ID!) {\n  node(id: $productId) {\n    ...on Product {\n      title\n      id\n      handle\n      description\n      productType\n      descriptionHtml\n      availableForSale\n      vendor\n      tags\n      images(first: 10) {\n        edges {\n          node {\n            altText\n            transformedSrc\n          }\n        }\n      }\n      options {\n        id\n        name\n        values\n      }\n      variants(first: 10) {\n        edges {\n          node {\n            id\n            title\n            availableForSale\n            priceV2 {\n              amount\n              currencyCode\n            }\n            selectedOptions {\n              name\n              value\n            }\n          }\n        }\n      }\n    }\n  }\n}\n': {
+  '#graphql\nquery GetProduct($productId: ID!) {\n  node(id: $productId) {\n    ...on Product {\n      title\n      id\n      handle\n      description\n      productType\n      descriptionHtml\n      availableForSale\n      vendor\n      tags\n      images(first: 10) {\n        edges {\n          node {\n            altText\n            transformedSrc\n          }\n        }\n      }\n      options {\n        id\n        name\n        values\n      }\n      variants(first: 10) {\n        edges {\n          node {\n            id\n            title\n            availableForSale\n            priceV2 {\n              amount\n              currencyCode\n            }\n            compareAtPrice {\n              amount\n              currencyCode\n            }\n            selectedOptions {\n              name\n              value\n            }\n          }\n        }\n      }\n    }\n  }\n}\n': {
     return: GetProductQuery;
     variables: GetProductQueryVariables;
   };
-  '#graphql\nquery GetProductByHandle($handle: String!) {\n  productByHandle(handle: $handle) {\n    title\n    id\n    handle\n    description\n    productType\n    descriptionHtml\n    availableForSale\n    vendor\n    tags\n    images(first: 10) {\n      edges {\n        node {\n          altText\n          transformedSrc\n        }\n      }\n    }\n    options {\n      id\n      name\n      values\n    }\n    variants(first: 10) {\n      edges {\n        node {\n          id\n          title\n          availableForSale\n          priceV2 {\n            amount\n            currencyCode\n          }\n          selectedOptions {\n            name\n            value\n          }\n        }\n      }\n    }\n  }\n}\n': {
+  '#graphql\nquery GetProductByHandle($handle: String!) {\n  productByHandle(handle: $handle) {\n    title\n    id\n    handle\n    description\n    productType\n    descriptionHtml\n    availableForSale\n    vendor\n    tags\n    images(first: 10) {\n      edges {\n        node {\n          altText\n          transformedSrc\n        }\n      }\n    }\n    options {\n      id\n      name\n      values\n    }\n    variants(first: 10) {\n      edges {\n        node {\n          id\n          title\n          availableForSale\n          priceV2 {\n            amount\n            currencyCode\n          }\n          compareAtPrice {\n            amount\n            currencyCode\n          }\n          selectedOptions {\n            name\n            value\n          }\n        }\n      }\n    }\n  }\n}\n': {
     return: GetProductByHandleQuery;
     variables: GetProductByHandleQueryVariables;
   };

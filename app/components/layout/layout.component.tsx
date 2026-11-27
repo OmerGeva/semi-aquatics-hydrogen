@@ -9,6 +9,7 @@ import SpinningLogo from '../spinning-logo/spinning-logo.component';
 import CountdownTimer from '../countdown-timer/countdown-timer.component';
 import ThirdPartyScripts from './third-party-scripts.component';
 import MainHead from './main-head.component';
+import SaleBanner from '../sale-banner/sale-banner.component';
 
 // Hooks
 import { useIsTimeLeft } from '../../hooks/use-is-time-left'
@@ -71,6 +72,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
       <div className={styles.layoutContainer}>
         <MainHead />
+
+        <SaleBanner />
 
         <Navbar title={typeOfPage} setNavbarOpen={setNavbarOpen} navbarOpen={navbarOpen} setSidebarOpen={setSidebarOpen} />
 

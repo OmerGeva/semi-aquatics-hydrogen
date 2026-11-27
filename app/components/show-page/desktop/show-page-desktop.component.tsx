@@ -4,6 +4,7 @@ import { ShowPageChildProps } from '../../../interfaces/page_interface';
 // Components
 import Button from "../../button/button.component";
 import SizePickerDesktop from '../../size-picker/desktop/size-picker-desktop.component';
+import CompareAtPrice from '../../compare-at-price/compare-at-price.component';
 import React, { useState } from 'react';
 
 // Helpers
@@ -102,7 +103,7 @@ const ShowPageDesktop: React.FC<ShowPageDesktopProps> = ({
               isSelected={selected !== ''}
               selected={selected}
               mobile={false}
-              additionalText={`$${product.node.variants.edges[0].node.priceV2.amount}0`}
+              additionalText={<><CompareAtPrice price={product.node.variants.edges[0].node.priceV2.amount} compareAtPrice={product.node.variants.edges[0].node.compareAtPrice?.amount} />${product.node.variants.edges[0].node.priceV2.amount}0</>}
               onClick={() => handleOnAddToCart(selected)}
               isLoading={isAddingToCart}
               isSuccess={addToCartSuccess}
