@@ -1,7 +1,9 @@
-import { useLoaderData } from 'react-router';
+import { isRouteErrorResponse, useLoaderData, useRouteError } from 'react-router';
 import type { Route } from './+types/products.$handle';
 import ShowPage from '~/components/show-page/show-page.component';
+import NotFound from '~/components/not-found/not-found.component';
 import { GET_PRODUCT_BY_HANDLE } from '~/services/queries/queries';
+import { productMeta } from '~/lib/meta';
 
 export async function loader({ context, params }: Route.LoaderArgs) {
   const { storefront } = context;
@@ -27,6 +29,10 @@ export async function loader({ context, params }: Route.LoaderArgs) {
     },
     isArchiveProduct,
   };
+}
+
+export function meta({ data }: Route.MetaArgs) {
+  return productMeta(data?.product?.node);
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
@@ -75,4 +81,13 @@ export async function action({ request, context }: Route.ActionArgs) {
 export default function ProductHandleRoute() {
   const data = useLoaderData<typeof loader>();
   return <ShowPage product={data.product} isArchiveProduct={data.isArchiveProduct} />;
+}
+
+// An unknown product shows the not-found page inside the site layout.
+export function ErrorBoundary() {
+  const error = useRouteError();
+  if (isRouteErrorResponse(error) && error.status === 404) {
+    return <NotFound />;
+  }
+  throw error;
 }

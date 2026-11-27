@@ -57,7 +57,7 @@ const ArtistPreview: React.FC<ArtistPreviewProps> = ({ artworkId }) => {
             </a>
           }
         </div>
-        <Link href={`/artists/${artist.name.toLowerCase().replace(/\s+/g, '-')}`} className={styles.seeMore}>
+        <Link to={`/artists/${artist.name.toLowerCase().replace(/\s+/g, '-')}`} className={styles.seeMore}>
           See More Products →
         </Link>
       </div>
@@ -66,7 +66,7 @@ const ArtistPreview: React.FC<ArtistPreviewProps> = ({ artworkId }) => {
         {artist.artworks.map((art) => (
           <div key={art.id} className={styles.artworkItem}>
             {/* CMS artworks use ID-based routing; these are not Shopify products with handles */}
-            <Link href={`/shop/${art.id}`}>
+            <Link to={`/shop/${art.id}`}>
               <img src={art.image} alt={art.name} />
               <p>{art.name}</p>
             </Link>

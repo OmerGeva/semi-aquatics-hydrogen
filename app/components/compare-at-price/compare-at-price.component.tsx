@@ -11,7 +11,7 @@ interface CompareAtPriceProps {
 const CompareAtPrice: React.FC<CompareAtPriceProps> = ({ price, compareAtPrice }) => {
   if (!compareAtPrice || !(Number(compareAtPrice) > Number(price))) return null;
 
-  return <s className={styles.compareAtPrice}>${compareAtPrice}0</s>;
+  return <s className={styles.compareAtPrice}>${Number(compareAtPrice).toFixed(2)}</s>;
 };
 
 export default CompareAtPrice;

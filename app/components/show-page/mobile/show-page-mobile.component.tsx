@@ -153,7 +153,7 @@ const ShowPageMobile: React.FC<ShowPageMobileProps> = ({
           <h1>{product.node.title}</h1>
           {
             isNewProduct &&
-            <p><CompareAtPrice price={product.node.variants.edges[0].node.priceV2.amount} compareAtPrice={product.node.variants.edges[0].node.compareAtPrice?.amount} />${product.node.variants.edges[0].node.priceV2.amount}0</p>
+            <p><CompareAtPrice price={product.node.variants.edges[0].node.priceV2.amount} compareAtPrice={product.node.variants.edges[0].node.compareAtPrice?.amount} />${Number(product.node.variants.edges[0].node.priceV2.amount).toFixed(2)}</p>
           }
         </div>
         {

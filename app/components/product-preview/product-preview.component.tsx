@@ -82,7 +82,7 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
           <div className={`${styles.previewDetails} ${isSmallText ? styles.isSmallText : ''}`}>
             <h3 className={styles.cardDetail}>{title}</h3>
             {!isArchive && price && parseInt(price) > 0 &&
-              <h3 className={styles.cardDetail}><CompareAtPrice price={price} compareAtPrice={compareAtPrice} />${price}0</h3>}
+              <h3 className={styles.cardDetail}><CompareAtPrice price={price} compareAtPrice={compareAtPrice} />${Number(price).toFixed(2)}</h3>}
           </div>
         }
       </Link>

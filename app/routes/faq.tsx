@@ -1,6 +1,7 @@
 import {useLoaderData} from 'react-router';
 import type {Route} from './+types/faq';
 import FaqPage from '~/components/faq-page/faq-page.component';
+import {pageTitle} from '~/lib/meta';
 
 const FAQ_SECTIONS = [
   {
@@ -45,6 +46,10 @@ const FAQ_SECTIONS = [
 
 export function loader(_args: Route.LoaderArgs) {
   return {sections: FAQ_SECTIONS};
+}
+
+export function meta() {
+  return [{ title: pageTitle('FAQ') }];
 }
 
 export default function FaqRoute() {

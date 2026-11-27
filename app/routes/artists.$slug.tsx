@@ -3,6 +3,7 @@ import type {Route} from './+types/artists.$slug';
 import ArtistsPage from '~/components/artists-page/artists-page.component';
 import Cms from '~/cms';
 import {generateSlug} from '~/utils/generate-slug';
+import {pageTitle} from '~/lib/meta';
 
 export async function loader({params}: Route.LoaderArgs) {
   const {slug} = params;
@@ -32,6 +33,10 @@ export async function loader({params}: Route.LoaderArgs) {
     artists: artistsWithSlugs,
     selectedArtist,
   };
+}
+
+export function meta({ data }: Route.MetaArgs) {
+  return [{ title: pageTitle(data?.selectedArtist?.name ?? 'Artists') }];
 }
 
 export default function ArtistRoute() {

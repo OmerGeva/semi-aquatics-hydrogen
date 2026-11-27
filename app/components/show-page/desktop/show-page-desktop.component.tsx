@@ -103,7 +103,7 @@ const ShowPageDesktop: React.FC<ShowPageDesktopProps> = ({
               isSelected={selected !== ''}
               selected={selected}
               mobile={false}
-              additionalText={<><CompareAtPrice price={product.node.variants.edges[0].node.priceV2.amount} compareAtPrice={product.node.variants.edges[0].node.compareAtPrice?.amount} />${product.node.variants.edges[0].node.priceV2.amount}0</>}
+              additionalText={<><CompareAtPrice price={product.node.variants.edges[0].node.priceV2.amount} compareAtPrice={product.node.variants.edges[0].node.compareAtPrice?.amount} />${Number(product.node.variants.edges[0].node.priceV2.amount).toFixed(2)}</>}
               onClick={() => handleOnAddToCart(selected)}
               isLoading={isAddingToCart}
               isSuccess={addToCartSuccess}
