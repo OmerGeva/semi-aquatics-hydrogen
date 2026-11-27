@@ -1233,6 +1233,18 @@
     top: var(--sale-banner-height);
   }
 
+  /* The desktop home page is exactly one screen tall: take the banner out of
+     its height so the page does not scroll by the banner's height. */
+  @media (min-width: 601px) {
+    .layoutContainer:has(.saleBanner) .homeContainer {
+      height: calc(100vh - var(--sale-banner-height));
+    }
+
+    .layoutContainer:has(.saleBanner):has(.homeContainer) .contentContainer {
+      min-height: calc(100vh - var(--sale-banner-height));
+    }
+  }
+
   @media (max-width: 768px) {
     .layoutContainer:has(.saleBanner) {
       --sale-banner-height: 36px;
